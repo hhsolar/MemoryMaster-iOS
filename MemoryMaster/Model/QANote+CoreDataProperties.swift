@@ -18,7 +18,7 @@ extension QANote {
 
     @NSManaged public var name: String
     @NSManaged public var numberOfCard: Int32
-    @NSManaged public var questions: NSObject
-    @NSManaged public var answers: NSObject
+    @NSManaged public var questions: [String]
+    @NSManaged public var answers: [String]
 
 }

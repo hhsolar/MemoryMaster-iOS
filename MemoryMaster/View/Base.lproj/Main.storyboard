@@ -219,7 +219,8 @@
                                 </constraints>
                                 <state key="normal" image="add_icon"/>
                                 <connections>
-                                    <segue destination="ZtS-6r-Ztb" kind="presentation" id="kN3-Gn-PmK"/>
+                                    <action selector="addNoteAction:" destination="1C1-gb-VGD" eventType="touchUpInside" id="CIO-yb-6Bc"/>
+                                    <segue destination="ZtS-6r-Ztb" kind="presentation" id="Ary-tx-ASd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -243,6 +244,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Library" image="library_icon" id="Jk4-KR-5oo"/>
                     <navigationItem key="navigationItem" id="aLv-6J-0Fx"/>
+                    <connections>
+                        <outlet property="addButton" destination="0kG-z8-VBb" id="Hk0-F8-Fdp"/>
+                        <outlet property="allNoteButton" destination="1uh-yA-H6x" id="avu-RD-bHc"/>
+                        <outlet property="qaNoteButton" destination="LlW-9y-mfI" id="2Ql-eH-W1J"/>
+                        <outlet property="singleNoteButton" destination="atZ-tn-ZhR" id="FPX-ME-vMg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dOY-i8-8uZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -263,6 +270,9 @@
                                     <constraint firstAttribute="width" constant="30" id="vCe-h9-D6s"/>
                                 </constraints>
                                 <state key="normal" image="exit_icon"/>
+                                <connections>
+                                    <action selector="backAction:" destination="rAI-qj-aPp" eventType="touchUpInside" id="K3E-Ui-Upx"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ip8-Gd-sBC">
                                 <rect key="frame" x="0.0" y="62" width="375" height="605"/>
@@ -514,7 +524,7 @@
         <!--Single Edit View Controller-->
         <scene sceneID="7ES-01-fK1">
             <objects>
-                <viewController id="5nR-zU-sQm" customClass="SingleEditViewController" customModule="MemoryMaster" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingleEditViewController" id="5nR-zU-sQm" customClass="SingleEditViewController" customModule="MemoryMaster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wsl-XK-Gej">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -553,6 +563,9 @@
                                             <constraint firstAttribute="width" constant="30" id="J57-xD-4TQ"/>
                                         </constraints>
                                         <state key="normal" image="save_icon"/>
+                                        <connections>
+                                            <action selector="saveAction:" destination="5nR-zU-sQm" eventType="touchUpInside" id="HGb-Jo-GRR"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBA-gg-lLZ">
                                         <rect key="frame" x="12" y="10" width="30" height="30"/>
@@ -561,6 +574,9 @@
                                             <constraint firstAttribute="height" constant="30" id="USB-1h-nYR"/>
                                         </constraints>
                                         <state key="normal" image="exit_icon"/>
+                                        <connections>
+                                            <action selector="exitAction:" destination="5nR-zU-sQm" eventType="touchUpInside" id="Ufv-se-Vds"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>

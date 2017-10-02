@@ -24,6 +24,19 @@
 		18C2ABD61F82129C003249BE /* SingleEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD41F82129C003249BE /* SingleEditCollectionViewCell.swift */; };
 		18C2ABD71F82129C003249BE /* SingleEditCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C2ABD51F82129C003249BE /* SingleEditCollectionViewCell.xib */; };
 		18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD81F82A8A0003249BE /* NoteViewController.swift */; };
+		18C2ABDC1F82B469003249BE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB7F1F81CAC8003249BE /* Constant.swift */; };
+		18C2ABDD1F82B46D003249BE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB801F81CB10003249BE /* Extension.swift */; };
+		18C2ABDE1F82B481003249BE /* BounceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABCD1F81FEAC003249BE /* BounceAnimationController.swift */; };
+		18C2ABDF1F82B485003249BE /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABCF1F81FEAC003249BE /* DimmingPresentationController.swift */; };
+		18C2ABE01F82B489003249BE /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABCE1F81FEAC003249BE /* GradientView.swift */; };
+		18C2ABE11F82B48C003249BE /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD01F81FEAC003249BE /* SlideOutAnimationController.swift */; };
+		18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB941F81F4EB003249BE /* MyNote.swift */; };
+		18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB8E1F81F428003249BE /* BasicNoteInfo+CoreDataClass.swift */; };
+		18C2ABE41F82B4CB003249BE /* BasicNoteInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB8F1F81F428003249BE /* BasicNoteInfo+CoreDataProperties.swift */; };
+		18C2ABE51F82B4CE003249BE /* SingleNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB901F81F484003249BE /* SingleNote+CoreDataClass.swift */; };
+		18C2ABE61F82B4D1003249BE /* SingleNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB911F81F484003249BE /* SingleNote+CoreDataProperties.swift */; };
+		18C2ABE71F82B4D6003249BE /* QANote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB931F81F4D4003249BE /* QANote+CoreDataClass.swift */; };
+		18C2ABE81F82B4D9003249BE /* QANote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB921F81F4D4003249BE /* QANote+CoreDataProperties.swift */; };
 		2711CC453476ED138685C908 /* Pods_MemoryMasterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */; };
 		4465F42D6924FD3E2DC2F580 /* Pods_MemoryMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */; };
 		ACD47326D9C2CBC6F9E62C8F /* Pods_MemoryMasterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EB29CC6D9B8B8078252289 /* Pods_MemoryMasterTests.framework */; };
@@ -553,15 +566,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				18C2ABD31F821265003249BE /* SingleEditViewController.swift in Sources */,
+				18C2ABDF1F82B485003249BE /* DimmingPresentationController.swift in Sources */,
+				18C2ABE01F82B489003249BE /* GradientView.swift in Sources */,
+				18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */,
+				18C2ABE81F82B4D9003249BE /* QANote+CoreDataProperties.swift in Sources */,
 				18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */,
 				18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */,
+				18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */,
+				18C2ABDD1F82B46D003249BE /* Extension.swift in Sources */,
+				18C2ABE41F82B4CB003249BE /* BasicNoteInfo+CoreDataProperties.swift in Sources */,
+				18C2ABE51F82B4CE003249BE /* SingleNote+CoreDataClass.swift in Sources */,
+				18C2ABE61F82B4D1003249BE /* SingleNote+CoreDataProperties.swift in Sources */,
 				18C2AB821F81CB4F003249BE /* ReciteViewController.swift in Sources */,
 				18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */,
 				18C2ABD61F82129C003249BE /* SingleEditCollectionViewCell.swift in Sources */,
 				18C2AB7E1F81C8F9003249BE /* LoginViewController.swift in Sources */,
 				18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */,
+				18C2ABE11F82B48C003249BE /* SlideOutAnimationController.swift in Sources */,
+				18C2ABDC1F82B469003249BE /* Constant.swift in Sources */,
+				18C2ABDE1F82B481003249BE /* BounceAnimationController.swift in Sources */,
 				18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */,
 				18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */,
+				18C2ABE71F82B4D6003249BE /* QANote+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

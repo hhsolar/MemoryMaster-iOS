@@ -18,7 +18,7 @@ extension SingleNote {
 
     @NSManaged public var name: String
     @NSManaged public var numberOfCard: Int32
-    @NSManaged public var titles: NSObject
-    @NSManaged public var bodies: NSObject
+    @NSManaged public var titles: [String]
+    @NSManaged public var bodies: [String]
 
 }

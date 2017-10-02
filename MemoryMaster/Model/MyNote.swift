@@ -43,7 +43,7 @@ struct MySingleNote {
     }
     
     static func formCoreDataType(note: SingleNote) -> MySingleNote {
-        var mySingleNote = MySingleNote(name: note.name, cards: [MySingleNote]())
+        var mySingleNote = MySingleNote(name: note.name, cards: [SingleCard]())
         for i in 0..<note.titles.count {
             let singleCard = SingleCard(title: note.titles[i], body: note.bodies[i])
             mySingleNote.cards.append(singleCard)
@@ -85,10 +85,10 @@ struct MyQANote {
     }
     
     static func formCoreDataType(note: QANote) -> MyQANote {
-        var myQANote = MyQANote(name: note.name, items: [MyQANote]())
+        var myQANote = MyQANote(name: note.name, cards: [QACard]())
         for i in 0..<note.questions.count {
             let qaCard = QACard(question: note.questions[i], answer: note.answers[i])
-            myQANote.cards.append(qaNote)
+            myQANote.cards.append(qaCard)
         }
         return myQANote
     }
@@ -105,7 +105,7 @@ struct MyQANote {
     }
 
     func isEmpty() -> Bool {
-        for cards in self.cards {
+        for card in self.cards {
             if card.question != "" || card.answer != "" {
                 return false
             }
