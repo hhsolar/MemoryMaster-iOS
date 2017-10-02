@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB441F81B7A1003249BE /* AppDelegate.swift */; };
-		18C2AB471F81B7A1003249BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB461F81B7A1003249BE /* ViewController.swift */; };
 		18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB481F81B7A1003249BE /* Main.storyboard */; };
 		18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */; };
 		18C2AB4F1F81B7A1003249BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB4E1F81B7A1003249BE /* Assets.xcassets */; };
 		18C2AB521F81B7A1003249BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB501F81B7A1003249BE /* LaunchScreen.storyboard */; };
 		18C2AB5D1F81B7A1003249BE /* MemoryMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB5C1F81B7A1003249BE /* MemoryMasterTests.swift */; };
 		18C2AB681F81B7A1003249BE /* MemoryMasterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB671F81B7A1003249BE /* MemoryMasterUITests.swift */; };
+		2711CC453476ED138685C908 /* Pods_MemoryMasterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */; };
+		4465F42D6924FD3E2DC2F580 /* Pods_MemoryMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */; };
+		ACD47326D9C2CBC6F9E62C8F /* Pods_MemoryMasterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EB29CC6D9B8B8078252289 /* Pods_MemoryMasterTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMasterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB411F81B7A1003249BE /* MemoryMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB441F81B7A1003249BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		18C2AB461F81B7A1003249BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		18C2AB491F81B7A1003249BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18C2AB4C1F81B7A1003249BE /* MemoryMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoryMaster.xcdatamodel; sourceTree = "<group>"; };
 		18C2AB4E1F81B7A1003249BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +51,14 @@
 		18C2AB631F81B7A1003249BE /* MemoryMasterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryMasterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB671F81B7A1003249BE /* MemoryMasterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMasterUITests.swift; sourceTree = "<group>"; };
 		18C2AB691F81B7A1003249BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2789D4F38CD0B0EA3B7FD1CF /* Pods-MemoryMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests.release.xcconfig"; sourceTree = "<group>"; };
+		3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMaster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6359A83F8410C39C854695BD /* Pods-MemoryMaster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMaster.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMaster/Pods-MemoryMaster.release.xcconfig"; sourceTree = "<group>"; };
+		89EABED9F3B73A6C2D110649 /* Pods-MemoryMasterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterUITests/Pods-MemoryMasterUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A0EB29CC6D9B8B8078252289 /* Pods_MemoryMasterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMasterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2DEA8CA7F6319F3765754F1 /* Pods-MemoryMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMaster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMaster/Pods-MemoryMaster.debug.xcconfig"; sourceTree = "<group>"; };
+		D70771F2EED160A220059597 /* Pods-MemoryMasterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E83852016AF495CD5FCF517D /* Pods-MemoryMasterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterUITests/Pods-MemoryMasterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4465F42D6924FD3E2DC2F580 /* Pods_MemoryMaster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACD47326D9C2CBC6F9E62C8F /* Pods_MemoryMasterTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2711CC453476ED138685C908 /* Pods_MemoryMasterUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +96,8 @@
 				18C2AB5B1F81B7A1003249BE /* MemoryMasterTests */,
 				18C2AB661F81B7A1003249BE /* MemoryMasterUITests */,
 				18C2AB421F81B7A1003249BE /* Products */,
+				4EE447F61B9382A072AB3EC3 /* Pods */,
+				62C353F07A70A49F436532BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +114,11 @@
 		18C2AB431F81B7A1003249BE /* MemoryMaster */ = {
 			isa = PBXGroup;
 			children = (
-				18C2AB441F81B7A1003249BE /* AppDelegate.swift */,
-				18C2AB461F81B7A1003249BE /* ViewController.swift */,
-				18C2AB481F81B7A1003249BE /* Main.storyboard */,
-				18C2AB4E1F81B7A1003249BE /* Assets.xcassets */,
-				18C2AB501F81B7A1003249BE /* LaunchScreen.storyboard */,
-				18C2AB531F81B7A1003249BE /* Info.plist */,
-				18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */,
+				18C2AB761F81BBC1003249BE /* View */,
+				18C2AB791F81BC81003249BE /* Contriller */,
+				18C2AB771F81BBE9003249BE /* Model */,
+				18C2AB781F81BC5F003249BE /* Utility */,
+				18C2AB751F81BB54003249BE /* Supporting File */,
 			);
 			path = MemoryMaster;
 			sourceTree = "<group>";
@@ -128,6 +141,70 @@
 			path = MemoryMasterUITests;
 			sourceTree = "<group>";
 		};
+		18C2AB751F81BB54003249BE /* Supporting File */ = {
+			isa = PBXGroup;
+			children = (
+				18C2AB441F81B7A1003249BE /* AppDelegate.swift */,
+				18C2AB531F81B7A1003249BE /* Info.plist */,
+				18C2AB4E1F81B7A1003249BE /* Assets.xcassets */,
+			);
+			path = "Supporting File";
+			sourceTree = "<group>";
+		};
+		18C2AB761F81BBC1003249BE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18C2AB481F81B7A1003249BE /* Main.storyboard */,
+				18C2AB501F81B7A1003249BE /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18C2AB771F81BBE9003249BE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18C2AB781F81BC5F003249BE /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		18C2AB791F81BC81003249BE /* Contriller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Contriller;
+			sourceTree = "<group>";
+		};
+		4EE447F61B9382A072AB3EC3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A2DEA8CA7F6319F3765754F1 /* Pods-MemoryMaster.debug.xcconfig */,
+				6359A83F8410C39C854695BD /* Pods-MemoryMaster.release.xcconfig */,
+				D70771F2EED160A220059597 /* Pods-MemoryMasterTests.debug.xcconfig */,
+				2789D4F38CD0B0EA3B7FD1CF /* Pods-MemoryMasterTests.release.xcconfig */,
+				E83852016AF495CD5FCF517D /* Pods-MemoryMasterUITests.debug.xcconfig */,
+				89EABED9F3B73A6C2D110649 /* Pods-MemoryMasterUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		62C353F07A70A49F436532BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */,
+				A0EB29CC6D9B8B8078252289 /* Pods_MemoryMasterTests.framework */,
+				08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +212,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18C2AB6C1F81B7A1003249BE /* Build configuration list for PBXNativeTarget "MemoryMaster" */;
 			buildPhases = (
+				CD5AF1B1426D64344714AECB /* [CP] Check Pods Manifest.lock */,
 				18C2AB3D1F81B7A1003249BE /* Sources */,
 				18C2AB3E1F81B7A1003249BE /* Frameworks */,
 				18C2AB3F1F81B7A1003249BE /* Resources */,
+				B6E90BE2AEA1B7DECD750BB2 /* [CP] Embed Pods Frameworks */,
+				38A3B1C7E12D9F073507B196 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,9 +232,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18C2AB6F1F81B7A1003249BE /* Build configuration list for PBXNativeTarget "MemoryMasterTests" */;
 			buildPhases = (
+				F0282C2C092BE8F88F5F8BC7 /* [CP] Check Pods Manifest.lock */,
 				18C2AB541F81B7A1003249BE /* Sources */,
 				18C2AB551F81B7A1003249BE /* Frameworks */,
 				18C2AB561F81B7A1003249BE /* Resources */,
+				306F72EB6819070C39A57637 /* [CP] Embed Pods Frameworks */,
+				628B77C03ECEEA5533B99721 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,9 +253,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18C2AB721F81B7A1003249BE /* Build configuration list for PBXNativeTarget "MemoryMasterUITests" */;
 			buildPhases = (
+				EE092101CAFE47F551D22E29 /* [CP] Check Pods Manifest.lock */,
 				18C2AB5F1F81B7A1003249BE /* Sources */,
 				18C2AB601F81B7A1003249BE /* Frameworks */,
 				18C2AB611F81B7A1003249BE /* Resources */,
+				B97C1D06E5E34AD866514669 /* [CP] Embed Pods Frameworks */,
+				86D15C13C16FF7F3C4F67110 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,13 +343,150 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		306F72EB6819070C39A57637 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		38A3B1C7E12D9F073507B196 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMaster/Pods-MemoryMaster-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		628B77C03ECEEA5533B99721 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86D15C13C16FF7F3C4F67110 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMasterUITests/Pods-MemoryMasterUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6E90BE2AEA1B7DECD750BB2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMaster/Pods-MemoryMaster-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B97C1D06E5E34AD866514669 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMasterUITests/Pods-MemoryMasterUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD5AF1B1426D64344714AECB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EE092101CAFE47F551D22E29 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F0282C2C092BE8F88F5F8BC7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		18C2AB3D1F81B7A1003249BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */,
-				18C2AB471F81B7A1003249BE /* ViewController.swift in Sources */,
 				18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,36 +651,41 @@
 		};
 		18C2AB6D1F81B7A1003249BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2DEA8CA7F6319F3765754F1 /* Pods-MemoryMaster.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W2MFT9HK9F;
 				INFOPLIST_FILE = MemoryMaster/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.greatwall.MemoryMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		18C2AB6E1F81B7A1003249BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6359A83F8410C39C854695BD /* Pods-MemoryMaster.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W2MFT9HK9F;
 				INFOPLIST_FILE = MemoryMaster/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.greatwall.MemoryMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		18C2AB701F81B7A1003249BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D70771F2EED160A220059597 /* Pods-MemoryMasterTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -475,6 +703,7 @@
 		};
 		18C2AB711F81B7A1003249BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2789D4F38CD0B0EA3B7FD1CF /* Pods-MemoryMasterTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -492,6 +721,7 @@
 		};
 		18C2AB731F81B7A1003249BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E83852016AF495CD5FCF517D /* Pods-MemoryMasterUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -508,6 +738,7 @@
 		};
 		18C2AB741F81B7A1003249BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89EABED9F3B73A6C2D110649 /* Pods-MemoryMasterUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
