@@ -14,6 +14,11 @@
 		18C2AB521F81B7A1003249BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB501F81B7A1003249BE /* LaunchScreen.storyboard */; };
 		18C2AB5D1F81B7A1003249BE /* MemoryMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB5C1F81B7A1003249BE /* MemoryMasterTests.swift */; };
 		18C2AB681F81B7A1003249BE /* MemoryMasterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB671F81B7A1003249BE /* MemoryMasterUITests.swift */; };
+		18C2AB7B1F81BF57003249BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB7A1F81BF57003249BE /* Default-568h@2x.png */; };
+		18C2AB7E1F81C8F9003249BE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB7D1F81C8F9003249BE /* LoginViewController.swift */; };
+		18C2AB821F81CB4F003249BE /* ReciteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB811F81CB4F003249BE /* ReciteViewController.swift */; };
+		18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB831F81CB88003249BE /* LibraryViewController.swift */; };
+		18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB851F81CB99003249BE /* MeViewController.swift */; };
 		2711CC453476ED138685C908 /* Pods_MemoryMasterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */; };
 		4465F42D6924FD3E2DC2F580 /* Pods_MemoryMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */; };
 		ACD47326D9C2CBC6F9E62C8F /* Pods_MemoryMasterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EB29CC6D9B8B8078252289 /* Pods_MemoryMasterTests.framework */; };
@@ -44,13 +49,27 @@
 		18C2AB4C1F81B7A1003249BE /* MemoryMaster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoryMaster.xcdatamodel; sourceTree = "<group>"; };
 		18C2AB4E1F81B7A1003249BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18C2AB511F81B7A1003249BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		18C2AB531F81B7A1003249BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18C2AB581F81B7A1003249BE /* MemoryMasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryMasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB5C1F81B7A1003249BE /* MemoryMasterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMasterTests.swift; sourceTree = "<group>"; };
 		18C2AB5E1F81B7A1003249BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18C2AB631F81B7A1003249BE /* MemoryMasterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryMasterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB671F81B7A1003249BE /* MemoryMasterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMasterUITests.swift; sourceTree = "<group>"; };
 		18C2AB691F81B7A1003249BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18C2AB7A1F81BF57003249BE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		18C2AB7D1F81C8F9003249BE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		18C2AB7F1F81CAC8003249BE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		18C2AB801F81CB10003249BE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		18C2AB811F81CB4F003249BE /* ReciteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciteViewController.swift; sourceTree = "<group>"; };
+		18C2AB831F81CB88003249BE /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		18C2AB851F81CB99003249BE /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
+		18C2AB8E1F81F428003249BE /* BasicNoteInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicNoteInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18C2AB8F1F81F428003249BE /* BasicNoteInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicNoteInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		18C2AB901F81F484003249BE /* SingleNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SingleNote+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18C2AB911F81F484003249BE /* SingleNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SingleNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		18C2AB921F81F4D4003249BE /* QANote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QANote+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		18C2AB931F81F4D4003249BE /* QANote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QANote+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18C2AB941F81F4EB003249BE /* MyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNote.swift; sourceTree = "<group>"; };
+		18C2AB951F81FB60003249BE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MemoryMaster/Info.plist; sourceTree = "<group>"; };
 		2789D4F38CD0B0EA3B7FD1CF /* Pods-MemoryMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests.release.xcconfig"; sourceTree = "<group>"; };
 		3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMaster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6359A83F8410C39C854695BD /* Pods-MemoryMaster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMaster.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMaster/Pods-MemoryMaster.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				18C2AB431F81B7A1003249BE /* MemoryMaster */,
+				18C2AB951F81FB60003249BE /* Info.plist */,
 				18C2AB5B1F81B7A1003249BE /* MemoryMasterTests */,
 				18C2AB661F81B7A1003249BE /* MemoryMasterUITests */,
 				18C2AB421F81B7A1003249BE /* Products */,
@@ -145,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				18C2AB441F81B7A1003249BE /* AppDelegate.swift */,
-				18C2AB531F81B7A1003249BE /* Info.plist */,
+				18C2AB7A1F81BF57003249BE /* Default-568h@2x.png */,
 				18C2AB4E1F81B7A1003249BE /* Assets.xcassets */,
 			);
 			path = "Supporting File";
@@ -163,7 +183,14 @@
 		18C2AB771F81BBE9003249BE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18C2AB941F81F4EB003249BE /* MyNote.swift */,
 				18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */,
+				18C2AB8E1F81F428003249BE /* BasicNoteInfo+CoreDataClass.swift */,
+				18C2AB8F1F81F428003249BE /* BasicNoteInfo+CoreDataProperties.swift */,
+				18C2AB901F81F484003249BE /* SingleNote+CoreDataClass.swift */,
+				18C2AB911F81F484003249BE /* SingleNote+CoreDataProperties.swift */,
+				18C2AB931F81F4D4003249BE /* QANote+CoreDataClass.swift */,
+				18C2AB921F81F4D4003249BE /* QANote+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +198,8 @@
 		18C2AB781F81BC5F003249BE /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				18C2AB7F1F81CAC8003249BE /* Constant.swift */,
+				18C2AB801F81CB10003249BE /* Extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -178,6 +207,10 @@
 		18C2AB791F81BC81003249BE /* Contriller */ = {
 			isa = PBXGroup;
 			children = (
+				18C2AB7D1F81C8F9003249BE /* LoginViewController.swift */,
+				18C2AB811F81CB4F003249BE /* ReciteViewController.swift */,
+				18C2AB831F81CB88003249BE /* LibraryViewController.swift */,
+				18C2AB851F81CB99003249BE /* MeViewController.swift */,
 			);
 			path = Contriller;
 			sourceTree = "<group>";
@@ -322,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18C2AB521F81B7A1003249BE /* LaunchScreen.storyboard in Resources */,
+				18C2AB7B1F81BF57003249BE /* Default-568h@2x.png in Resources */,
 				18C2AB4F1F81B7A1003249BE /* Assets.xcassets in Resources */,
 				18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */,
 			);
@@ -486,6 +520,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */,
+				18C2AB821F81CB4F003249BE /* ReciteViewController.swift in Sources */,
+				18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */,
+				18C2AB7E1F81C8F9003249BE /* LoginViewController.swift in Sources */,
 				18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */,
 				18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */,
 			);
