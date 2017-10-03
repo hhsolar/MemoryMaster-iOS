@@ -25,6 +25,10 @@ struct CustomFont {
     static let navigationSideFontSize: CGFloat = 16.0
 }
 
+struct CustomDistance {
+    static let viewToScreenEdgeDistance: CGFloat = 12
+}
+
 struct LoginErrorCode {
     static let invalidEmail = "Invalid Email"
     static let wrongPassword = "Wrong Password"

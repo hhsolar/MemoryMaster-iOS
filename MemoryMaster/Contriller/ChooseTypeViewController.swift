@@ -46,6 +46,7 @@ class ChooseTypeViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "SingleEditViewController") as! SingleEditViewController
             controller.passedInNoteInfo = noteInfo
+            controller.container = self.container
             present(controller, animated: true, completion: {
                 self.view.alpha = 0
             })
