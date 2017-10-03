@@ -64,13 +64,13 @@ class SingleEditViewController: UIViewController
         collectionView.backgroundColor = UIColor.lightGray
         
         let layout = UICollectionViewFlowLayout.init()
-        layout.itemSize = CGSize(width: collectionView.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2,
-                                 height: collectionView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 2)
-        layout.headerReferenceSize = CGSize(width: CustomDistance.viewToScreenEdgeDistance, height: collectionView.bounds.height)
-        layout.footerReferenceSize = CGSize(width: CustomDistance.viewToScreenEdgeDistance, height: collectionView.bounds.height)
+        layout.itemSize = CGSize(width: collectionView.bounds.width,
+                                 height: collectionView.bounds.height)
+//        layout.headerReferenceSize = CGSize(width: CustomDistance.viewToScreenEdgeDistance, height: collectionView.bounds.height)
+//        layout.footerReferenceSize = CGSize(width: CustomDistance.viewToScreenEdgeDistance, height: collectionView.bounds.height)
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = CustomDistance.viewToScreenEdgeDistance * 2
-        layout.minimumLineSpacing = CustomDistance.viewToScreenEdgeDistance * 2
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
         
         collectionView.collectionViewLayout = layout
     }
@@ -97,6 +97,7 @@ extension SingleEditViewController: UICollectionViewDelegate, UICollectionViewDa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
         cell.delegate = self
         cell.awakeFromNib()
+        cell.setNeedsLayout()
         cell.updataCell(with: (localNote?.cards[indexPath.row])!, name: (localNote?.name)!, at: indexPath.row, total: (localNote?.numberOfCard)!)
         return cell
     }
@@ -104,11 +105,38 @@ extension SingleEditViewController: UICollectionViewDelegate, UICollectionViewDa
 
 extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
     func addCard(currentCell: SingleEditCollectionViewCell) {
-        
+        let singleCard = SingleCard(title: "", body: "")
+        localNote?.cards.insert(singleCard, at: currentCell.cardIndex!)
+        let indexPath = IndexPath(item: currentCell.cardIndex!, section: 0)
+        collectionView.insertItems(at: [indexPath])
+        collectionView.reloadData()
+        // have to add function reloadItems, or there will be a cell not update
+        collectionView.reloadItems(at: [IndexPath(item: currentCell.cardIndex! - 1, section: 0)])
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
     func removeCard(for cell: SingleEditCollectionViewCell) {
+        if localNote?.numberOfCard == 1 {
+            self.showAlert(title: "Error!", message: "A note must has one item at least.")
+            return
+        }
+        let index = cell.cardIndex! - 1
         
+        if index == 0 {
+            collectionView.scrollToItem(at: IndexPath(item: index + 1, section: 0), at: .left, animated: true)
+
+            localNote?.cards.remove(at: index)
+            collectionView.reloadData()
+            // have to add function reloadItems, or there will be a cell not update
+            collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
+            return
+        }
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        localNote?.cards.remove(at: index)
+        collectionView.reloadData()
+        collectionView.scrollToItem(at: IndexPath(item: index - 1, section: 0), at: .left, animated: true)
+        collectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
     }
     
     func addTitle(for cell: SingleEditCollectionViewCell) {
@@ -120,6 +148,7 @@ extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
     }
     
     func changeTextContent(index: Int, titleText: String, bodyText: String) {
-        
+        localNote?.cards[index].title = titleText
+        localNote?.cards[index].body = bodyText
     }
 }

@@ -17,6 +17,7 @@ protocol SingleEditCollectionViewCellDelegate: class {
 
 class SingleEditCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var addTitleButton: UIButton!
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
@@ -75,6 +76,11 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
+        
+        backView.backgroundColor = UIColor.white
+        backView.layer.cornerRadius = 15
+        backView.layer.masksToBounds = true
+        
         addTitleButton.backgroundColor = CustomColor.medianBlue
         addTitleButton.setTitleColor(UIColor.white, for: .normal)
         addTitleButton.layer.cornerRadius = 13
@@ -97,13 +103,6 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
         bodyTextView.delegate = self
         contentTextView.delegate = self
 
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super .init(coder: aDecoder)
-        contentView.backgroundColor = UIColor.white
-        contentView.layer.cornerRadius = 15
-        contentView.layer.masksToBounds = true
     }
     
     func addTitle() {
