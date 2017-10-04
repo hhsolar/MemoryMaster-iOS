@@ -10,8 +10,8 @@ import UIKit
 import MMCardView
 
 protocol SingleCollectionViewCellDelegate: class {
-    func editAction(with indexPath: IndexPath)
-    func readAction(with indexPath: IndexPath)
+    func toSingleNoteEdit(with indexPath: IndexPath)
+    func toSingleNoteRead(with indexPath: IndexPath)
 }
 
 class SingleCollectionViewCell: CardCell {
@@ -26,13 +26,13 @@ class SingleCollectionViewCell: CardCell {
     
     @IBAction func toEdit(_ sender: UIButton) {
         if let indexPath = cardIndexPath {
-            delegate?.editAction(with: indexPath)
+            delegate?.toSingleNoteEdit(with: indexPath)
         }
     }
     
     @IBAction func toRead(_ sender: UIButton) {
         if let indexPath = cardIndexPath {
-            delegate?.readAction(with: indexPath)
+            delegate?.toSingleNoteRead(with: indexPath)
         }
     }
     

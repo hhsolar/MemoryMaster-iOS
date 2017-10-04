@@ -10,8 +10,8 @@ import Foundation
 import CoreData
 
 
-public class SingleNote: NSManagedObject {
-
+public class SingleNote: NSManagedObject
+{
     class func findOrCreateNote(matching noteInfo: MyBasicNoteInfo, in context: NSManagedObjectContext) throws -> SingleNote
     {
         let request: NSFetchRequest<SingleNote> = SingleNote.fetchRequest()

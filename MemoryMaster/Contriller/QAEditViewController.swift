@@ -1,8 +1,8 @@
 //
-//  SingleEditViewController.swift
+//  QAEditViewController.swift
 //  MemoryMaster
 //
-//  Created by apple on 1/10/2017.
+//  Created by apple on 4/10/2017.
 //  Copyright © 2017 greatwall. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import SVProgressHUD
 
-class SingleEditViewController: UIViewController
+class QAEditViewController: UIViewController
 {
     // public api
     var passedInNoteInfo: MyBasicNoteInfo?
@@ -22,59 +22,13 @@ class SingleEditViewController: UIViewController
     }
     
     @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var localNote: MySingleNote?
-    var coredataNote: SingleNote?
+    var localNote: MyQANote?
+    var coredataNote: QANote?
     
-    @IBAction func saveAction(_ sender: UIButton)
-    {
-        saveNote()
-        showSavedPrompt()
-        printDatabaseStatistics()
-    }
-    
-    private func saveNote() {
-        passedInNoteInfo?.numberOfCard = (localNote?.numberOfCard)!
-        let context = container?.viewContext
-        _ = try? BasicNoteInfo.findOrCreate(matching: self.passedInNoteInfo!, in: context!)
-        coredataNote?.numberOfCard = Int32((localNote?.numberOfCard)!)
-        coredataNote?.titles.removeAll()
-        coredataNote?.bodies.removeAll()
-        for card in (localNote?.cards)! {
-            coredataNote?.titles.append(card.title)
-            coredataNote?.bodies.append(card.body)
-        }
-        try? context?.save()
-    }
-    
-    private func printDatabaseStatistics() {
-        if let context = container?.viewContext {
-            let request: NSFetchRequest<BasicNoteInfo> = BasicNoteInfo.fetchRequest()
-            if let count = (try? context.fetch(request))?.count {
-                print("\(count) note")
-            }
-        }
-    }
-    
-    private func showSavedPrompt() {
-        SVProgressHUD.setMaximumDismissTimeInterval(1)
-        SVProgressHUD.setFadeInAnimationDuration(0.2)
-        SVProgressHUD.setFadeOutAnimationDuration(0.4)
-        SVProgressHUD.showSuccess(withStatus: "Saved!")
-    }
-
-    private func dismissView() {
-        guard passedInCardIndex == nil else {
-            dismiss(animated: true, completion: nil)
-            return
-        }
-        let controller = self.presentingViewController?.presentingViewController
-        controller?.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func exitAction(_ sender: UIButton)
+    @IBAction func exitButton(_ sender: UIButton)
     {
         if (localNote?.equalTo(coredataNote!))! {
             if let context = container?.viewContext {
@@ -99,25 +53,70 @@ class SingleEditViewController: UIViewController
         }
     }
     
+    private func saveNote() {
+        passedInNoteInfo?.numberOfCard = (localNote?.numberOfCard)!
+        let context = container?.viewContext
+        _ = try? BasicNoteInfo.findOrCreate(matching: self.passedInNoteInfo!, in: context!)
+        coredataNote?.numberOfCard = Int32((localNote?.numberOfCard)!)
+        coredataNote?.questions.removeAll()
+        coredataNote?.answers.removeAll()
+        for card in (localNote?.cards)! {
+            coredataNote?.questions.append(card.question)
+            coredataNote?.answers.append(card.answer)
+        }
+        try? context?.save()
+    }
+    
+    private func printDatabaseStatistics() {
+        if let context = container?.viewContext {
+            let request: NSFetchRequest<BasicNoteInfo> = BasicNoteInfo.fetchRequest()
+            if let count = (try? context.fetch(request))?.count {
+                print("\(count) note")
+            }
+        }
+    }
+    
+    private func showSavedPrompt() {
+        SVProgressHUD.setMaximumDismissTimeInterval(1)
+        SVProgressHUD.setFadeInAnimationDuration(0.2)
+        SVProgressHUD.setFadeOutAnimationDuration(0.4)
+        SVProgressHUD.showSuccess(withStatus: "Saved!")
+    }
+    
+    private func dismissView() {
+        guard passedInCardIndex == nil else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        let controller = self.presentingViewController?.presentingViewController
+        controller?.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func saveButton(_ sender: UIButton) {
+        saveNote()
+        showSavedPrompt()
+        printDatabaseStatistics()
+    }
+    
     func updateUI() {
         if let basicInfo = passedInNoteInfo {
             let context = container?.viewContext
-            coredataNote = try? SingleNote.findOrCreateNote(matching: basicInfo, in: context!)
+            coredataNote = try? QANote.findOrCreateNote(matching: basicInfo, in: context!)
             try? context?.save()
             
             if let note = coredataNote {
-                localNote = MySingleNote.formCoreDataType(note: note)
+                localNote = MyQANote.formCoreDataType(note: note)
             }
         }
     }
     
     func setupUI()
     {
-        titleLabel.text = passedInNoteInfo?.name ?? "No name"
-        titleLabel.textColor = CustomColor.medianBlue
+        nameLabel.text = passedInNoteInfo?.name ?? "No name"
+        nameLabel.textColor = CustomColor.medianBlue
         
         self.view.backgroundColor = UIColor.lightGray
-        topView.backgroundColor = CustomColor.lightGreen
+        topView.backgroundColor = CustomColor.lightBlue
         
         topView.layer.cornerRadius = 15
         topView.layer.masksToBounds = true
@@ -153,12 +152,12 @@ class SingleEditViewController: UIViewController
         super.viewDidLoad()
         setupUI()
         
-        let nib = UINib(nibName: "SingleEditCollectionViewCell", bundle: Bundle.main)
-        collectionView.register(nib, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
+        let nib = UINib(nibName: "QAEditCollectionViewCell", bundle: Bundle.main)
+        collectionView.register(nib, forCellWithReuseIdentifier: "QAEditCollectionViewCell")
     }
 }
 
-extension SingleEditViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension QAEditViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -168,19 +167,19 @@ extension SingleEditViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
         cell.delegate = self
         cell.awakeFromNib()
         cell.setNeedsLayout()
-        cell.updataCell(with: (localNote?.cards[indexPath.row])!, at: indexPath.row, total: (localNote?.numberOfCard)!)
+        cell.updateCell(with: (localNote?.cards[indexPath.row])!, at: indexPath.row, total: (localNote?.numberOfCard)!)
         return cell
     }
 }
 
-extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
-    func addCard(currentCell: SingleEditCollectionViewCell) {
-        let singleCard = SingleCard(title: "", body: "")
-        localNote?.cards.insert(singleCard, at: currentCell.cardIndex!)
+extension QAEditViewController: QAEditCollectionViewCellDelegate {
+    func addCard(currentCell: QAEditCollectionViewCell) {
+        let qaCard = QACard(question: "", answer: "")
+        localNote?.cards.insert(qaCard, at: currentCell.cardIndex!)
         let indexPath = IndexPath(item: currentCell.cardIndex!, section: 0)
         collectionView.insertItems(at: [indexPath])
         collectionView.reloadData()
@@ -189,7 +188,7 @@ extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
-    func removeCard(for cell: SingleEditCollectionViewCell) {
+    func removeCard(for cell: QAEditCollectionViewCell) {
         if localNote?.numberOfCard == 1 {
             self.showAlert(title: "Error!", message: "A note must has one item at least.")
             return
@@ -198,7 +197,7 @@ extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
         
         if index == 0 {
             collectionView.scrollToItem(at: IndexPath(item: index + 1, section: 0), at: .left, animated: true)
-
+            
             localNote?.cards.remove(at: index)
             collectionView.reloadData()
             // have to add function reloadItems, or there will be a cell not update
@@ -213,16 +212,9 @@ extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
         collectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
     }
     
-    func addTitle(for cell: SingleEditCollectionViewCell) {
-        if cell.titleButtonText == "ADD TITLE" {
-            cell.addTitle()
-        } else {
-            cell.removeTitle()
-        }
-    }
-    
-    func changeTextContent(index: Int, titleText: String, bodyText: String) {
-        localNote?.cards[index].title = titleText
-        localNote?.cards[index].body = bodyText
+    func changeTextContent(index: Int, question: String, answer: String) {
+        localNote?.cards[index].question = question
+        localNote?.cards[index].answer = answer
+
     }
 }

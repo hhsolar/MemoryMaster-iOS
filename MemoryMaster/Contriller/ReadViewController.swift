@@ -82,12 +82,19 @@ class ReadViewController: UIViewController {
         collectionView?.register(nib, forCellWithReuseIdentifier: "ReadCollectionViewCell")
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super .viewDidAppear(animated)
+    override func viewDidLayoutSubviews() {
+        super .viewDidLayoutSubviews()
         if let indexPath = startCardIndexPath {
             collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
         }
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super .viewDidAppear(animated)
+//        if let indexPath = startCardIndexPath {
+//            collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
+//        }
+//    }
     
     // MARK: draw prograss bar
     private func updatePrograssLing(readingIndex: CGFloat) {

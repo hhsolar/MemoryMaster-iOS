@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1800FBF21F85506500A9A703 /* QAEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF11F85506500A9A703 /* QAEditViewController.swift */; };
+		1800FBF51F8552B800A9A703 /* QAEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */; };
+		1800FBF61F8552B800A9A703 /* QAEditCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */; };
 		18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB441F81B7A1003249BE /* AppDelegate.swift */; };
 		18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB481F81B7A1003249BE /* Main.storyboard */; };
 		18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */; };
@@ -71,6 +74,9 @@
 
 /* Begin PBXFileReference section */
 		08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMasterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1800FBF11F85506500A9A703 /* QAEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAEditViewController.swift; sourceTree = "<group>"; };
+		1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAEditCollectionViewCell.swift; sourceTree = "<group>"; };
+		1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QAEditCollectionViewCell.xib; sourceTree = "<group>"; };
 		18C2AB411F81B7A1003249BE /* MemoryMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB441F81B7A1003249BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C2AB491F81B7A1003249BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -225,6 +231,8 @@
 				18C2AB501F81B7A1003249BE /* LaunchScreen.storyboard */,
 				18C2ABD41F82129C003249BE /* SingleEditCollectionViewCell.swift */,
 				18C2ABD51F82129C003249BE /* SingleEditCollectionViewCell.xib */,
+				1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */,
+				1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */,
 				18DBB8E21F843F3C00B34228 /* LibraryTableViewCell.swift */,
 				18DBB8E31F843F3C00B34228 /* LibraryTableViewCell.xib */,
 				18DBB8EC1F84983600B34228 /* SingleCollectionViewCell.swift */,
@@ -272,6 +280,7 @@
 				18C2AB851F81CB99003249BE /* MeViewController.swift */,
 				18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */,
 				18C2ABD21F821265003249BE /* SingleEditViewController.swift */,
+				1800FBF11F85506500A9A703 /* QAEditViewController.swift */,
 				18C2ABD81F82A8A0003249BE /* NoteViewController.swift */,
 				18DBB8F41F84A6E400B34228 /* ReadViewController.swift */,
 			);
@@ -434,6 +443,7 @@
 				18C2AB4F1F81B7A1003249BE /* Assets.xcassets in Resources */,
 				18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */,
 				18DBB8EF1F84983600B34228 /* SingleCollectionViewCell.xib in Resources */,
+				1800FBF61F8552B800A9A703 /* QAEditCollectionViewCell.xib in Resources */,
 				18C2ABD71F82129C003249BE /* SingleEditCollectionViewCell.xib in Resources */,
 				18DBB8E51F843F3C00B34228 /* LibraryTableViewCell.xib in Resources */,
 				18DBB8F91F84ABFB00B34228 /* ReadCollectionViewCell.xib in Resources */,
@@ -609,6 +619,7 @@
 				18C2ABE81F82B4D9003249BE /* QANote+CoreDataProperties.swift in Sources */,
 				18DBB8F21F849B3B00B34228 /* QACollectionViewCell.swift in Sources */,
 				18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */,
+				1800FBF51F8552B800A9A703 /* QAEditCollectionViewCell.swift in Sources */,
 				18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */,
 				18DBB8F51F84A6E400B34228 /* ReadViewController.swift in Sources */,
 				18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */,
@@ -623,6 +634,7 @@
 				18DBB8E41F843F3C00B34228 /* LibraryTableViewCell.swift in Sources */,
 				18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */,
 				18C2ABE11F82B48C003249BE /* SlideOutAnimationController.swift in Sources */,
+				1800FBF21F85506500A9A703 /* QAEditViewController.swift in Sources */,
 				18C2ABDC1F82B469003249BE /* Constant.swift in Sources */,
 				18C2ABDE1F82B481003249BE /* BounceAnimationController.swift in Sources */,
 				18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */,

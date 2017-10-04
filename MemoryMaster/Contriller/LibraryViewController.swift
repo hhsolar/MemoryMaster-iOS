@@ -30,6 +30,7 @@ class LibraryViewController: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<BasicNoteInfo>?
     var lastType = ""
     var selectedCellIndex: IndexPath?
+    var showFlag: NoteType = .all
     
     func updateUI() {
         if let context = container?.viewContext {
@@ -39,6 +40,11 @@ class LibraryViewController: UIViewController {
                 ascending: true,
                 selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
             )]
+            if showFlag == .single {
+                request.predicate = NSPredicate(format: "type == %@", NoteType.single.rawValue)
+            } else if showFlag == .qa {
+                request.predicate = NSPredicate(format: "type == %@", NoteType.qa.rawValue)
+            }
             fetchedResultsController = NSFetchedResultsController<BasicNoteInfo>(
                 fetchRequest: request,
                 managedObjectContext: context,
@@ -56,6 +62,21 @@ class LibraryViewController: UIViewController {
         updateUI()
     }
     
+    @IBAction func showAllNote(_ sender: UIButton) {
+        showFlag = .all
+        updateUI()
+    }
+    
+    @IBAction func showQANote(_ sender: UIButton) {
+        showFlag = .qa
+        updateUI()
+    }
+    
+    @IBAction func showSingleNote(_ sender: UIButton) {
+        showFlag = .single
+        updateUI()
+    }
+    
     private func setupUI()
     {
         // remove black border line
@@ -70,6 +91,8 @@ class LibraryViewController: UIViewController {
         searchField?.layer.masksToBounds = true
         
         allNoteButton.setImage(UIImage(named: "all_icon_click.png"), for: .normal)
+        singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
+        qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
         
         addButton.tintColor = UIColor.white
     }

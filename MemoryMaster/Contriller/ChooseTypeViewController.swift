@@ -40,6 +40,7 @@ class ChooseTypeViewController: UIViewController {
             let isUesdName = BasicNoteInfo.isNoteExist(name: name, type: NoteType.single.rawValue, in: context!)
             if isUesdName {
                 showAlert(title: "Used Name!", message: "Please choose another name, or edit the exist note.")
+                return
             }
             
             let noteInfo = MyBasicNoteInfo(id: MyBasicNoteInfo.nextNoteID(), time: Date(), type: NoteType.single.rawValue, name: name, numberOfCard: 1)
@@ -55,7 +56,27 @@ class ChooseTypeViewController: UIViewController {
         showAlert(title: "Error!", message: "Please give a name for the note.")
     }
     
-    @IBAction func toQANoteEditPage(_ sender: UIButton) {
+    @IBAction func toQANoteEditPage(_ sender: UIButton)
+    {
+        if let name = nameTextField.text, name.characters.count > 0 {
+            let context = container?.viewContext
+            let isUesdName = BasicNoteInfo.isNoteExist(name: name, type: NoteType.qa.rawValue, in: context!)
+            if isUesdName {
+                showAlert(title: "Used Name!", message: "Please choose another name, or edit the exist note.")
+                return
+            }
+            
+            let noteInfo = MyBasicNoteInfo(id: MyBasicNoteInfo.nextNoteID(), time: Date(), type: NoteType.qa.rawValue, name: name, numberOfCard: 1)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "QAEditViewController") as! QAEditViewController
+            controller.passedInNoteInfo = noteInfo
+            controller.container = self.container
+            present(controller, animated: true, completion: {
+                self.view.alpha = 0
+            })
+            return
+        }
+        showAlert(title: "Error!", message: "Please give a name for the note.")
     }
     
     override func viewDidLoad()

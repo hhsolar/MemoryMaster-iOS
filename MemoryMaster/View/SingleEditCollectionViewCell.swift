@@ -61,7 +61,7 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
         delegate?.addTitle(for: self)
     }
     
-    func updataCell(with card: SingleCard, name: String, at index: Int, total: Int) {
+    func updataCell(with card: SingleCard, at index: Int, total: Int) {
         cardIndex = index + 1
         indexLabel.text = String.init(format: "%d / %d", cardIndex!, total)
         contentTextView.text = card.body
@@ -72,14 +72,15 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
         } else {
             removeTitle()
         }
-        
     }
     
-    func setupUI() {
-        
+    func setupUI()
+    {
         backView.backgroundColor = UIColor.white
         backView.layer.cornerRadius = 15
         backView.layer.masksToBounds = true
+        
+        indexLabel.textColor = CustomColor.medianBlue
         
         addTitleButton.backgroundColor = CustomColor.medianBlue
         addTitleButton.setTitleColor(UIColor.white, for: .normal)

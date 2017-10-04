@@ -29,6 +29,9 @@
                                     <constraint firstAttribute="width" constant="30" id="cqV-EI-VQx"/>
                                 </constraints>
                                 <state key="normal" image="editNote_icon"/>
+                                <connections>
+                                    <action selector="toEdit:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Dqg-OD-zbW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RYr-VG-J4l">
                                 <rect key="frame" x="40" y="0.0" width="30" height="30"/>
@@ -37,6 +40,9 @@
                                     <constraint firstAttribute="width" constant="30" id="Udl-NO-p6b"/>
                                 </constraints>
                                 <state key="normal" image="testNote_icon"/>
+                                <connections>
+                                    <action selector="toTest:" destination="gTV-IL-0wX" eventType="touchUpInside" id="EkM-m4-uGW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9N-nv-tNC">
                                 <rect key="frame" x="80" y="0.0" width="30" height="30"/>
@@ -45,6 +51,9 @@
                                     <constraint firstAttribute="width" constant="30" id="l8N-3y-K61"/>
                                 </constraints>
                                 <state key="normal" image="readingNote_icon"/>
+                                <connections>
+                                    <action selector="toRead:" destination="gTV-IL-0wX" eventType="touchUpInside" id="D6d-28-cfl"/>
+                                </connections>
                             </button>
                         </subviews>
                     </stackView>
@@ -81,7 +90,7 @@
             <size key="customSize" width="383" height="200"/>
             <connections>
                 <outlet property="bodyLabel" destination="zUa-rU-yoE" id="llv-Qf-EvR"/>
-                <outlet property="editButton" destination="M2r-KP-ppy" id="Ce2-wx-hBj"/>
+                <outlet property="editButton" destination="M2r-KP-ppy" id="dTg-W2-NUP"/>
                 <outlet property="nameLabel" destination="v9v-Jt-yk1" id="mfN-XE-A5C"/>
                 <outlet property="readButton" destination="l9N-nv-tNC" id="4Wr-5d-r9y"/>
                 <outlet property="testButton" destination="RYr-VG-J4l" id="9bS-Co-xEK"/>
