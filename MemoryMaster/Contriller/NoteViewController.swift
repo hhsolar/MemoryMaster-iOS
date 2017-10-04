@@ -12,7 +12,7 @@ import MMCardView
 
 class NoteViewController: UIViewController {
 
-    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionView: MMCollectionView! {
         didSet {
             collectionView.backgroundColor = CustomColor.weakGray
@@ -46,15 +46,8 @@ class NoteViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // remove collection view top blank
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-        let singleNib = UINib(nibName: "SingleCollectionViewCell", bundle: Bundle.main)
-        collectionView.register(singleNib, forCellWithReuseIdentifier: "SingleCollectionViewCell")
-        let qaNib = UINib(nibName: "QACollectionViewCell", bundle: Bundle.main)
-        collectionView.register(qaNib, forCellWithReuseIdentifier: "QACollectionViewCell")
+    private func setupUI() {
+        nameLabel.text = passedInNodeInfo?.name ?? "Note name"
         
         if let layout = collectionView.collectionViewLayout as? CustomCardLayout {
             layout.titleHeight = 50.0
@@ -62,6 +55,19 @@ class NoteViewController: UIViewController {
             layout.cardHeight = 450
             layout.showStyle = .cover
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // remove collection view top blank
+        self.automaticallyAdjustsScrollViewInsets = false
+        
+        setupUI()
+        
+        let singleNib = UINib(nibName: "SingleCollectionViewCell", bundle: Bundle.main)
+        collectionView.register(singleNib, forCellWithReuseIdentifier: "SingleCollectionViewCell")
+        let qaNib = UINib(nibName: "QACollectionViewCell", bundle: Bundle.main)
+        collectionView.register(qaNib, forCellWithReuseIdentifier: "QACollectionViewCell")
     }
 }
 
@@ -96,7 +102,17 @@ extension NoteViewController: SingleCollectionViewCellDelegate {
         present(controller, animated: true, completion: nil)
     }
     
-    func readAction() {
+    func readAction(with indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ReadViewController") as! ReadViewController
         
+        if let note = singleNote {
+            controller.passedInSingleNote = note
+        } else if let note = qaNote {
+            controller.passedInQANote = note
+        }
+        controller.startCardIndexPath = indexPath
+        
+        present(controller, animated: true, completion: nil)
     }
 }

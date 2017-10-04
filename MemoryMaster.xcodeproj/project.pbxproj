@@ -44,6 +44,9 @@
 		18DBB8EF1F84983600B34228 /* SingleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8ED1F84983600B34228 /* SingleCollectionViewCell.xib */; };
 		18DBB8F21F849B3B00B34228 /* QACollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8F01F849B3B00B34228 /* QACollectionViewCell.swift */; };
 		18DBB8F31F849B3B00B34228 /* QACollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8F11F849B3B00B34228 /* QACollectionViewCell.xib */; };
+		18DBB8F51F84A6E400B34228 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8F41F84A6E400B34228 /* ReadViewController.swift */; };
+		18DBB8F81F84ABFB00B34228 /* ReadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8F61F84ABFB00B34228 /* ReadCollectionViewCell.swift */; };
+		18DBB8F91F84ABFB00B34228 /* ReadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */; };
 		2711CC453476ED138685C908 /* Pods_MemoryMasterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */; };
 		4465F42D6924FD3E2DC2F580 /* Pods_MemoryMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */; };
 		ACD47326D9C2CBC6F9E62C8F /* Pods_MemoryMasterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EB29CC6D9B8B8078252289 /* Pods_MemoryMasterTests.framework */; };
@@ -111,6 +114,9 @@
 		18DBB8ED1F84983600B34228 /* SingleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleCollectionViewCell.xib; sourceTree = "<group>"; };
 		18DBB8F01F849B3B00B34228 /* QACollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QACollectionViewCell.swift; sourceTree = "<group>"; };
 		18DBB8F11F849B3B00B34228 /* QACollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QACollectionViewCell.xib; sourceTree = "<group>"; };
+		18DBB8F41F84A6E400B34228 /* ReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
+		18DBB8F61F84ABFB00B34228 /* ReadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadCollectionViewCell.swift; sourceTree = "<group>"; };
+		18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadCollectionViewCell.xib; sourceTree = "<group>"; };
 		2789D4F38CD0B0EA3B7FD1CF /* Pods-MemoryMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests.release.xcconfig"; sourceTree = "<group>"; };
 		3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMaster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6359A83F8410C39C854695BD /* Pods-MemoryMaster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMaster.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMaster/Pods-MemoryMaster.release.xcconfig"; sourceTree = "<group>"; };
@@ -225,6 +231,8 @@
 				18DBB8ED1F84983600B34228 /* SingleCollectionViewCell.xib */,
 				18DBB8F01F849B3B00B34228 /* QACollectionViewCell.swift */,
 				18DBB8F11F849B3B00B34228 /* QACollectionViewCell.xib */,
+				18DBB8F61F84ABFB00B34228 /* ReadCollectionViewCell.swift */,
+				18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,6 +273,7 @@
 				18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */,
 				18C2ABD21F821265003249BE /* SingleEditViewController.swift */,
 				18C2ABD81F82A8A0003249BE /* NoteViewController.swift */,
+				18DBB8F41F84A6E400B34228 /* ReadViewController.swift */,
 			);
 			path = Contriller;
 			sourceTree = "<group>";
@@ -427,6 +436,7 @@
 				18DBB8EF1F84983600B34228 /* SingleCollectionViewCell.xib in Resources */,
 				18C2ABD71F82129C003249BE /* SingleEditCollectionViewCell.xib in Resources */,
 				18DBB8E51F843F3C00B34228 /* LibraryTableViewCell.xib in Resources */,
+				18DBB8F91F84ABFB00B34228 /* ReadCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,12 +603,14 @@
 				18C2ABDF1F82B485003249BE /* DimmingPresentationController.swift in Sources */,
 				18C2ABE01F82B489003249BE /* GradientView.swift in Sources */,
 				18DBB8EE1F84983600B34228 /* SingleCollectionViewCell.swift in Sources */,
+				18DBB8F81F84ABFB00B34228 /* ReadCollectionViewCell.swift in Sources */,
 				18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */,
 				18DBB8DE1F84307000B34228 /* BorderUIView.swift in Sources */,
 				18C2ABE81F82B4D9003249BE /* QANote+CoreDataProperties.swift in Sources */,
 				18DBB8F21F849B3B00B34228 /* QACollectionViewCell.swift in Sources */,
 				18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */,
 				18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */,
+				18DBB8F51F84A6E400B34228 /* ReadViewController.swift in Sources */,
 				18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */,
 				18C2ABDD1F82B46D003249BE /* Extension.swift in Sources */,
 				18C2ABE41F82B4CB003249BE /* BasicNoteInfo+CoreDataProperties.swift in Sources */,

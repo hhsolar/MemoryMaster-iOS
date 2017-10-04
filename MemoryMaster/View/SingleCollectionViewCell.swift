@@ -11,7 +11,7 @@ import MMCardView
 
 protocol SingleCollectionViewCellDelegate: class {
     func editAction(with indexPath: IndexPath)
-    func readAction()
+    func readAction(with indexPath: IndexPath)
 }
 
 class SingleCollectionViewCell: CardCell {
@@ -31,7 +31,9 @@ class SingleCollectionViewCell: CardCell {
     }
     
     @IBAction func toRead(_ sender: UIButton) {
-        delegate?.readAction()
+        if let indexPath = cardIndexPath {
+            delegate?.readAction(with: indexPath)
+        }
     }
     
     weak var delegate: SingleCollectionViewCellDelegate?
