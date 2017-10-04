@@ -219,7 +219,6 @@
                                 </constraints>
                                 <state key="normal" image="add_icon"/>
                                 <connections>
-                                    <action selector="addNoteAction:" destination="1C1-gb-VGD" eventType="touchUpInside" id="CIO-yb-6Bc"/>
                                     <segue destination="ZtS-6r-Ztb" kind="presentation" id="Ary-tx-ASd"/>
                                 </connections>
                             </button>
@@ -247,8 +246,11 @@
                     <connections>
                         <outlet property="addButton" destination="0kG-z8-VBb" id="Hk0-F8-Fdp"/>
                         <outlet property="allNoteButton" destination="1uh-yA-H6x" id="avu-RD-bHc"/>
+                        <outlet property="noteSearchBar" destination="pcg-gM-N4z" id="li1-yT-23m"/>
                         <outlet property="qaNoteButton" destination="LlW-9y-mfI" id="2Ql-eH-W1J"/>
                         <outlet property="singleNoteButton" destination="atZ-tn-ZhR" id="FPX-ME-vMg"/>
+                        <outlet property="tableView" destination="r76-Mf-XfG" id="4t3-AY-zI4"/>
+                        <segue destination="rAI-qj-aPp" kind="show" identifier="ToNoteViewController" id="ap8-4d-1Ia"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dOY-i8-8uZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -274,15 +276,10 @@
                                     <action selector="backAction:" destination="rAI-qj-aPp" eventType="touchUpInside" id="K3E-Ui-Upx"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ip8-Gd-sBC">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ip8-Gd-sBC" customClass="MMCollectionView" customModule="MMCardView">
                                 <rect key="frame" x="0.0" y="62" width="375" height="605"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JHi-Wq-khe">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
+                                <collectionViewLayout key="collectionViewLayout" id="802-G4-63M" customClass="CustomCardLayout" customModule="MMCardView"/>
                                 <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="rAI-qj-aPp" id="d5N-u2-jWg"/>
@@ -301,6 +298,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GYy-Ys-RYF"/>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="nSR-bp-TbG" id="edj-MC-p14"/>
+                        <outlet property="collectionView" destination="Ip8-Gd-sBC" id="r2a-IG-l9f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SCv-c6-W5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
