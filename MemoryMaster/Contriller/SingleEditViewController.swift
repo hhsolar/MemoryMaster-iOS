@@ -135,19 +135,19 @@ class SingleEditViewController: UIViewController
         collectionView.collectionViewLayout = layout
     }
     
-    override func viewDidLayoutSubviews() {
-        super .viewDidLayoutSubviews()
-        if let cardIndex = passedInCardIndex {
-            collectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
-        }
-    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super .viewDidAppear(animated)
+//    override func viewDidLayoutSubviews() {
+//        super .viewDidLayoutSubviews()
 //        if let cardIndex = passedInCardIndex {
 //            collectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
 //        }
 //    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let cardIndex = passedInCardIndex {
+            collectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

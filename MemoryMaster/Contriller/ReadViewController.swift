@@ -88,14 +88,7 @@ class ReadViewController: UIViewController {
             collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
         }
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super .viewDidAppear(animated)
-//        if let indexPath = startCardIndexPath {
-//            collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
-//        }
-//    }
-    
+        
     // MARK: draw prograss bar
     private func updatePrograssLing(readingIndex: CGFloat) {
         let width = progressBarView.bounds.width * (readingIndex + 1) / CGFloat(numberOfCards)

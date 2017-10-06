@@ -154,6 +154,13 @@ extension NoteViewController: QACollectionViewCellDelegate {
     }
     
     func toQANoteTest(with indexPath: IndexPath) {
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "TestViewController") as! TestViewController
+        if let note = qaNote {
+            controller.passedInQANote = note
+        }
+        controller.startCardIndexPath = indexPath
+
+        present(controller, animated: true, completion: nil)
     }
 }

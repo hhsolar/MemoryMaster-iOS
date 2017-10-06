@@ -10,6 +10,9 @@
 		1800FBF21F85506500A9A703 /* QAEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF11F85506500A9A703 /* QAEditViewController.swift */; };
 		1800FBF51F8552B800A9A703 /* QAEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */; };
 		1800FBF61F8552B800A9A703 /* QAEditCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */; };
+		1800FBF81F85912900A9A703 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF71F85912900A9A703 /* TestViewController.swift */; };
+		1800FBFB1F85934500A9A703 /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF91F85934500A9A703 /* TestCollectionViewCell.swift */; };
+		1800FBFC1F85934500A9A703 /* TestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */; };
 		18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB441F81B7A1003249BE /* AppDelegate.swift */; };
 		18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB481F81B7A1003249BE /* Main.storyboard */; };
 		18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */; };
@@ -77,6 +80,9 @@
 		1800FBF11F85506500A9A703 /* QAEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAEditViewController.swift; sourceTree = "<group>"; };
 		1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAEditCollectionViewCell.swift; sourceTree = "<group>"; };
 		1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QAEditCollectionViewCell.xib; sourceTree = "<group>"; };
+		1800FBF71F85912900A9A703 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		1800FBF91F85934500A9A703 /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
+		1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionViewCell.xib; sourceTree = "<group>"; };
 		18C2AB411F81B7A1003249BE /* MemoryMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB441F81B7A1003249BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C2AB491F81B7A1003249BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -241,6 +247,9 @@
 				18DBB8F11F849B3B00B34228 /* QACollectionViewCell.xib */,
 				18DBB8F61F84ABFB00B34228 /* ReadCollectionViewCell.swift */,
 				18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */,
+				1800FBF91F85934500A9A703 /* TestCollectionViewCell.swift */,
+				1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */,
+				18DBB8DD1F84307000B34228 /* BorderUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,7 +274,6 @@
 			children = (
 				18C2AB7F1F81CAC8003249BE /* Constant.swift */,
 				18C2AB801F81CB10003249BE /* Extension.swift */,
-				18DBB8DD1F84307000B34228 /* BorderUIView.swift */,
 				18C2ABD11F81FEB4003249BE /* Transition */,
 			);
 			path = Utility;
@@ -283,6 +291,7 @@
 				1800FBF11F85506500A9A703 /* QAEditViewController.swift */,
 				18C2ABD81F82A8A0003249BE /* NoteViewController.swift */,
 				18DBB8F41F84A6E400B34228 /* ReadViewController.swift */,
+				1800FBF71F85912900A9A703 /* TestViewController.swift */,
 			);
 			path = Contriller;
 			sourceTree = "<group>";
@@ -447,6 +456,7 @@
 				18C2ABD71F82129C003249BE /* SingleEditCollectionViewCell.xib in Resources */,
 				18DBB8E51F843F3C00B34228 /* LibraryTableViewCell.xib in Resources */,
 				18DBB8F91F84ABFB00B34228 /* ReadCollectionViewCell.xib in Resources */,
+				1800FBFC1F85934500A9A703 /* TestCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,9 +634,11 @@
 				18DBB8F51F84A6E400B34228 /* ReadViewController.swift in Sources */,
 				18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */,
 				18C2ABDD1F82B46D003249BE /* Extension.swift in Sources */,
+				1800FBFB1F85934500A9A703 /* TestCollectionViewCell.swift in Sources */,
 				18C2ABE41F82B4CB003249BE /* BasicNoteInfo+CoreDataProperties.swift in Sources */,
 				18C2ABE51F82B4CE003249BE /* SingleNote+CoreDataClass.swift in Sources */,
 				18C2ABE61F82B4D1003249BE /* SingleNote+CoreDataProperties.swift in Sources */,
+				1800FBF81F85912900A9A703 /* TestViewController.swift in Sources */,
 				18C2AB821F81CB4F003249BE /* ReciteViewController.swift in Sources */,
 				18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */,
 				18C2ABD61F82129C003249BE /* SingleEditCollectionViewCell.swift in Sources */,
