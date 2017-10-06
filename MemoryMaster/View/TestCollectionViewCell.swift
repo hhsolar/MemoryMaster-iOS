@@ -13,7 +13,6 @@ class TestCollectionViewCell: UICollectionViewCell {
 
     // public api
     var questionAtFront = true
-    var cardIndex: Int?
     
     @IBOutlet weak var containerView: UIView!
     let questionView = UIView()
@@ -22,15 +21,17 @@ class TestCollectionViewCell: UICollectionViewCell {
     let answerLabel = UILabel()
     let qTextView = UITextView()
     let aTextView = UITextView()
+    let indexLabel = UILabel()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
     }
     
-    func updateUI(question: String, answer: String) {
+    func updateUI(question: String, answer: String, index: Int, total: Int) {
         qTextView.text = question
         aTextView.text = answer
+        indexLabel.text = String(format: "%d / %d", index + 1, total)
     }
     
     private func setupUI() {
@@ -41,6 +42,7 @@ class TestCollectionViewCell: UICollectionViewCell {
         questionView.backgroundColor = CustomColor.lightBlue
         questionView.addSubview(questionLabel)
         questionView.addSubview(qTextView)
+        questionView.addSubview(indexLabel)
         
         answerView.backgroundColor = CustomColor.lightGreen
         answerView.addSubview(answerLabel)
@@ -50,6 +52,10 @@ class TestCollectionViewCell: UICollectionViewCell {
         questionLabel.textAlignment = .center
         questionLabel.textColor = CustomColor.deepBlue
         questionLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
+        
+        indexLabel.textAlignment = .center
+        indexLabel.textColor = CustomColor.deepBlue
+        indexLabel.font = UIFont(name: "Helvetica-Bold", size: 18)
         
         answerLabel.text = "ANSWER"
         answerLabel.textAlignment = .center
@@ -95,7 +101,9 @@ class TestCollectionViewCell: UICollectionViewCell {
         answerView.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         questionLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: 20, width: questionView.bounds.width / 3, height: 24)
-        qTextView.frame = CGRect(x: 20, y: questionLabel.frame.origin.y + 44, width: questionView.bounds.width - 40, height: questionView.bounds.height - questionLabel.frame.origin.y - 64)
+        qTextView.frame = CGRect(x: 20, y: questionLabel.frame.origin.y + 44, width: questionView.bounds.width - 40, height: questionView.bounds.height - questionLabel.frame.origin.y - 44 - 62)
+        
+        indexLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: questionView.bounds.height - 42, width: questionView.bounds.width / 3, height: 22)
         
         answerLabel.frame = CGRect(x: answerView.bounds.midX - answerView.bounds.width / 6, y: 20, width: answerView.bounds.width / 3, height: 24)
         aTextView.frame = CGRect(x: 20, y: answerLabel.frame.origin.y + 44, width: answerView.bounds.width - 40, height: answerView.bounds.height - answerLabel.frame.origin.y - 64)

@@ -37,9 +37,7 @@ class TestViewController: UIViewController {
     }
     
     private func setupUI() {
-        let index = startCardIndexPath?.row ?? 0
-        let total = passedInQANote?.numberOfCard ?? 0
-        titleLabel.text = String(format: "%d / %d", index + 1, total)
+        titleLabel.text = passedInQANote?.name ?? "Name"
         titleLabel.textColor = CustomColor.deepBlue
         
         collectionView.delegate = self
@@ -87,19 +85,9 @@ extension TestViewController: UICollectionViewDelegate, UICollectionViewDataSour
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCollectionViewCell", for: indexPath) as! TestCollectionViewCell
         if let note = passedInQANote {
-            cell.cardIndex = indexPath.row
-            cell.updateUI(question: note.questions[indexPath.row], answer: note.answers[indexPath.row])
+            cell.updateUI(question: note.questions[indexPath.row], answer: note.answers[indexPath.row], index: indexPath.row, total: Int(note.numberOfCard))
         }
         return cell
-    }
-    
-    // 该函数为了改变title的值，但程序运行后会crash，需要另外考虑办法
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let cells = collectionView.visibleCells
-        if cells.count > 0 {
-            let cell = collectionView.visibleCells[0] as! TestCollectionViewCell
-            titleLabel.text = String(format: "%d / %d", cell.cardIndex! + 1, (passedInQANote?.numberOfCard)!)
-        }
     }
 }
 
