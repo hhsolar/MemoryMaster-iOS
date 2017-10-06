@@ -135,13 +135,6 @@ class SingleEditViewController: UIViewController
         collectionView.collectionViewLayout = layout
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super .viewDidLayoutSubviews()
-//        if let cardIndex = passedInCardIndex {
-//            collectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
-//        }
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let cardIndex = passedInCardIndex {
@@ -180,13 +173,11 @@ extension SingleEditViewController: UICollectionViewDelegate, UICollectionViewDa
 extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
     func addCard(currentCell: SingleEditCollectionViewCell) {
         let singleCard = SingleCard(title: "", body: "")
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
         localNote?.cards.insert(singleCard, at: currentCell.cardIndex!)
-        let indexPath = IndexPath(item: currentCell.cardIndex!, section: 0)
-        collectionView.insertItems(at: [indexPath])
         collectionView.reloadData()
-        // have to add function reloadItems, or there will be a cell not update
+        collectionView.scrollToItem(at: IndexPath(item: currentCell.cardIndex!, section: 0), at: .left, animated: true)
         collectionView.reloadItems(at: [IndexPath(item: currentCell.cardIndex! - 1, section: 0)])
-        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
     func removeCard(for cell: SingleEditCollectionViewCell) {
