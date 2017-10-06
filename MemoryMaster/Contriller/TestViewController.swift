@@ -28,9 +28,10 @@ class TestViewController: UIViewController {
         tapRecognizer.numberOfTapsRequired = 1
         collectionView.addGestureRecognizer(tapRecognizer)
     }
-
-    override func viewDidLayoutSubviews() {
-        super .viewDidLayoutSubviews()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.setNeedsLayout()
         if let indexPath = startCardIndexPath {
             collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
         }

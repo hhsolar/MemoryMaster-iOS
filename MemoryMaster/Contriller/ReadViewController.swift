@@ -81,14 +81,16 @@ class ReadViewController: UIViewController {
         let nib = UINib(nibName: "ReadCollectionViewCell", bundle: Bundle.main)
         collectionView?.register(nib, forCellWithReuseIdentifier: "ReadCollectionViewCell")
     }
-
-    override func viewDidLayoutSubviews() {
-        super .viewDidLayoutSubviews()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.setNeedsLayout()
         if let indexPath = startCardIndexPath {
             collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
         }
     }
-        
+
+    
     // MARK: draw prograss bar
     private func updatePrograssLing(readingIndex: CGFloat) {
         let width = progressBarView.bounds.width * (readingIndex + 1) / CGFloat(numberOfCards)

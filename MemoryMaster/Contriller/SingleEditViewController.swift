@@ -135,8 +135,9 @@ class SingleEditViewController: UIViewController
         collectionView.collectionViewLayout = layout
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.setNeedsLayout()
         if let cardIndex = passedInCardIndex {
             collectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
         }
