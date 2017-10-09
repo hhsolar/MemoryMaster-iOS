@@ -213,6 +213,11 @@ extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
         }
     }
     
+    func addPhoto(for cell: SingleEditCollectionViewCell) {
+        let vc = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+        present(vc, animated: true, completion: nil)
+    }
+    
     func changeTextContent(index: Int, titleText: String, bodyText: String) {
         localNote?.cards[index].title = titleText
         localNote?.cards[index].body = bodyText

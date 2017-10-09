@@ -12,6 +12,7 @@ protocol SingleEditCollectionViewCellDelegate: class {
     func addCard(currentCell: SingleEditCollectionViewCell)
     func removeCard(for cell: SingleEditCollectionViewCell)
     func addTitle(for cell: SingleEditCollectionViewCell)
+    func addPhoto(for cell: SingleEditCollectionViewCell)
     func changeTextContent(index: Int, titleText: String, bodyText: String)
 }
 
@@ -25,6 +26,7 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var photoButton: UIButton!
     
     var cardIndex: Int?
     weak var delegate: SingleEditCollectionViewCellDelegate?
@@ -59,6 +61,10 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
     
     @IBAction func addTitleAction(_ sender: UIButton) {
         delegate?.addTitle(for: self)
+    }
+    
+    @IBAction func addPhotoAction(_ sender: UIButton) {
+        delegate?.addPhoto(for: self)
     }
     
     func updataCell(with card: SingleCard, at index: Int, total: Int) {

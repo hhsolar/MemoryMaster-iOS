@@ -27,19 +27,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ng8-Ie-wQI">
                         <rect key="frame" x="12" y="12" width="332" height="487"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cc0-CP-WRZ">
-                                <rect key="frame" x="12" y="12" width="28" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="28" id="Gaq-C0-E62"/>
-                                    <constraint firstAttribute="height" constant="28" id="dss-kM-MIa"/>
-                                </constraints>
-                                <state key="normal" image="bin_icon"/>
-                                <connections>
-                                    <action selector="deleteCardAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Mfa-hi-bKY"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hd3-z1-QXG">
-                                <rect key="frame" x="292" y="12" width="28" height="28"/>
+                                <rect key="frame" x="292" y="447" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="6rm-94-16M"/>
                                     <constraint firstAttribute="width" constant="28" id="8UQ-zX-iBf"/>
@@ -82,41 +71,65 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8ec-lz-0uA">
-                                <rect key="frame" x="12" y="88" width="308" height="387"/>
+                                <rect key="frame" x="12" y="88" width="308" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="J7x-8m-UGA">
-                                <rect key="frame" x="12" y="170" width="308" height="305"/>
+                                <rect key="frame" x="12" y="170" width="308" height="265"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cc0-CP-WRZ">
+                                <rect key="frame" x="12" y="447" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="Gaq-C0-E62"/>
+                                    <constraint firstAttribute="height" constant="28" id="dss-kM-MIa"/>
+                                </constraints>
+                                <state key="normal" image="bin_icon"/>
+                                <connections>
+                                    <action selector="deleteCardAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Mfa-hi-bKY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whj-X9-kuQ">
+                                <rect key="frame" x="150" y="447" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="NPG-0W-MDn"/>
+                                    <constraint firstAttribute="height" constant="32" id="slB-RX-yDo"/>
+                                </constraints>
+                                <state key="normal" image="photo_icon"/>
+                                <connections>
+                                    <action selector="addPhotoAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="YIB-P8-atL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="8ec-lz-0uA" secondAttribute="bottom" constant="12" id="1kO-XN-qBx"/>
+                            <constraint firstAttribute="bottom" secondItem="8ec-lz-0uA" secondAttribute="bottom" constant="52" id="1kO-XN-qBx"/>
+                            <constraint firstItem="Whj-X9-kuQ" firstAttribute="centerX" secondItem="Ng8-Ie-wQI" secondAttribute="centerX" id="Bzy-qC-fcS"/>
                             <constraint firstItem="8ec-lz-0uA" firstAttribute="top" secondItem="tuW-uU-IT0" secondAttribute="bottom" constant="12" id="DWR-t7-hSb"/>
+                            <constraint firstAttribute="bottom" secondItem="Whj-X9-kuQ" secondAttribute="bottom" constant="8" id="Jwc-Wy-SUk"/>
                             <constraint firstItem="tuW-uU-IT0" firstAttribute="leading" secondItem="Ng8-Ie-wQI" secondAttribute="leading" constant="12" id="KeS-eE-aiW"/>
                             <constraint firstItem="F50-Lu-PgJ" firstAttribute="leading" secondItem="Ng8-Ie-wQI" secondAttribute="leading" constant="12" id="LHr-sj-38C"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tuW-uU-IT0" secondAttribute="trailing" constant="12" id="MyH-cB-nmp"/>
-                            <constraint firstItem="tuW-uU-IT0" firstAttribute="top" secondItem="cc0-CP-WRZ" secondAttribute="bottom" constant="12" id="UO5-gV-KV1"/>
-                            <constraint firstItem="cc0-CP-WRZ" firstAttribute="top" secondItem="Ng8-Ie-wQI" secondAttribute="top" constant="12" id="UOd-ql-nzY"/>
                             <constraint firstItem="cc0-CP-WRZ" firstAttribute="leading" secondItem="Ng8-Ie-wQI" secondAttribute="leading" constant="12" id="WgW-Jz-Q5G"/>
                             <constraint firstAttribute="trailing" secondItem="8ec-lz-0uA" secondAttribute="trailing" constant="12" id="YBG-Ug-evN"/>
                             <constraint firstItem="J7x-8m-UGA" firstAttribute="top" secondItem="F50-Lu-PgJ" secondAttribute="bottom" constant="12" id="biX-65-rQR"/>
+                            <constraint firstItem="tuW-uU-IT0" firstAttribute="top" secondItem="UDk-Sb-9Vl" secondAttribute="bottom" constant="12" id="daX-sf-kqc"/>
                             <constraint firstAttribute="trailing" secondItem="hd3-z1-QXG" secondAttribute="trailing" constant="12" id="eaN-RT-kdJ"/>
                             <constraint firstItem="8ec-lz-0uA" firstAttribute="leading" secondItem="Ng8-Ie-wQI" secondAttribute="leading" constant="12" id="gpH-WJ-WLJ"/>
                             <constraint firstItem="F50-Lu-PgJ" firstAttribute="top" secondItem="tuW-uU-IT0" secondAttribute="bottom" constant="12" id="i74-hW-cjW"/>
-                            <constraint firstItem="hd3-z1-QXG" firstAttribute="top" secondItem="Ng8-Ie-wQI" secondAttribute="top" constant="12" id="jUj-Ii-ZWR"/>
                             <constraint firstItem="J7x-8m-UGA" firstAttribute="leading" secondItem="Ng8-Ie-wQI" secondAttribute="leading" constant="12" id="l2z-RN-ahM"/>
                             <constraint firstItem="UDk-Sb-9Vl" firstAttribute="top" secondItem="Ng8-Ie-wQI" secondAttribute="top" constant="12" id="q5v-rE-4oF"/>
-                            <constraint firstAttribute="bottom" secondItem="J7x-8m-UGA" secondAttribute="bottom" constant="12" id="sG2-Pt-aBe"/>
+                            <constraint firstAttribute="bottom" secondItem="J7x-8m-UGA" secondAttribute="bottom" constant="52" id="sG2-Pt-aBe"/>
                             <constraint firstItem="UDk-Sb-9Vl" firstAttribute="centerX" secondItem="Ng8-Ie-wQI" secondAttribute="centerX" id="sa5-gD-5A6"/>
                             <constraint firstAttribute="trailing" secondItem="F50-Lu-PgJ" secondAttribute="trailing" constant="12" id="u6j-Wx-UUe"/>
+                            <constraint firstAttribute="bottom" secondItem="cc0-CP-WRZ" secondAttribute="bottom" constant="12" id="w23-aC-B8P"/>
+                            <constraint firstAttribute="bottom" secondItem="hd3-z1-QXG" secondAttribute="bottom" constant="12" id="z1p-xq-lT7"/>
                             <constraint firstAttribute="trailing" secondItem="J7x-8m-UGA" secondAttribute="trailing" constant="12" id="zI9-fh-3my"/>
                         </constraints>
                     </view>
@@ -138,6 +151,7 @@
                 <outlet property="contentTextView" destination="8ec-lz-0uA" id="Xeh-mJ-Pgf"/>
                 <outlet property="deleteButton" destination="cc0-CP-WRZ" id="Q39-Qd-S60"/>
                 <outlet property="indexLabel" destination="tuW-uU-IT0" id="3WF-8x-7qg"/>
+                <outlet property="photoButton" destination="Whj-X9-kuQ" id="buO-Xf-wEq"/>
                 <outlet property="titleTextView" destination="F50-Lu-PgJ" id="n2e-pv-c4R"/>
             </connections>
             <point key="canvasLocation" x="-43" y="52.5"/>
@@ -146,5 +160,6 @@
     <resources>
         <image name="addNote_icon" width="30" height="30"/>
         <image name="bin_icon" width="30" height="30"/>
+        <image name="photo_icon" width="30" height="30"/>
     </resources>
 </document>
