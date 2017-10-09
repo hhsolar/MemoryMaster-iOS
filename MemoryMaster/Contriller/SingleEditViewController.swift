@@ -214,12 +214,20 @@ extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
     }
     
     func addPhoto(for cell: SingleEditCollectionViewCell) {
-        let vc = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-        present(vc, animated: true, completion: nil)
+        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+        controller.lastController = self
+        present(controller, animated: true, completion: nil)
     }
     
     func changeTextContent(index: Int, titleText: String, bodyText: String) {
         localNote?.cards[index].title = titleText
         localNote?.cards[index].body = bodyText
+    }
+}
+
+extension SingleEditViewController: TOCropViewControllerDelegate {
+    func cropViewController(_ cropViewController: TOCropViewController, didCropToImage image: UIImage, rect cropRect: CGRect, angle: Int)
+    {
+        
     }
 }

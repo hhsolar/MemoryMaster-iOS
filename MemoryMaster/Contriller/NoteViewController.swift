@@ -10,9 +10,8 @@ import UIKit
 import CoreData
 import MMCardView
 
-class NoteViewController: UIViewController {
+class NoteViewController: BaseTopViewController {
 
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var collectionView: MMCollectionView! {
         didSet {
             collectionView.backgroundColor = CustomColor.weakGray
@@ -25,10 +24,6 @@ class NoteViewController: UIViewController {
     
     var singleNote: SingleNote?
     var qaNote: QANote?
-    
-    @IBAction func backAction(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
     
     func updateUI(with noteInfo: MyBasicNoteInfo) {
         if let context = container?.viewContext {
@@ -48,8 +43,9 @@ class NoteViewController: UIViewController {
         }
     }
     
-    private func setupUI() {
-        nameLabel.text = passedInNodeInfo?.name ?? "Note name"
+    override func setupUI() {
+        super.setupUI()
+        super.titleLabel.text = passedInNodeInfo?.name ?? "Note name"
         
         if let layout = collectionView.collectionViewLayout as? CustomCardLayout {
             layout.titleHeight = 50.0

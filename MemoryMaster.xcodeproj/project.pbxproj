@@ -16,6 +16,9 @@
 		180500BB1F8AFA42006849B4 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */; };
 		184B33081F8AFCC600EACD89 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */; };
 		184B33091F8AFCC600EACD89 /* ImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */; };
+		184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */; };
+		184B330D1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184B330B1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib */; };
+		184B330F1F8B4BFF00EACD89 /* BaseTopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */; };
 		18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB441F81B7A1003249BE /* AppDelegate.swift */; };
 		18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB481F81B7A1003249BE /* Main.storyboard */; };
 		18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */; };
@@ -90,6 +93,9 @@
 		180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerViewController.xib; sourceTree = "<group>"; };
+		184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCollectionViewCell.swift; sourceTree = "<group>"; };
+		184B330B1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerCollectionViewCell.xib; sourceTree = "<group>"; };
+		184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTopViewController.swift; sourceTree = "<group>"; };
 		18C2AB411F81B7A1003249BE /* MemoryMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB441F81B7A1003249BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C2AB491F81B7A1003249BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -258,6 +264,8 @@
 				1800FBF91F85934500A9A703 /* TestCollectionViewCell.swift */,
 				1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */,
 				18DBB8DD1F84307000B34228 /* BorderUIView.swift */,
+				184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */,
+				184B330B1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,6 +311,7 @@
 				1800FBF71F85912900A9A703 /* TestViewController.swift */,
 				184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */,
 				184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */,
+				184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */,
 			);
 			path = Contriller;
 			sourceTree = "<group>";
@@ -459,6 +468,7 @@
 			files = (
 				18C2AB521F81B7A1003249BE /* LaunchScreen.storyboard in Resources */,
 				18C2AB7B1F81BF57003249BE /* Default-568h@2x.png in Resources */,
+				184B330D1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib in Resources */,
 				18DBB8F31F849B3B00B34228 /* QACollectionViewCell.xib in Resources */,
 				18C2AB4F1F81B7A1003249BE /* Assets.xcassets in Resources */,
 				18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */,
@@ -637,6 +647,7 @@
 				18DBB8EE1F84983600B34228 /* SingleCollectionViewCell.swift in Sources */,
 				18DBB8F81F84ABFB00B34228 /* ReadCollectionViewCell.swift in Sources */,
 				18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */,
+				184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */,
 				184B33081F8AFCC600EACD89 /* ImagePickerViewController.swift in Sources */,
 				18DBB8DE1F84307000B34228 /* BorderUIView.swift in Sources */,
 				18C2ABE81F82B4D9003249BE /* QANote+CoreDataProperties.swift in Sources */,
@@ -645,6 +656,7 @@
 				1800FBF51F8552B800A9A703 /* QAEditCollectionViewCell.swift in Sources */,
 				18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */,
 				18DBB8F51F84A6E400B34228 /* ReadViewController.swift in Sources */,
+				184B330F1F8B4BFF00EACD89 /* BaseTopViewController.swift in Sources */,
 				18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */,
 				18C2ABDD1F82B46D003249BE /* Extension.swift in Sources */,
 				1800FBFB1F85934500A9A703 /* TestCollectionViewCell.swift in Sources */,

@@ -31,6 +31,7 @@ extension UIImage {
         return scaledImage
     }
     
+    // make the photo ti fit the UITextView size
     class func scaleImageToFitTextView(_ image: UIImage, fit textViewWidth: CGFloat) -> UIImage? {
         if image.size.width <= textViewWidth {
             return image
@@ -42,6 +43,7 @@ extension UIImage {
         return scaledImage
     }
     
+    // save photo to the library
     class func saveImageWithPhotoLibrary(image: UIImage) {
         PHPhotoLibrary.shared().performChanges({
             PHAssetChangeRequest.creationRequestForAsset(from: image)
@@ -52,6 +54,20 @@ extension UIImage {
         }
     }
     
+    // async get the photos form library with small size
+    class func async_getLibraryThumbnails(smallImageCallBack: @escaping (_ allSmallImageArray: [UIImage]) -> ()) {
+        let image = UIImage()
+        let concurrentQueue = DispatchQueue(label: "getLibiaryAllImage-queue", attributes: .concurrent)
+        concurrentQueue.async {
+            var smallPhotoArray = [UIImage]()
+            smallPhotoArray.append(contentsOf: UIImage.getImageWithScaleImage(image: image, isOriginalPhoto: false))
+            DispatchQueue.main.async {
+                smallImageCallBack(smallPhotoArray)
+            }
+        }
+    }
+    
+    // async to get the photos form library with small size and original size at same time
     class func async_getLibraryPhoto(smallImageCallBack: @escaping (_ allSmallImageArray: [UIImage]) -> (), allOriginalImageCallBack: @escaping (_ allOriginalImageArray: [UIImage]) -> ()) {
         let image = UIImage()
         let concurrentQueue = DispatchQueue(label: "getLibiaryAllImage-queue", attributes: .concurrent)
@@ -71,6 +87,7 @@ extension UIImage {
         }
     }
     
+    // get all the photoes with original size or not
     class func getImageWithScaleImage(image: UIImage, isOriginalPhoto: Bool) -> [UIImage] {
         var photoArray = [UIImage]()
         let assetCollections = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
@@ -78,10 +95,13 @@ extension UIImage {
             photoArray.append(contentsOf: image.enumerateAssetsInAssetCollection(assetCollection: assetCollections[i], origial: isOriginalPhoto))
         }
         let cameraRoll = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil).lastObject
-        photoArray.append(contentsOf: image.enumerateAssetsInAssetCollection(assetCollection: cameraRoll!, origial: isOriginalPhoto))
+        if let cameraRoll = cameraRoll {
+            photoArray.append(contentsOf: image.enumerateAssetsInAssetCollection(assetCollection: cameraRoll, origial: isOriginalPhoto))
+        }
         return photoArray
     }
     
+    // get photos form a assection collection
     func enumerateAssetsInAssetCollection(assetCollection: PHAssetCollection, origial: Bool) -> [UIImage] {
         var array = [UIImage]()
         let options = PHImageRequestOptions()
@@ -96,14 +116,35 @@ extension UIImage {
         return array
     }
     
-    func beginClip() -> UIImage {
-        let size = self.size
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-        path.addClip()
-        self.draw(at: CGPoint.zero)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image!
+    // get original size photo according to photo assect
+    class func getOriginalPhoto(asset: PHAsset) -> UIImage {
+        var image = UIImage()
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        let size = CGSize(width: asset.pixelWidth, height:asset.pixelHeight)
+        PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .default, options: options) { (result, info) in
+            image = result!
+        }
+        return image
+    }
+    
+    // get photo asset from all of the albums
+    class func getPhotoAssets() -> [PHAsset] {
+        var array = [PHAsset]()
+        let assetCollections = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
+        for i in 0..<assetCollections.count {
+            let assets = PHAsset.fetchAssets(in: assetCollections[i], options: nil)
+            for j in 0..<assets.count {
+                array.append(assets[j])
+            }
+        }
+        let cameraRoll = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil).lastObject
+        if let cameraRoll = cameraRoll {
+            let rollAssets = PHAsset.fetchAssets(in: cameraRoll, options: nil)
+            for i in 0..<rollAssets.count {
+                array.append(rollAssets[i])
+            }
+        }
+        return array
     }
 }

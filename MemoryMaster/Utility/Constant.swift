@@ -29,6 +29,13 @@ struct CustomDistance {
     static let viewToScreenEdgeDistance: CGFloat = 12
 }
 
+struct CustomSize {
+    static let statusBarHeight: CGFloat = 20
+    static let buttonWidth: CGFloat = 30
+    static let barHeight: CGFloat = 44
+    static let titleLabelHeight: CGFloat = 22
+}
+
 struct LoginErrorCode {
     static let invalidEmail = "Invalid Email"
     static let wrongPassword = "Wrong Password"

@@ -8,14 +8,13 @@
 
 import UIKit
 
-class ReadViewController: UIViewController {
+class ReadViewController: BaseTopViewController {
 
     // public api
     var passedInSingleNote: SingleNote?
     var passedInQANote: QANote?
     var startCardIndexPath: IndexPath?
     
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressBarView: UIView!
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -38,11 +37,8 @@ class ReadViewController: UIViewController {
         }
     }
     
-    @IBAction func backAction(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    private func setupUI() {
+    override func setupUI() {
+        super.setupUI()
         progressBarView.layer.cornerRadius = 4
         progressBarView.layer.masksToBounds = true
         progressBarView.layer.borderWidth = 1
@@ -64,11 +60,11 @@ class ReadViewController: UIViewController {
         collectionView.collectionViewLayout = layout
         
         if let note = passedInSingleNote {
-            titleLabel.text = note.name
+            super.titleLabel.text = note.name
         }
 
         if let note = passedInQANote {
-            titleLabel.text = note.name
+            super.titleLabel.text = note.name
         }
     }
     

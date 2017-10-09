@@ -8,13 +8,12 @@
 
 import UIKit
 
-class TestViewController: UIViewController {
+class TestViewController: BaseTopViewController {
 
     // public api
     var passedInQANote: QANote?
     var startCardIndexPath: IndexPath?
     
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -37,9 +36,9 @@ class TestViewController: UIViewController {
         }
     }
     
-    private func setupUI() {
-        titleLabel.text = passedInQANote?.name ?? "Name"
-        titleLabel.textColor = CustomColor.deepBlue
+    override func setupUI() {
+        super.setupUI()
+        super.titleLabel.text = passedInQANote?.name ?? "Name"
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -67,10 +66,6 @@ class TestViewController: UIViewController {
                 cell.questionAtFront = true
             }
         }
-    }
-    
-    @IBAction func backAction(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
     }
 }
 
