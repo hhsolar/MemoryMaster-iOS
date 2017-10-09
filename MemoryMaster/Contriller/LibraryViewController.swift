@@ -64,16 +64,25 @@ class LibraryViewController: UIViewController {
     
     @IBAction func showAllNote(_ sender: UIButton) {
         showFlag = .all
+        allNoteButton.setImage(UIImage(named: "all_icon_click.png"), for: .normal)
+        qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
+        singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
         updateUI()
     }
     
     @IBAction func showQANote(_ sender: UIButton) {
         showFlag = .qa
+        allNoteButton.setImage(UIImage(named: "all_icon_unclick.png"), for: .normal)
+        qaNoteButton.setImage(UIImage(named: "qa_icon_click.png"), for: .normal)
+        singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
         updateUI()
     }
     
     @IBAction func showSingleNote(_ sender: UIButton) {
         showFlag = .single
+        allNoteButton.setImage(UIImage(named: "all_icon_unclick.png"), for: .normal)
+        qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
+        singleNoteButton.setImage(UIImage(named: "single_icon_click.png"), for: .normal)
         updateUI()
     }
     

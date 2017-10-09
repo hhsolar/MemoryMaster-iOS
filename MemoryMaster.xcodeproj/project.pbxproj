@@ -83,6 +83,7 @@
 		1800FBF71F85912900A9A703 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1800FBF91F85934500A9A703 /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
 		1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionViewCell.xib; sourceTree = "<group>"; };
+		180500B91F8AF7D9006849B4 /* MemoryMaster-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemoryMaster-Bridging-Header.h"; sourceTree = "<group>"; };
 		18C2AB411F81B7A1003249BE /* MemoryMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB441F81B7A1003249BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C2AB491F81B7A1003249BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		18C2AB381F81B7A1003249BE = {
 			isa = PBXGroup;
 			children = (
+				180500B91F8AF7D9006849B4 /* MemoryMaster-Bridging-Header.h */,
 				18C2AB431F81B7A1003249BE /* MemoryMaster */,
 				18C2AB951F81FB60003249BE /* Info.plist */,
 				18C2AB5B1F81B7A1003249BE /* MemoryMasterTests */,
@@ -825,8 +827,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.greatwall.MemoryMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/apple/NewStudy/IOS/MemoryMaster-iOS/MemoryMaster-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 			};
 			name = Debug;
 		};
@@ -842,8 +846,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.greatwall.MemoryMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/apple/NewStudy/IOS/MemoryMaster-iOS/MemoryMaster-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 			};
 			name = Release;
 		};
