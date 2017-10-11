@@ -12,8 +12,8 @@ protocol SingleEditCollectionViewCellDelegate: class {
     func addCard(currentCell: SingleEditCollectionViewCell)
     func removeCard(for cell: SingleEditCollectionViewCell)
     func addTitle(for cell: SingleEditCollectionViewCell)
-    func addPhoto(for cell: SingleEditCollectionViewCell)
-    func changeTextContent(index: Int, titleText: String, bodyText: String)
+    func addPhoto(for cell: SingleEditCollectionViewCell, range: NSRange?)
+    func changeTextContent(index: Int, titleText: NSAttributedString, bodyText: NSAttributedString)
 }
 
 class SingleEditCollectionViewCell: UICollectionViewCell {
@@ -29,25 +29,26 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var photoButton: UIButton!
     
     var cardIndex: Int?
+    var currentTextView: UITextView?
     weak var delegate: SingleEditCollectionViewCellDelegate?
     
     var titleButtonText = "ADD TITLE"
     
-    var titleText: String? {
+    var titleText: NSAttributedString? {
         get {
-            return titleTextView.text
+            return titleTextView.attributedText
         }
     }
     
-    var bodyText: String? {
+    var bodyText: NSAttributedString? {
         get {
-            return bodyTextView.text
+            return bodyTextView.attributedText
         }
     }
     
-    var contentText: String? {
+    var contentText: NSAttributedString? {
         get {
-            return contentTextView.text
+            return contentTextView.attributedText
         }
     }
     
@@ -64,17 +65,31 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func addPhotoAction(_ sender: UIButton) {
-        delegate?.addPhoto(for: self)
+        var rg: NSRange?
+        if let currentTextView = currentTextView {
+            switch currentTextView.tag {
+            case OutletTag.titleTextView.rawValue:
+                rg = titleTextView.selectedRange
+            case OutletTag.bodyTextView.rawValue:
+                rg = bodyTextView.selectedRange
+            case OutletTag.contentTextView.rawValue:
+                rg = contentTextView.selectedRange
+            default:
+                break
+            }
+        }
+        delegate?.addPhoto(for: self, range: rg)
     }
     
-    func updataCell(with card: SingleCard, at index: Int, total: Int) {
-        cardIndex = index + 1
+    func updataCell(with cardContent: CardContent, at cellIndex: Int, total: Int) {
+        cardIndex = cellIndex + 1
         indexLabel.text = String.init(format: "%d / %d", cardIndex!, total)
-        contentTextView.text = card.body
-        bodyTextView.text = card.body
-        if card.title != "" {
+        
+        contentTextView.attributedText = cardContent.body
+        bodyTextView.attributedText = cardContent.body
+        if cardContent.title != NSAttributedString.init() {
             addTitle()
-            titleTextView.text = card.title
+            titleTextView.attributedText = cardContent.title
         } else {
             removeTitle()
         }
@@ -99,22 +114,25 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
         titleTextView.layer.borderColor = CustomColor.medianBlue.cgColor
         titleTextView.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
         titleTextView.isHidden = true
+        titleTextView.tag = OutletTag.titleTextView.rawValue
         
         bodyTextView.layer.cornerRadius = 10
         bodyTextView.layer.masksToBounds = true
         bodyTextView.layer.borderWidth = 1
         bodyTextView.layer.borderColor = CustomColor.medianBlue.cgColor
         bodyTextView.isHidden = true
+        bodyTextView.tag = OutletTag.bodyTextView.rawValue
+        
+        contentTextView.tag = OutletTag.contentTextView.rawValue
         
         titleTextView.delegate = self
         bodyTextView.delegate = self
         contentTextView.delegate = self
-
     }
     
     func addTitle() {
         titleButtonText = "REMOVE TITLE"
-        bodyTextView.text = contentTextView.text
+        bodyTextView.attributedText = contentTextView.attributedText
         addTitleButton.setTitle("REMOVE TITLE", for: .normal)
         
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: {
@@ -130,7 +148,7 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
     }
     
     func removeTitle() {
-        contentTextView.text = bodyTextView.text
+        contentTextView.attributedText = bodyTextView.attributedText
         addTitleButton.setTitle("ADD TITLE", for: .normal)
         titleButtonText = "ADD TITLE"
         
@@ -151,6 +169,28 @@ class SingleEditCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         setupUI()
     }
+    
+//    func addPhotoToTextView(image: UIImage) {
+//        if textViewTag == 1 {
+//            helper(textView: contentTextView, image: image)
+//        } else if textViewTag == 2 {
+//            helper(textView: titleTextView, image: image)
+//        } else {
+//            helper(textView: bodyTextView, image: image)
+//        }
+//    }
+//
+//    func helper(textView: UITextView, image: UIImage) {
+//        let imgTextAtta = NSTextAttachment()
+//        imgTextAtta.image = image
+//        var rg = textView.selectedRange
+//        if rg.location == NSNotFound {
+//            rg.location = textView.text.count
+//        }
+//        textView.textStorage.insert(NSAttributedString.init(attachment: imgTextAtta), at: rg.location)
+//        textView.selectedRange = NSMakeRange(textView.selectedRange.location + 1, textView.selectedRange.length)
+//        textView.becomeFirstResponder()
+//    }
 }
 
 extension SingleEditCollectionViewCell: UITextViewDelegate {
@@ -160,5 +200,9 @@ extension SingleEditCollectionViewCell: UITextViewDelegate {
         } else {
             delegate?.changeTextContent(index: cardIndex! - 1, titleText: titleText!, bodyText: contentText!)
         }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        currentTextView = textView
     }
 }

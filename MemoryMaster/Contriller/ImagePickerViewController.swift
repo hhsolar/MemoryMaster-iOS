@@ -12,7 +12,7 @@ import Photos
 class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegateFlowLayout {
 
     // public api
-    var lastController: SingleEditViewController?
+    var lastController: NoteEditViewController?
     var smallPhotoArray = [UIImage]()
     var photoAsset = [PHAsset]()
     

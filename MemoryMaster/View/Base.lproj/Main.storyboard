@@ -655,6 +655,8 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="5Qh-kQ-Mad"/>
                                             <constraint firstAttribute="height" constant="30" id="USB-1h-nYR"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="UUl-Ks-aWI"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="bX8-Ha-vfr"/>
                                         </constraints>
                                         <state key="normal" image="exit_icon"/>
                                         <connections>

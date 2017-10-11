@@ -24,12 +24,6 @@ struct MyBasicNoteInfo {
     }
 }
 
-enum NoteType: String {
-    case all = "All"
-    case single = "Single"
-    case qa = "QuestionAnswer"
-}
-
 struct SingleCard {
     var title: String
     var body: String
@@ -114,4 +108,14 @@ struct MyQANote {
     }
 }
 
-
+struct CardContent {
+    var title: NSAttributedString
+    var body: NSAttributedString
+    
+    static func getCardContent(with noteName: String, at index: Int, in noteType: String) -> CardContent
+    {
+        let titleAtt = NSAttributedString.getTextFromFile(with: noteName, at: index, in: noteType, contentType: "title")
+        let bodyAtt = NSAttributedString.getTextFromFile(with: noteName, at: index, in: noteType, contentType: "body")
+        return CardContent(title: titleAtt, body: bodyAtt)
+    }
+}

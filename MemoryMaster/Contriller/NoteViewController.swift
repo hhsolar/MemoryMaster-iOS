@@ -98,9 +98,8 @@ extension NoteViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension NoteViewController: SingleCollectionViewCellDelegate {
     func toSingleNoteEdit(with indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "SingleEditViewController") as! SingleEditViewController
-        
+        let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
+
         if let note = passedInNodeInfo {
             controller.passedInNoteInfo = MyBasicNoteInfo(id: Int(note.id), time: note.time, type: note.type, name: note.name, numberOfCard: Int(note.numberOfCard))
         }

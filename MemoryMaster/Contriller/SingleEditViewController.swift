@@ -27,6 +27,60 @@ class SingleEditViewController: UIViewController
     
     var localNote: MySingleNote?
     var coredataNote: SingleNote?
+  
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        
+        let nib = UINib(nibName: "SingleEditCollectionViewCell", bundle: Bundle.main)
+        collectionView.register(nib, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.setNeedsLayout()
+        if let cardIndex = passedInCardIndex {
+            collectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
+        }
+    }
+    
+    func updateUI() {
+        if let basicInfo = passedInNoteInfo {
+            let context = container?.viewContext
+            coredataNote = try? SingleNote.findOrCreateNote(matching: basicInfo, in: context!)
+            try? context?.save()
+            
+            if let note = coredataNote {
+                localNote = MySingleNote.formCoreDataType(note: note)
+            }
+        }
+    }
+    
+    func setupUI()
+    {
+        titleLabel.text = passedInNoteInfo?.name ?? "No name"
+        titleLabel.textColor = CustomColor.medianBlue
+        
+        self.view.backgroundColor = UIColor.lightGray
+        topView.backgroundColor = CustomColor.lightGreen
+        
+        topView.layer.cornerRadius = 15
+        topView.layer.masksToBounds = true
+        
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = UIColor.lightGray
+        
+        let layout = UICollectionViewFlowLayout.init()
+        layout.itemSize = CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
+        collectionView.collectionViewLayout = layout
+    }
     
     @IBAction func saveAction(_ sender: UIButton)
     {
@@ -98,58 +152,6 @@ class SingleEditViewController: UIViewController
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-    func updateUI() {
-        if let basicInfo = passedInNoteInfo {
-            let context = container?.viewContext
-            coredataNote = try? SingleNote.findOrCreateNote(matching: basicInfo, in: context!)
-            try? context?.save()
-            
-            if let note = coredataNote {
-                localNote = MySingleNote.formCoreDataType(note: note)
-            }
-        }
-    }
-    
-    func setupUI()
-    {
-        titleLabel.text = passedInNoteInfo?.name ?? "No name"
-        titleLabel.textColor = CustomColor.medianBlue
-        
-        self.view.backgroundColor = UIColor.lightGray
-        topView.backgroundColor = CustomColor.lightGreen
-        
-        topView.layer.cornerRadius = 15
-        topView.layer.masksToBounds = true
-        
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor.lightGray
-        
-        let layout = UICollectionViewFlowLayout.init()
-        layout.itemSize = CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        
-        collectionView.collectionViewLayout = layout
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView.setNeedsLayout()
-        if let cardIndex = passedInCardIndex {
-            collectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        
-        let nib = UINib(nibName: "SingleEditCollectionViewCell", bundle: Bundle.main)
-        collectionView.register(nib, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
-    }
 }
 
 extension SingleEditViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -163,71 +165,72 @@ extension SingleEditViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
-        cell.delegate = self
+//        cell.delegate = self
         cell.awakeFromNib()
         cell.setNeedsLayout()
-        cell.updataCell(with: (localNote?.cards[indexPath.row])!, at: indexPath.row, total: (localNote?.numberOfCard)!)
+//        cell.updataCell(with: (localNote?.cards[indexPath.row])!, at: indexPath.row, total: (localNote?.numberOfCard)!)
         return cell
     }
 }
 
-extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
-    func addCard(currentCell: SingleEditCollectionViewCell) {
-        let singleCard = SingleCard(title: "", body: "")
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-        localNote?.cards.insert(singleCard, at: currentCell.cardIndex!)
-        collectionView.reloadData()
-        collectionView.scrollToItem(at: IndexPath(item: currentCell.cardIndex!, section: 0), at: .left, animated: true)
-        collectionView.reloadItems(at: [IndexPath(item: currentCell.cardIndex! - 1, section: 0)])
-    }
-    
-    func removeCard(for cell: SingleEditCollectionViewCell) {
-        if localNote?.numberOfCard == 1 {
-            self.showAlert(title: "Error!", message: "A note must has one item at least.")
-            return
-        }
-        let index = cell.cardIndex! - 1
-        
-        if index == 0 {
-            collectionView.scrollToItem(at: IndexPath(item: index + 1, section: 0), at: .left, animated: true)
+//extension SingleEditViewController: SingleEditCollectionViewCellDelegate {
+//    func addCard(currentCell: SingleEditCollectionViewCell) {
+//        let singleCard = SingleCard(title: "", body: "")
+//        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+//        localNote?.cards.insert(singleCard, at: currentCell.cardIndex!)
+//        collectionView.reloadData()
+//        collectionView.scrollToItem(at: IndexPath(item: currentCell.cardIndex!, section: 0), at: .left, animated: true)
+//        collectionView.reloadItems(at: [IndexPath(item: currentCell.cardIndex! - 1, section: 0)])
+//    }
+//
+//    func removeCard(for cell: SingleEditCollectionViewCell) {
+//        if localNote?.numberOfCard == 1 {
+//            self.showAlert(title: "Error!", message: "A note must has one item at least.")
+//            return
+//        }
+//        let index = cell.cardIndex! - 1
+//
+//        if index == 0 {
+//            collectionView.scrollToItem(at: IndexPath(item: index + 1, section: 0), at: .left, animated: true)
+//
+//            localNote?.cards.remove(at: index)
+//            collectionView.reloadData()
+//             have to add function reloadItems, or there will be a cell not update
+//            collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+//            collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
+//            return
+//        }
+//        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+//        localNote?.cards.remove(at: index)
+//        collectionView.reloadData()
+//        collectionView.scrollToItem(at: IndexPath(item: index - 1, section: 0), at: .left, animated: true)
+//        collectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
+//    }
+//
+//    func addTitle(for cell: SingleEditCollectionViewCell) {
+//        if cell.titleButtonText == "ADD TITLE" {
+//            cell.addTitle()
+//        } else {
+//            cell.removeTitle()
+//        }
+//    }
+//
+//    func addPhoto(for cell: SingleEditCollectionViewCell) {
+//        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+////        controller.lastController = self
+//        present(controller, animated: true, completion: nil)
+//    }
+//
+//    func changeTextContent(index: Int, titleText: String, bodyText: String) {
+//        localNote?.cards[index].title = titleText
+//        localNote?.cards[index].body = bodyText
+//    }
+//}
+//
+//extension SingleEditViewController: TOCropViewControllerDelegate {
+//    func cropViewController(_ cropViewController: TOCropViewController, didCropToImage image: UIImage, rect cropRect: CGRect, angle: Int)
+//    {
+//
+//    }
+//}
 
-            localNote?.cards.remove(at: index)
-            collectionView.reloadData()
-            // have to add function reloadItems, or there will be a cell not update
-            collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-            collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
-            return
-        }
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-        localNote?.cards.remove(at: index)
-        collectionView.reloadData()
-        collectionView.scrollToItem(at: IndexPath(item: index - 1, section: 0), at: .left, animated: true)
-        collectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
-    }
-    
-    func addTitle(for cell: SingleEditCollectionViewCell) {
-        if cell.titleButtonText == "ADD TITLE" {
-            cell.addTitle()
-        } else {
-            cell.removeTitle()
-        }
-    }
-    
-    func addPhoto(for cell: SingleEditCollectionViewCell) {
-        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-        controller.lastController = self
-        present(controller, animated: true, completion: nil)
-    }
-    
-    func changeTextContent(index: Int, titleText: String, bodyText: String) {
-        localNote?.cards[index].title = titleText
-        localNote?.cards[index].body = bodyText
-    }
-}
-
-extension SingleEditViewController: TOCropViewControllerDelegate {
-    func cropViewController(_ cropViewController: TOCropViewController, didCropToImage image: UIImage, rect cropRect: CGRect, angle: Int)
-    {
-        
-    }
-}
