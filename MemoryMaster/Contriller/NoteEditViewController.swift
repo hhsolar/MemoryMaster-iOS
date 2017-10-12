@@ -10,6 +10,10 @@ import UIKit
 import CoreData
 import SVProgressHUD
 
+protocol NoteEditViewControllerDelegate: class {
+    func passNoteInforBack(noteInfo: MyBasicNoteInfo)
+}
+
 class NoteEditViewController: UIViewController {
 
     // public api
@@ -40,6 +44,8 @@ class NoteEditViewController: UIViewController {
     
     var minAddCardIndex: Int?
     var minRemoveCardIndex: Int?
+    
+    weak var delegate: NoteEditViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,9 +130,11 @@ class NoteEditViewController: UIViewController {
             for i in minChangedIndex..<(passedInNoteInfo?.numberOfCard)! {
                 CardContent.removeCardContent(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!)
             }
-            for i in minChangedIndex..<notes.count {
-                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
-                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+            if minChangedIndex <= notes.count {
+                for i in minChangedIndex..<notes.count {
+                    notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
+                    notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+                }
             }
             
             for i in changedCard {
@@ -181,6 +189,7 @@ class NoteEditViewController: UIViewController {
     }
     
     private func dismissView() {
+        delegate?.passNoteInforBack(noteInfo: passedInNoteInfo!)
         guard passedInCardIndex == nil else {
             dismiss(animated: true, completion: nil)
             return

@@ -32,11 +32,13 @@ class NoteViewController: BaseTopViewController {
     
     func updateUI() {
         if let info = passedInNoteInfo {
+            notes.removeAll()
             for i in 0..<info.numberOfCard {
                 let cardContent = CardContent.getCardContent(with: info.name, at: i, in: info.type)
                 notes.append(cardContent)
             }
         }
+        collectionView.reloadData()
     }
     
     override func setupUI() {
@@ -93,7 +95,7 @@ extension NoteViewController: SingleCollectionViewCellDelegate {
         }
         controller.passedInCardIndex = indexPath
         controller.container = self.container
-        
+        controller.delegate = self
         present(controller, animated: true, completion: nil)
     }
     
@@ -119,7 +121,7 @@ extension NoteViewController: QACollectionViewCellDelegate {
         }
         controller.passedInCardIndex = indexPath
         controller.container = self.container
-        
+        controller.delegate = self
         present(controller, animated: true, completion: nil)
     }
     
@@ -145,5 +147,11 @@ extension NoteViewController: QACollectionViewCellDelegate {
         controller.startCardIndexPath = indexPath
 
         present(controller, animated: true, completion: nil)
+    }
+}
+
+extension NoteViewController: NoteEditViewControllerDelegate {
+    func passNoteInforBack(noteInfo: MyBasicNoteInfo) {
+        passedInNoteInfo = noteInfo
     }
 }
