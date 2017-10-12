@@ -17,6 +17,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
 
     let addTitleButton = UIButton()
     let filpButton = UIButton()
+    let titleLabel = UILabel()
     
     var titleButtonText = "ADD TITLE"
 
@@ -43,10 +44,21 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         backView.addSubview(addTitleButton)
         
         filpButton.frame = CGRect(x: containerWidth - 28 - CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance - 2, width: 28, height: 28)
-        filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
         filpButton.addTarget(self, action: #selector(filpCardAction), for: .touchUpInside)
-        filpButton.isEnabled = false
         backView.addSubview(filpButton)
+
+        filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
+        filpButton.isEnabled = false
+        
+        titleLabel.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance * 2 + indexLabel.bounds.height, width: 80, height: CustomSize.titleLabelHeight)
+        titleLabel.text = "Title:"
+        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+        titleLabel.textColor = CustomColor.medianBlue
+        backView.addSubview(titleLabel)
+        titleLabel.isHidden = true
+        
+        titleTextView.frame.origin.y += CustomSize.titleLabelHeight
+        titleTextView.frame.size.height -= CustomSize.titleLabelHeight
         
         titleTextView.isHidden = true
     }
@@ -73,6 +85,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         addTitleButton.setTitle(titleButtonText, for: .normal)
         
         titlePresent()
+        titleLabel.isHidden = false
         
         filpButton.setImage(UIImage.init(named: "filp_icon"), for: .normal)
         filpButton.isEnabled = true
@@ -83,6 +96,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         addTitleButton.setTitle(titleButtonText, for: .normal)
         
         bodyPresent()
+        titleLabel.isHidden = true
         titleTextView.attributedText = NSAttributedString()
         
         filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
@@ -96,8 +110,10 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
     func changeFilpButtonText() {
         if titleTextView.isHidden {
             titlePresent()
+            titleLabel.isHidden = false
         } else {
             bodyPresent()
+            titleLabel.isHidden = true
         }
     }
 }

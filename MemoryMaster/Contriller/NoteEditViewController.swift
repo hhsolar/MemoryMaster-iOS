@@ -13,7 +13,12 @@ import SVProgressHUD
 class NoteEditViewController: UIViewController {
 
     // public api
-    var passedInNoteInfo: MyBasicNoteInfo?
+    var passedInNoteInfo: MyBasicNoteInfo? {
+        didSet {
+            minAddCardIndex = passedInNoteInfo?.numberOfCard
+            minRemoveCardIndex = passedInNoteInfo?.numberOfCard
+        }
+    }
     var passedInCardIndex: IndexPath?
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer {
         didSet {
@@ -32,6 +37,9 @@ class NoteEditViewController: UIViewController {
     
     var notes = [CardContent]()
     var changedCard = Set<Int>()
+    
+    var minAddCardIndex: Int?
+    var minRemoveCardIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,16 +97,53 @@ class NoteEditViewController: UIViewController {
     }
     
     private func save() {
+        let minChangedIndex = minRemoveCardIndex! < minAddCardIndex! ? minRemoveCardIndex! : minAddCardIndex!
+
+        if minChangedIndex == (passedInNoteInfo?.numberOfCard)! && notes.count == (passedInNoteInfo?.numberOfCard)!
+        {
+            // case 1: no card added or removed
+            for i in changedCard {
+                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
+                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+            }
+        } else if minChangedIndex == (passedInNoteInfo?.numberOfCard)! && notes.count > (passedInNoteInfo?.numberOfCard)!
+        {
+            // case 2: card only add or removed after original length
+            for i in minChangedIndex..<notes.count {
+                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
+                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+            }
+            
+            for i in changedCard {
+                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
+                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+            }
+        } else
+        {
+            // case 3: card inserted or removed in original array range
+            for i in minChangedIndex..<(passedInNoteInfo?.numberOfCard)! {
+                CardContent.removeCardContent(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!)
+            }
+            for i in minChangedIndex..<notes.count {
+                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
+                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+            }
+            
+            for i in changedCard {
+                if i < minChangedIndex {
+                    notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
+                    notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+                } else {
+                    break
+                }
+            }
+        }
+        changedCard.removeAll()
+        
         passedInNoteInfo?.numberOfCard = notes.count
         let context = container?.viewContext
         _ = try? BasicNoteInfo.findOrCreate(matching: self.passedInNoteInfo!, in: context!)
         try? context?.save()
-        
-        for i in changedCard {
-            notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
-            notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
-        }
-        changedCard.removeAll()
     }
     
     private func showSavedPrompt() {
@@ -110,7 +155,9 @@ class NoteEditViewController: UIViewController {
     }
     
     @IBAction func exit(_ sender: UIButton) {
-        if changedCard.isEmpty {
+        let minChangedIndex = minRemoveCardIndex! < minAddCardIndex! ? minRemoveCardIndex! : minAddCardIndex!
+
+        if changedCard.isEmpty && minChangedIndex == (passedInNoteInfo?.numberOfCard)! && notes.count == (passedInNoteInfo?.numberOfCard)! {
             if let context = container?.viewContext {
                 _ = try? BasicNoteInfo.findOrCreate(matching: passedInNoteInfo!, in: context)
                 try? context.save()
@@ -186,6 +233,10 @@ extension NoteEditViewController {
         editCollectionView.reloadData()
         editCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
         editCollectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
+        
+        if var minIndex = minAddCardIndex, minIndex > index {
+            minIndex = index
+        }
     }
     
     func removeNoteCard(for cell: NoteEditCollectionViewCell) {
@@ -209,6 +260,10 @@ extension NoteEditViewController {
         editCollectionView.reloadData()
         editCollectionView.scrollToItem(at: IndexPath(item: index - 1, section: 0), at: .left, animated: true)
         editCollectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
+        
+        if var minIndex = minRemoveCardIndex, minIndex > index {
+            minIndex = index
+        }
     }
     
     func noteAddPhoto(for cell: NoteEditCollectionViewCell, with range: NSRange?) {
@@ -233,12 +288,16 @@ extension NoteEditViewController {
         if textViewType == "title" {
             if !notes[cardIndex].title.isEqual(to: textContent) {
                 notes[cardIndex].title = textContent
-                changedCard.insert(cardIndex)
+                if cardIndex < (passedInNoteInfo?.numberOfCard)! {
+                    changedCard.insert(cardIndex)
+                }
             }
         } else {
             if !notes[cardIndex].body.isEqual(to: textContent) {
                 notes[cardIndex].body = textContent
-                changedCard.insert(cardIndex)
+                if cardIndex < (passedInNoteInfo?.numberOfCard)! {
+                    changedCard.insert(cardIndex)
+                }
             }
         }
     }
