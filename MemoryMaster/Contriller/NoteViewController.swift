@@ -95,6 +95,7 @@ extension NoteViewController: SingleCollectionViewCellDelegate {
         }
         controller.passedInCardIndex = indexPath
         controller.container = self.container
+        controller.isFirstTimeEdit = false
         controller.delegate = self
         present(controller, animated: true, completion: nil)
     }
@@ -121,6 +122,7 @@ extension NoteViewController: QACollectionViewCellDelegate {
         }
         controller.passedInCardIndex = indexPath
         controller.container = self.container
+        controller.isFirstTimeEdit = false
         controller.delegate = self
         present(controller, animated: true, completion: nil)
     }

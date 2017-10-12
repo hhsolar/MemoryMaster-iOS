@@ -123,7 +123,7 @@ class LibraryViewController: UIViewController {
                 controller.passedInNoteInfo = passCard
                 controller.container = container
             }
-        }
+        } 
     }
 }
 

@@ -11,7 +11,7 @@ import UIKit
 protocol NoteEditCollectionViewCellDelegate: class {
     func addNoteCard(for cell: NoteEditCollectionViewCell)
     func removeNoteCard(for cell: NoteEditCollectionViewCell)
-    func noteAddPhoto(for cell: NoteEditCollectionViewCell, with range: NSRange?)
+    func noteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange)
     func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString)
 }
 
@@ -101,13 +101,19 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func addPhotoAction(_ sender: UIButton) {
-        var range: NSRange?
         if bodyTextView.isHidden {
-            range = titleTextView.selectedRange
+            var range = titleTextView.selectedRange
+            if range.location == NSNotFound {
+                range.location = titleTextView.text.count
+            }
+            delegate?.noteAddPhoto(for: titleTextView, at: cardIndex!, with: range)
         } else {
-            range = bodyTextView.selectedRange
+            var range = bodyTextView.selectedRange
+            if range.location == NSNotFound {
+                range.location = bodyTextView.text.count
+            }
+            delegate?.noteAddPhoto(for: bodyTextView, at: cardIndex!, with: range)
         }
-        delegate?.noteAddPhoto(for: self, with: range)
     }
  
     @objc func addCardAction(_ sender: UIButton) {

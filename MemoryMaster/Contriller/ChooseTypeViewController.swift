@@ -47,6 +47,7 @@ class ChooseTypeViewController: UIViewController {
             let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
             controller.passedInNoteInfo = noteInfo
             controller.container = self.container
+            controller.isFirstTimeEdit = true
             present(controller, animated: true, completion: {
                 self.view.alpha = 0
             })
@@ -69,6 +70,7 @@ class ChooseTypeViewController: UIViewController {
             let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
             controller.passedInNoteInfo = noteInfo
             controller.container = self.container
+            controller.isFirstTimeEdit = true
             present(controller, animated: true, completion: {
                 self.view.alpha = 0
             })

@@ -17,6 +17,7 @@ protocol NoteEditViewControllerDelegate: class {
 class NoteEditViewController: UIViewController {
 
     // public api
+    var isFirstTimeEdit = false
     var passedInNoteInfo: MyBasicNoteInfo? {
         didSet {
             minAddCardIndex = passedInNoteInfo?.numberOfCard
@@ -190,7 +191,7 @@ class NoteEditViewController: UIViewController {
     
     private func dismissView() {
         delegate?.passNoteInforBack(noteInfo: passedInNoteInfo!)
-        guard passedInCardIndex == nil else {
+        guard isFirstTimeEdit else {
             dismiss(animated: true, completion: nil)
             return
         }
@@ -275,22 +276,16 @@ extension NoteEditViewController {
         }
     }
     
-    func noteAddPhoto(for cell: NoteEditCollectionViewCell, with range: NSRange?) {
-        if cell.editingTextView != nil {
-            if let range = range, range.location != NSNotFound {
-                currentTextView = cell.editingTextView!
-                passInRange = range
-                currentCardIndex = cell.cardIndex!
-
-                let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-                controller.lastController = self
-                present(controller, animated: true, completion: {
-                    let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
-                    self.passedInCardIndex = indexPath
-                })
-            }
-        }
-        showAlert(title: "Error!", message: "Choose a place to get photo.")
+    func noteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange) {
+        currentTextView = textView
+        passInRange = range
+        currentCardIndex = index
+        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+        controller.lastController = self
+        present(controller, animated: true, completion: {
+            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
+            self.passedInCardIndex = indexPath
+        })
     }
     
     func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString) {
@@ -351,10 +346,7 @@ extension NoteEditViewController: TOCropViewControllerDelegate {
     private func updateTextView(_ text: NSAttributedString, image: UIImage) -> NSAttributedString {
         let imgTextAtta = NSTextAttachment()
         imgTextAtta.image = image
-        if var rg = passInRange {
-            if rg.location == NSNotFound {
-                rg.location = (currentTextView?.text.count)!
-            }
+        if let rg = passInRange {
             currentTextView?.textStorage.insert(NSAttributedString.init(attachment: imgTextAtta), at: rg.location)
         }
         return (currentTextView?.attributedText)!
