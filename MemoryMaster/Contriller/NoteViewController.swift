@@ -11,86 +11,74 @@ import CoreData
 import MMCardView
 
 class NoteViewController: BaseTopViewController {
-
-    @IBOutlet weak var collectionView: MMCollectionView! {
-        didSet {
-            collectionView.backgroundColor = CustomColor.weakGray
-        }
-    }
     
     // public api
-    var passedInNodeInfo: MyBasicNoteInfo?
+    var passedInNoteInfo: MyBasicNoteInfo?
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+
+    @IBOutlet weak var collectionView: MMCollectionView!
     
-    var singleNote: SingleNote?
-    var qaNote: QANote?
+    var notes = [CardContent]()
     
-    func updateUI(with noteInfo: MyBasicNoteInfo) {
-        if let context = container?.viewContext {
-            if noteInfo.type == NoteType.single.rawValue {
-                singleNote = try? SingleNote.findOrCreateNote(matching: noteInfo, in: context)
-            } else if noteInfo.type == NoteType.qa.rawValue {
-                qaNote = try? QANote.findOrCreateNote(matching: noteInfo, in: context)
-            }
-        }
-        collectionView.reloadData()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        if let note = passedInNodeInfo {
-            updateUI(with: note)
+        updateUI()
+    }
+    
+    func updateUI() {
+        if let info = passedInNoteInfo {
+            for i in 0..<info.numberOfCard {
+                let cardContent = CardContent.getCardContent(with: info.name, at: i, in: info.type)
+                notes.append(cardContent)
+            }
         }
     }
     
     override func setupUI() {
         super.setupUI()
-        super.titleLabel.text = passedInNodeInfo?.name ?? "Note name"
+        super.titleLabel.text = passedInNoteInfo?.name ?? "Note name"
+
+        // remove collection view top blank
+        self.automaticallyAdjustsScrollViewInsets = false
         
+        collectionView.backgroundColor = CustomColor.weakGray
         if let layout = collectionView.collectionViewLayout as? CustomCardLayout {
             layout.titleHeight = 50.0
             layout.bottomShowCount = 3
             layout.cardHeight = 450
             layout.showStyle = .cover
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // remove collection view top blank
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-        setupUI()
         
         let singleNib = UINib(nibName: "SingleCollectionViewCell", bundle: Bundle.main)
         collectionView.register(singleNib, forCellWithReuseIdentifier: "SingleCollectionViewCell")
         let qaNib = UINib(nibName: "QACollectionViewCell", bundle: Bundle.main)
         collectionView.register(qaNib, forCellWithReuseIdentifier: "QACollectionViewCell")
     }
+    
 }
 
 extension NoteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let singleNote = singleNote {
-            return Int(singleNote.numberOfCard)
-        } else if let qaNote = qaNote {
-            return Int(qaNote.numberOfCard)
-        }
-        return 0
+        return notes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if singleNote != nil {
+        if passedInNoteInfo?.type == NoteType.single.rawValue {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleCollectionViewCell", for: indexPath) as! SingleCollectionViewCell
             cell.delegate = self
             cell.cardIndexPath = indexPath
-            cell.updateCell(title: (singleNote?.titles[indexPath.row])!, body: (singleNote?.bodies[indexPath.row])!, index: indexPath.row + 1)
+            cell.updateCell(title: notes[indexPath.row].title.string, body: notes[indexPath.row].body, index: indexPath.row + 1)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QACollectionViewCell", for: indexPath) as! QACollectionViewCell
             cell.delegate = self
             cell.cardIndexPath = indexPath
-            cell.updateCell(question: (qaNote?.questions[indexPath.row])!, answer: (qaNote?.answers[indexPath.row])!, index: indexPath.row + 1)
+            cell.updateCell(question: notes[indexPath.row].title.string, answer: notes[indexPath.row].body, index: indexPath.row + 1)
             return cell
         }
     }
@@ -100,8 +88,8 @@ extension NoteViewController: SingleCollectionViewCellDelegate {
     func toSingleNoteEdit(with indexPath: IndexPath) {
         let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
 
-        if let note = passedInNodeInfo {
-            controller.passedInNoteInfo = MyBasicNoteInfo(id: Int(note.id), time: note.time, type: note.type, name: note.name, numberOfCard: Int(note.numberOfCard))
+        if let note = passedInNoteInfo {
+            controller.passedInNoteInfo = note
         }
         controller.passedInCardIndex = indexPath
         controller.container = self.container
@@ -110,11 +98,11 @@ extension NoteViewController: SingleCollectionViewCellDelegate {
     }
     
     func toSingleNoteRead(with indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ReadViewController") as! ReadViewController
+        let controller = ReadNoteViewController.init(nibName: "ReadNoteViewController", bundle: nil)
         
-        if let note = singleNote {
-            controller.passedInSingleNote = note
+        if let note = passedInNoteInfo {
+            controller.passedInNoteInfo = note
+            controller.passedInNotes = notes
         }
         controller.startCardIndexPath = indexPath
         
@@ -124,11 +112,10 @@ extension NoteViewController: SingleCollectionViewCellDelegate {
 
 extension NoteViewController: QACollectionViewCellDelegate {
     func toQANoteEdit(with indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "QAEditViewController") as! QAEditViewController
+        let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
         
-        if let note = passedInNodeInfo {
-            controller.passedInNoteInfo = MyBasicNoteInfo(id: Int(note.id), time: note.time, type: note.type, name: note.name, numberOfCard: Int(note.numberOfCard))
+        if let note = passedInNoteInfo {
+            controller.passedInNoteInfo = note
         }
         controller.passedInCardIndex = indexPath
         controller.container = self.container
@@ -137,11 +124,11 @@ extension NoteViewController: QACollectionViewCellDelegate {
     }
     
     func toQANoteRead(with indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ReadViewController") as! ReadViewController
+        let controller = ReadNoteViewController.init(nibName: "ReadNoteViewController", bundle: nil)
         
-        if let note = qaNote {
-            controller.passedInQANote = note
+        if let note = passedInNoteInfo {
+            controller.passedInNoteInfo = note
+            controller.passedInNotes = notes
         }
         controller.startCardIndexPath = indexPath
         
@@ -149,10 +136,11 @@ extension NoteViewController: QACollectionViewCellDelegate {
     }
     
     func toQANoteTest(with indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "TestViewController") as! TestViewController
-        if let note = qaNote {
-            controller.passedInQANote = note
+        let controller = TestNoteViewController.init(nibName: "TestNoteViewController", bundle: nil)
+        
+        if let note = passedInNoteInfo {
+            controller.passedInNoteInfo = note
+            controller.passedInNotes = notes
         }
         controller.startCardIndexPath = indexPath
 

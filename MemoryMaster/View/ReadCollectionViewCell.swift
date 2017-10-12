@@ -12,28 +12,31 @@ class ReadCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var bodyTextView: UITextView!
     
-    func updateUI(title: String, body: String, index: Int) {
+    func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) {
         let showString = NSMutableAttributedString(string: String(format: "%d. ", index), attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-        if title != "" {
-            let titleAtt = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
+        if noteType == NoteType.single.rawValue {
+            showString.append(title)
             let returnAtt = NSAttributedString(string: "\n\n")
-            showString.append(titleAtt)
             showString.append(returnAtt)
+            showString.append(body)
+        } else {
+            let questionString = NSAttributedString(string: "Question: ", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
+            showString.append(questionString)
+            showString.append(title)
+            let returnAtt = NSAttributedString(string: "\n\n")
+            showString.append(returnAtt)
+            let answerString = NSAttributedString(string: "Answer: ", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
+            showString.append(answerString)
+            showString.append(body)
         }
-        
-        let bodyAtt = NSAttributedString(string: body, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)] )
-        showString.append(bodyAtt)
-        print(showString)
-        
         bodyTextView.attributedText = showString
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         bodyTextView.isEditable = false
-//        self.layer.borderWidth = 1
-//        self.layer.borderColor = UIColor.black.cgColor
-        
+        bodyTextView.showsHorizontalScrollIndicator = false
+        bodyTextView.showsVerticalScrollIndicator = false
     }
 
 }

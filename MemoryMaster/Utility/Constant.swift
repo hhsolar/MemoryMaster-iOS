@@ -33,7 +33,7 @@ struct CustomSize {
     static let statusBarHeight: CGFloat = 20
     static let buttonWidth: CGFloat = 30
     static let barHeight: CGFloat = 44
-    static let titleLabelHeight: CGFloat = 22
+    static let titleLabelHeight: CGFloat = 24
 }
 
 struct LoginErrorCode {

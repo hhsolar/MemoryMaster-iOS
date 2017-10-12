@@ -21,16 +21,17 @@ class NoteEditViewController: UIViewController {
         }
     }
     
+    // public api for cell
+    var currentCardIndex: Int?
+    var currentTextView: UITextView?
+    var passInRange: NSRange?
+
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var editCollectionView: UICollectionView!
     
     var notes = [CardContent]()
     var changedCard = Set<Int>()
-    
-    var currentTextView: UITextView?
-    var passInRange: NSRange?
-    var currentCardIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,7 @@ class NoteEditViewController: UIViewController {
         }
     }
     
-    func updateUI() {
+    private func updateUI() {
         if let info = passedInNoteInfo {
             for i in 0..<info.numberOfCard {
                 let cardContent = CardContent.getCardContent(with: info.name, at: i, in: info.type)
@@ -54,7 +55,7 @@ class NoteEditViewController: UIViewController {
         }
     }
     
-    func setupUI()
+    private func setupUI()
     {
         titleLabel.text = passedInNoteInfo?.name ?? "No name"
         titleLabel.textColor = CustomColor.medianBlue
@@ -78,8 +79,8 @@ class NoteEditViewController: UIViewController {
         layout.minimumLineSpacing = 0
         editCollectionView.collectionViewLayout = layout
         
-        let nib = UINib(nibName: "SingleEditCollectionViewCell", bundle: Bundle.main)
-        editCollectionView.register(nib, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
+        editCollectionView.register(SingleEditCollectionViewCell.self, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
+        editCollectionView.register(QAEditCollectionViewCell.self, forCellWithReuseIdentifier: "QAEditCollectionViewCell")
     }
 
     @IBAction func saveNote(_ sender: UIButton) {
@@ -101,10 +102,11 @@ class NoteEditViewController: UIViewController {
     }
     
     private func showSavedPrompt() {
-        SVProgressHUD.setMaximumDismissTimeInterval(1)
+        SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setFadeInAnimationDuration(0.2)
-        SVProgressHUD.setFadeOutAnimationDuration(0.4)
         SVProgressHUD.showSuccess(withStatus: "Saved!")
+        SVProgressHUD.dismiss(withDelay: 0.9)
+        SVProgressHUD.setFadeOutAnimationDuration(0.4)
     }
     
     @IBAction func exit(_ sender: UIButton) {
@@ -151,32 +153,48 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let noteInfo = passedInNoteInfo {
+            if noteInfo.type == NoteType.single.rawValue {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
+                cell.singleCellDelegate = self
+                cell.delegate = self
+                cell.awakeFromNib()
+                cell.setNeedsLayout()
+                cell.updataCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count)
+                return cell
+            } else if noteInfo.type == NoteType.qa.rawValue {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
+                cell.qaCellDelegate = self
+                cell.delegate = self
+                cell.awakeFromNib()
+                cell.setNeedsLayout()
+                cell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count)
+                return cell
+            }
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
-        cell.delegate = self
-        cell.awakeFromNib()
-        cell.setNeedsLayout()
-        cell.updataCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count)
         return cell
     }
 }
 
-extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
-    func addCard(currentCell: SingleEditCollectionViewCell) {
+extension NoteEditViewController {
+    func addNoteCard(for cell: NoteEditCollectionViewCell) {
         let cardContent = CardContent(title: NSAttributedString.init(), body: NSAttributedString.init())
         editCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-        notes.insert(cardContent, at: currentCell.cardIndex!)
+        let index = cell.cardIndex! + 1
+        notes.insert(cardContent, at: index)
         editCollectionView.reloadData()
-        editCollectionView.scrollToItem(at: IndexPath(item: currentCell.cardIndex!, section: 0), at: .left, animated: true)
-        editCollectionView.reloadItems(at: [IndexPath(item: currentCell.cardIndex! - 1, section: 0)])
+        editCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
+        editCollectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
     }
     
-    func removeCard(for cell: SingleEditCollectionViewCell) {
+    func removeNoteCard(for cell: NoteEditCollectionViewCell) {
         if notes.count == 1 {
             self.showAlert(title: "Error!", message: "A note must has one item at least.")
             return
         }
-        let index = cell.cardIndex! - 1
-        
+        let index = cell.cardIndex!
+
         if index == 0 {
             editCollectionView.scrollToItem(at: IndexPath(item: index + 1, section: 0), at: .left, animated: true)
             notes.remove(at: index)
@@ -193,21 +211,13 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
         editCollectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
     }
     
-    func addTitle(for cell: SingleEditCollectionViewCell) {
-        if cell.titleButtonText == "ADD TITLE" {
-            cell.addTitle()
-        } else {
-            cell.removeTitle()
-        }
-    }
-    
-    func addPhoto(for cell: SingleEditCollectionViewCell, range: NSRange?) {
-        if cell.currentTextView != nil {
+    func noteAddPhoto(for cell: NoteEditCollectionViewCell, with range: NSRange?) {
+        if cell.editingTextView != nil {
             if let range = range, range.location != NSNotFound {
-                currentTextView = cell.currentTextView!
+                currentTextView = cell.editingTextView!
                 passInRange = range
-                currentCardIndex = cell.cardIndex! - 1
-                
+                currentCardIndex = cell.cardIndex!
+
                 let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
                 controller.lastController = self
                 present(controller, animated: true, completion: {
@@ -219,10 +229,38 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
         showAlert(title: "Error!", message: "Choose a place to get photo.")
     }
     
-    func changeTextContent(index: Int, titleText: NSAttributedString, bodyText: NSAttributedString) {
-        notes[index].title = titleText
-        notes[index].body = bodyText
-        changedCard.insert(index)
+    func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString) {
+        if textViewType == "title" {
+            if !notes[cardIndex].title.isEqual(to: textContent) {
+                notes[cardIndex].title = textContent
+                changedCard.insert(cardIndex)
+            }
+        } else {
+            if !notes[cardIndex].body.isEqual(to: textContent) {
+                notes[cardIndex].body = textContent
+                changedCard.insert(cardIndex)
+            }
+        }
+    }
+}
+
+extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
+    func singleNoteTitleEdit(for cell: SingleEditCollectionViewCell) {
+        if cell.titleButtonText == "ADD TITLE" {
+            cell.addTitle()
+        } else {
+            cell.removeTitle()
+        }
+    }
+    
+    func filpSingleNoteCard(for cell: SingleEditCollectionViewCell) {
+        cell.changeFilpButtonText()
+    }
+}
+
+extension NoteEditViewController: QAEditCollectionViewCellDelegate {
+    func filpQANoteCard(for cell: QAEditCollectionViewCell) {
+        cell.changeFilpButtonText()
     }
 }
 

@@ -1,17 +1,18 @@
 //
-//  TestViewController.swift
+//  TestNoteViewController.swift
 //  MemoryMaster
 //
-//  Created by apple on 4/10/2017.
+//  Created by apple on 11/10/2017.
 //  Copyright © 2017 greatwall. All rights reserved.
 //
 
 import UIKit
 
-class TestViewController: BaseTopViewController {
+class TestNoteViewController: BaseTopViewController {
 
     // public api
-    var passedInQANote: QANote?
+    var passedInNoteInfo: MyBasicNoteInfo?
+    var passedInNotes = [CardContent]()
     var startCardIndexPath: IndexPath?
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -19,15 +20,13 @@ class TestViewController: BaseTopViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
+
         setupUI()
-        let nib = UINib(nibName: "TestCollectionViewCell", bundle: Bundle.main)
-        collectionView?.register(nib, forCellWithReuseIdentifier: "TestCollectionViewCell")
-        
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(flipCard))
         tapRecognizer.numberOfTapsRequired = 1
         collectionView.addGestureRecognizer(tapRecognizer)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.setNeedsLayout()
@@ -38,7 +37,7 @@ class TestViewController: BaseTopViewController {
     
     override func setupUI() {
         super.setupUI()
-        super.titleLabel.text = passedInQANote?.name ?? "Name"
+        super.titleLabel.text = passedInNoteInfo?.name ?? "Name"
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -51,6 +50,9 @@ class TestViewController: BaseTopViewController {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         collectionView.collectionViewLayout = layout
+        
+        let nib = UINib(nibName: "TestCollectionViewCell", bundle: Bundle.main)
+        collectionView?.register(nib, forCellWithReuseIdentifier: "TestCollectionViewCell")
     }
     
     @objc func flipCard(byReactingTo tapRecognizer: UITapGestureRecognizer) {
@@ -69,21 +71,15 @@ class TestViewController: BaseTopViewController {
     }
 }
 
-extension TestViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TestNoteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let note = passedInQANote {
-            return Int(note.numberOfCard)
-        }
-        return 0
+        return passedInNotes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCollectionViewCell", for: indexPath) as! TestCollectionViewCell
-        if let note = passedInQANote {
-            cell.updateUI(question: note.questions[indexPath.row], answer: note.answers[indexPath.row], index: indexPath.row, total: Int(note.numberOfCard))
-        }
+        cell.updateUI(question: passedInNotes[indexPath.row].title, answer: passedInNotes[indexPath.row].body, index: indexPath.row, total: passedInNotes.count)
         return cell
     }
 }
-

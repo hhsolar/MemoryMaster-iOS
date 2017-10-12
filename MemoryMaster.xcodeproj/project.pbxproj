@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1800FBF21F85506500A9A703 /* QAEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF11F85506500A9A703 /* QAEditViewController.swift */; };
 		1800FBF51F8552B800A9A703 /* QAEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */; };
-		1800FBF61F8552B800A9A703 /* QAEditCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */; };
-		1800FBF81F85912900A9A703 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF71F85912900A9A703 /* TestViewController.swift */; };
 		1800FBFB1F85934500A9A703 /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FBF91F85934500A9A703 /* TestCollectionViewCell.swift */; };
 		1800FBFC1F85934500A9A703 /* TestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */; };
 		180500BB1F8AFA42006849B4 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */; };
@@ -22,6 +19,8 @@
 		184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */; };
 		184B330D1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184B330B1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib */; };
 		184B330F1F8B4BFF00EACD89 /* BaseTopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */; };
+		18C197051F8F31060072D8B9 /* ReadNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C197031F8F31060072D8B9 /* ReadNoteViewController.swift */; };
+		18C197061F8F31060072D8B9 /* ReadNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */; };
 		18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB441F81B7A1003249BE /* AppDelegate.swift */; };
 		18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C2AB481F81B7A1003249BE /* Main.storyboard */; };
 		18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */; };
@@ -35,9 +34,7 @@
 		18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB831F81CB88003249BE /* LibraryViewController.swift */; };
 		18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB851F81CB99003249BE /* MeViewController.swift */; };
 		18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */; };
-		18C2ABD31F821265003249BE /* SingleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD21F821265003249BE /* SingleEditViewController.swift */; };
 		18C2ABD61F82129C003249BE /* SingleEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD41F82129C003249BE /* SingleEditCollectionViewCell.swift */; };
-		18C2ABD71F82129C003249BE /* SingleEditCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C2ABD51F82129C003249BE /* SingleEditCollectionViewCell.xib */; };
 		18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD81F82A8A0003249BE /* NoteViewController.swift */; };
 		18C2ABDC1F82B469003249BE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB7F1F81CAC8003249BE /* Constant.swift */; };
 		18C2ABDD1F82B46D003249BE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB801F81CB10003249BE /* Extension.swift */; };
@@ -48,10 +45,6 @@
 		18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB941F81F4EB003249BE /* MyNote.swift */; };
 		18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB8E1F81F428003249BE /* BasicNoteInfo+CoreDataClass.swift */; };
 		18C2ABE41F82B4CB003249BE /* BasicNoteInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB8F1F81F428003249BE /* BasicNoteInfo+CoreDataProperties.swift */; };
-		18C2ABE51F82B4CE003249BE /* SingleNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB901F81F484003249BE /* SingleNote+CoreDataClass.swift */; };
-		18C2ABE61F82B4D1003249BE /* SingleNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB911F81F484003249BE /* SingleNote+CoreDataProperties.swift */; };
-		18C2ABE71F82B4D6003249BE /* QANote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB931F81F4D4003249BE /* QANote+CoreDataClass.swift */; };
-		18C2ABE81F82B4D9003249BE /* QANote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB921F81F4D4003249BE /* QANote+CoreDataProperties.swift */; };
 		18DBB8DE1F84307000B34228 /* BorderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8DD1F84307000B34228 /* BorderUIView.swift */; };
 		18DBB8E41F843F3C00B34228 /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8E21F843F3C00B34228 /* LibraryTableViewCell.swift */; };
 		18DBB8E51F843F3C00B34228 /* LibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8E31F843F3C00B34228 /* LibraryTableViewCell.xib */; };
@@ -59,10 +52,12 @@
 		18DBB8EF1F84983600B34228 /* SingleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8ED1F84983600B34228 /* SingleCollectionViewCell.xib */; };
 		18DBB8F21F849B3B00B34228 /* QACollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8F01F849B3B00B34228 /* QACollectionViewCell.swift */; };
 		18DBB8F31F849B3B00B34228 /* QACollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8F11F849B3B00B34228 /* QACollectionViewCell.xib */; };
-		18DBB8F51F84A6E400B34228 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8F41F84A6E400B34228 /* ReadViewController.swift */; };
 		18DBB8F81F84ABFB00B34228 /* ReadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DBB8F61F84ABFB00B34228 /* ReadCollectionViewCell.swift */; };
 		18DBB8F91F84ABFB00B34228 /* ReadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */; };
 		18E94AAA1F8DA20400525EDE /* appEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E94AA91F8DA20400525EDE /* appEnum.swift */; };
+		18E94AAF1F8DEAD500525EDE /* NoteEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E94AAD1F8DEAD400525EDE /* NoteEditCollectionViewCell.swift */; };
+		18F0BFD31F8F486700667D2A /* TestNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */; };
+		18F0BFD41F8F486700667D2A /* TestNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */; };
 		2711CC453476ED138685C908 /* Pods_MemoryMasterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */; };
 		4465F42D6924FD3E2DC2F580 /* Pods_MemoryMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */; };
 		ACD47326D9C2CBC6F9E62C8F /* Pods_MemoryMasterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EB29CC6D9B8B8078252289 /* Pods_MemoryMasterTests.framework */; };
@@ -87,10 +82,7 @@
 
 /* Begin PBXFileReference section */
 		08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMasterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1800FBF11F85506500A9A703 /* QAEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAEditViewController.swift; sourceTree = "<group>"; };
 		1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAEditCollectionViewCell.swift; sourceTree = "<group>"; };
-		1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QAEditCollectionViewCell.xib; sourceTree = "<group>"; };
-		1800FBF71F85912900A9A703 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1800FBF91F85934500A9A703 /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
 		1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionViewCell.xib; sourceTree = "<group>"; };
 		180500B91F8AF7D9006849B4 /* MemoryMaster-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemoryMaster-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -103,6 +95,8 @@
 		184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		184B330B1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerCollectionViewCell.xib; sourceTree = "<group>"; };
 		184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTopViewController.swift; sourceTree = "<group>"; };
+		18C197031F8F31060072D8B9 /* ReadNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadNoteViewController.swift; sourceTree = "<group>"; };
+		18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadNoteViewController.xib; sourceTree = "<group>"; };
 		18C2AB411F81B7A1003249BE /* MemoryMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C2AB441F81B7A1003249BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C2AB491F81B7A1003249BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,10 +118,6 @@
 		18C2AB851F81CB99003249BE /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		18C2AB8E1F81F428003249BE /* BasicNoteInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicNoteInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		18C2AB8F1F81F428003249BE /* BasicNoteInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicNoteInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		18C2AB901F81F484003249BE /* SingleNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SingleNote+CoreDataClass.swift"; sourceTree = "<group>"; };
-		18C2AB911F81F484003249BE /* SingleNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SingleNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		18C2AB921F81F4D4003249BE /* QANote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QANote+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		18C2AB931F81F4D4003249BE /* QANote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QANote+CoreDataClass.swift"; sourceTree = "<group>"; };
 		18C2AB941F81F4EB003249BE /* MyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNote.swift; sourceTree = "<group>"; };
 		18C2AB951F81FB60003249BE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MemoryMaster/Info.plist; sourceTree = "<group>"; };
 		18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTypeViewController.swift; sourceTree = "<group>"; };
@@ -135,9 +125,7 @@
 		18C2ABCE1F81FEAC003249BE /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		18C2ABCF1F81FEAC003249BE /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		18C2ABD01F81FEAC003249BE /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
-		18C2ABD21F821265003249BE /* SingleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEditViewController.swift; sourceTree = "<group>"; };
 		18C2ABD41F82129C003249BE /* SingleEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEditCollectionViewCell.swift; sourceTree = "<group>"; };
-		18C2ABD51F82129C003249BE /* SingleEditCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleEditCollectionViewCell.xib; sourceTree = "<group>"; };
 		18C2ABD81F82A8A0003249BE /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		18DBB8DD1F84307000B34228 /* BorderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderUIView.swift; sourceTree = "<group>"; };
 		18DBB8E21F843F3C00B34228 /* LibraryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,10 +134,12 @@
 		18DBB8ED1F84983600B34228 /* SingleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleCollectionViewCell.xib; sourceTree = "<group>"; };
 		18DBB8F01F849B3B00B34228 /* QACollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QACollectionViewCell.swift; sourceTree = "<group>"; };
 		18DBB8F11F849B3B00B34228 /* QACollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QACollectionViewCell.xib; sourceTree = "<group>"; };
-		18DBB8F41F84A6E400B34228 /* ReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
 		18DBB8F61F84ABFB00B34228 /* ReadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadCollectionViewCell.swift; sourceTree = "<group>"; };
 		18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadCollectionViewCell.xib; sourceTree = "<group>"; };
 		18E94AA91F8DA20400525EDE /* appEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appEnum.swift; sourceTree = "<group>"; };
+		18E94AAD1F8DEAD400525EDE /* NoteEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditCollectionViewCell.swift; sourceTree = "<group>"; };
+		18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNoteViewController.swift; sourceTree = "<group>"; };
+		18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestNoteViewController.xib; sourceTree = "<group>"; };
 		2789D4F38CD0B0EA3B7FD1CF /* Pods-MemoryMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests.release.xcconfig"; sourceTree = "<group>"; };
 		3A467CFD4623810156F0C071 /* Pods_MemoryMaster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMaster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6359A83F8410C39C854695BD /* Pods-MemoryMaster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMaster.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMaster/Pods-MemoryMaster.release.xcconfig"; sourceTree = "<group>"; };
@@ -256,10 +246,9 @@
 			children = (
 				18C2AB481F81B7A1003249BE /* Main.storyboard */,
 				18C2AB501F81B7A1003249BE /* LaunchScreen.storyboard */,
+				18E94AAD1F8DEAD400525EDE /* NoteEditCollectionViewCell.swift */,
 				18C2ABD41F82129C003249BE /* SingleEditCollectionViewCell.swift */,
-				18C2ABD51F82129C003249BE /* SingleEditCollectionViewCell.xib */,
 				1800FBF31F8552B800A9A703 /* QAEditCollectionViewCell.swift */,
-				1800FBF41F8552B800A9A703 /* QAEditCollectionViewCell.xib */,
 				18DBB8E21F843F3C00B34228 /* LibraryTableViewCell.swift */,
 				18DBB8E31F843F3C00B34228 /* LibraryTableViewCell.xib */,
 				18DBB8EC1F84983600B34228 /* SingleCollectionViewCell.swift */,
@@ -284,10 +273,6 @@
 				18C2AB4B1F81B7A1003249BE /* MemoryMaster.xcdatamodeld */,
 				18C2AB8E1F81F428003249BE /* BasicNoteInfo+CoreDataClass.swift */,
 				18C2AB8F1F81F428003249BE /* BasicNoteInfo+CoreDataProperties.swift */,
-				18C2AB901F81F484003249BE /* SingleNote+CoreDataClass.swift */,
-				18C2AB911F81F484003249BE /* SingleNote+CoreDataProperties.swift */,
-				18C2AB931F81F4D4003249BE /* QANote+CoreDataClass.swift */,
-				18C2AB921F81F4D4003249BE /* QANote+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -314,16 +299,16 @@
 				18C2AB831F81CB88003249BE /* LibraryViewController.swift */,
 				18C2AB851F81CB99003249BE /* MeViewController.swift */,
 				18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */,
-				18C2ABD21F821265003249BE /* SingleEditViewController.swift */,
-				1800FBF11F85506500A9A703 /* QAEditViewController.swift */,
 				18C2ABD81F82A8A0003249BE /* NoteViewController.swift */,
-				18DBB8F41F84A6E400B34228 /* ReadViewController.swift */,
-				1800FBF71F85912900A9A703 /* TestViewController.swift */,
 				184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */,
 				184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */,
 				184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */,
 				1813170B1F8D3C880099FE89 /* NoteEditViewController.swift */,
 				1813170C1F8D3C880099FE89 /* NoteEditViewController.xib */,
+				18C197031F8F31060072D8B9 /* ReadNoteViewController.swift */,
+				18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */,
+				18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */,
+				18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */,
 			);
 			path = Contriller;
 			sourceTree = "<group>";
@@ -484,13 +469,13 @@
 				184B330D1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.xib in Resources */,
 				18DBB8F31F849B3B00B34228 /* QACollectionViewCell.xib in Resources */,
 				18C2AB4F1F81B7A1003249BE /* Assets.xcassets in Resources */,
+				18C197061F8F31060072D8B9 /* ReadNoteViewController.xib in Resources */,
 				18C2AB4A1F81B7A1003249BE /* Main.storyboard in Resources */,
 				18DBB8EF1F84983600B34228 /* SingleCollectionViewCell.xib in Resources */,
 				184B33091F8AFCC600EACD89 /* ImagePickerViewController.xib in Resources */,
-				1800FBF61F8552B800A9A703 /* QAEditCollectionViewCell.xib in Resources */,
-				18C2ABD71F82129C003249BE /* SingleEditCollectionViewCell.xib in Resources */,
 				18DBB8E51F843F3C00B34228 /* LibraryTableViewCell.xib in Resources */,
 				18DBB8F91F84ABFB00B34228 /* ReadCollectionViewCell.xib in Resources */,
+				18F0BFD41F8F486700667D2A /* TestNoteViewController.xib in Resources */,
 				1800FBFC1F85934500A9A703 /* TestCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -654,7 +639,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18C2ABD31F821265003249BE /* SingleEditViewController.swift in Sources */,
 				18C2ABDF1F82B485003249BE /* DimmingPresentationController.swift in Sources */,
 				18C2ABE01F82B489003249BE /* GradientView.swift in Sources */,
 				1813170D1F8D3C880099FE89 /* NoteEditViewController.swift in Sources */,
@@ -663,37 +647,33 @@
 				181317101F8D7D850099FE89 /* NSAttributedString+Extension.swift in Sources */,
 				18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */,
 				184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */,
+				18C197051F8F31060072D8B9 /* ReadNoteViewController.swift in Sources */,
+				18E94AAF1F8DEAD500525EDE /* NoteEditCollectionViewCell.swift in Sources */,
 				184B33081F8AFCC600EACD89 /* ImagePickerViewController.swift in Sources */,
 				18DBB8DE1F84307000B34228 /* BorderUIView.swift in Sources */,
-				18C2ABE81F82B4D9003249BE /* QANote+CoreDataProperties.swift in Sources */,
 				18DBB8F21F849B3B00B34228 /* QACollectionViewCell.swift in Sources */,
 				18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */,
 				1800FBF51F8552B800A9A703 /* QAEditCollectionViewCell.swift in Sources */,
 				18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */,
-				18DBB8F51F84A6E400B34228 /* ReadViewController.swift in Sources */,
 				184B330F1F8B4BFF00EACD89 /* BaseTopViewController.swift in Sources */,
 				18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */,
 				18C2ABDD1F82B46D003249BE /* Extension.swift in Sources */,
 				1800FBFB1F85934500A9A703 /* TestCollectionViewCell.swift in Sources */,
 				18C2ABE41F82B4CB003249BE /* BasicNoteInfo+CoreDataProperties.swift in Sources */,
-				18C2ABE51F82B4CE003249BE /* SingleNote+CoreDataClass.swift in Sources */,
-				18C2ABE61F82B4D1003249BE /* SingleNote+CoreDataProperties.swift in Sources */,
-				1800FBF81F85912900A9A703 /* TestViewController.swift in Sources */,
 				18C2AB821F81CB4F003249BE /* ReciteViewController.swift in Sources */,
 				18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */,
 				18C2ABD61F82129C003249BE /* SingleEditCollectionViewCell.swift in Sources */,
+				18F0BFD31F8F486700667D2A /* TestNoteViewController.swift in Sources */,
 				18C2AB7E1F81C8F9003249BE /* LoginViewController.swift in Sources */,
 				18DBB8E41F843F3C00B34228 /* LibraryTableViewCell.swift in Sources */,
 				18E94AAA1F8DA20400525EDE /* appEnum.swift in Sources */,
 				18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */,
 				18C2ABE11F82B48C003249BE /* SlideOutAnimationController.swift in Sources */,
-				1800FBF21F85506500A9A703 /* QAEditViewController.swift in Sources */,
 				18C2ABDC1F82B469003249BE /* Constant.swift in Sources */,
 				180500BB1F8AFA42006849B4 /* UIImage+Extension.swift in Sources */,
 				18C2ABDE1F82B481003249BE /* BounceAnimationController.swift in Sources */,
 				18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */,
 				18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */,
-				18C2ABE71F82B4D6003249BE /* QANote+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

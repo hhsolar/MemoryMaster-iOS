@@ -66,8 +66,7 @@ class ChooseTypeViewController: UIViewController {
             }
             
             let noteInfo = MyBasicNoteInfo(id: MyBasicNoteInfo.nextNoteID(), time: Date(), type: NoteType.qa.rawValue, name: name, numberOfCard: 1)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "QAEditViewController") as! QAEditViewController
+            let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
             controller.passedInNoteInfo = noteInfo
             controller.container = self.container
             present(controller, animated: true, completion: {

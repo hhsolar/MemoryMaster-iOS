@@ -15,9 +15,6 @@ enum NoteType: String {
 }
 
 enum OutletTag: Int {
-    case contentTextView = 1
-    case titleTextView = 2
-    case bodyTextView = 3
-    case questionTextView = 4
-    case answerTextView = 5
+    case titleTextView = 1
+    case bodyTextView = 2
 }

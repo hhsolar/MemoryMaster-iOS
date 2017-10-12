@@ -46,9 +46,9 @@ class QACollectionViewCell: CardCell {
     
     weak var delegate: QACollectionViewCellDelegate?
     
-    func updateCell(question: String, answer: String, index: Int) {
+    func updateCell(question: String, answer: NSAttributedString, index: Int) {
         nameLabel.text = String(format: "%d. %@", index, question)
-        bodyLabel.text = answer
+        bodyLabel.attributedText = answer
     }
 
     override func awakeFromNib() {

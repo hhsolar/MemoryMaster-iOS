@@ -8,76 +8,82 @@
 
 import UIKit
 
-protocol QAEditCollectionViewCellDelegate: class {
-    func addCard(currentCell: QAEditCollectionViewCell)
-    func removeCard(for cell: QAEditCollectionViewCell)
-    func changeTextContent(index: Int, question: String, answer: String)
+protocol QAEditCollectionViewCellDelegate: NoteEditCollectionViewCellDelegate {
+    func filpQANoteCard(for cell: QAEditCollectionViewCell)
 }
 
-class QAEditCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet weak var backView: UIView!
-    @IBOutlet weak var indexLabel: UILabel!
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var answerLabel: UILabel!
-    @IBOutlet weak var questionTextView: UITextView!
-    @IBOutlet weak var answerTextView: UITextView!
+class QAEditCollectionViewCell: NoteEditCollectionViewCell {
     
-    var cardIndex: Int?
-    weak var delegate: QAEditCollectionViewCellDelegate?
+    let questionLabel = UILabel()
+    let answerLabel = UILabel()
+    let filpButton = UIButton()
     
-    var questionText: String? {
-        get {
-            return questionTextView.text
-        }
-    }
-    
-    var answerText: String? {
-        get {
-            return answerTextView.text
-        }
-    }
-    
-    @IBAction func deleteAction(_ sender: UIButton) {
-        delegate?.removeCard(for: self)
-    }
-    
-    @IBAction func addAction(_ sender: UIButton) {
-        delegate?.addCard(currentCell: self)
-    }
-    
-    func updateCell(with card: QACard, at index: Int, total: Int) {
-        cardIndex = index + 1
-        indexLabel.text = String.init(format: "%d / %d", cardIndex!, total)
-        questionTextView.text = card.question
-        answerTextView.text = card.answer
-    }
-
-    func setupUI()
-    {
-        backView.backgroundColor = UIColor.white
-        backView.layer.cornerRadius = 15
-        backView.layer.masksToBounds = true
-        
-        indexLabel.textColor = CustomColor.medianBlue
-        questionLabel.textColor = CustomColor.medianBlue
-        answerLabel.textColor = CustomColor.medianBlue
-        
-        questionTextView.delegate = self
-        answerTextView.delegate = self
-    }
+    weak var qaCellDelegate: QAEditCollectionViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
     }
-}
+    
+    override func setupUI()
+    {
+        super.setupUI()
+        let containerWidth = UIScreen.main.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2
+        
+        questionLabel.frame = CGRect(x: (containerWidth - 120) / 2, y: CustomDistance.viewToScreenEdgeDistance, width: 120, height: 24)
+        questionLabel.text = "QUESTION"
+        questionLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        questionLabel.textColor = CustomColor.medianBlue
+        questionLabel.textAlignment = .center
+        backView.addSubview(questionLabel)
+        
+        answerLabel.frame = CGRect(x: (containerWidth - 120) / 2, y: CustomDistance.viewToScreenEdgeDistance, width: 120, height: 24)
+        answerLabel.text = "ANSWER"
+        answerLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 22)
+        answerLabel.textColor = CustomColor.medianBlue
+        answerLabel.textAlignment = .center
+        answerLabel.isHidden = true
+        answerLabel.alpha = 0.0
+        backView.addSubview(answerLabel)
 
-extension QAEditCollectionViewCell: UITextViewDelegate {
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        delegate?.changeTextContent(index: cardIndex! - 1, question: questionText!, answer: answerText!)
+        filpButton.frame = CGRect(x: containerWidth - 28 - CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance - 2, width: 28, height: 28)
+        filpButton.setImage(UIImage.init(named: "filp_icon"), for: .normal)
+        filpButton.addTarget(self, action: #selector(filpCardAction), for: .touchUpInside)
+        backView.addSubview(filpButton)
+        
+        bodyTextView.isHidden = true
+    }
+    
+    func updateCell(with cardContent: CardContent, at index: Int, total: Int) {
+        super.cardIndex = index
+        super.indexLabel.text = String.init(format: "%d / %d", index + 1, total)
+        titleTextView.attributedText = cardContent.title
+        bodyTextView.attributedText = cardContent.body
+    }
+
+    @objc func filpCardAction(_ sender: UIButton) {
+        qaCellDelegate?.filpQANoteCard(for: self)
+    }
+    
+    func changeFilpButtonText() {
+        if titleTextView.isHidden {
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: {
+                self.questionLabel.alpha = 1.0
+                self.answerLabel.alpha = 0.0
+            }, completion: nil)
+            questionLabel.isHidden = false
+            answerLabel.isHidden = true
+            titlePresent()
+        } else {
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: {
+                self.questionLabel.alpha = 0.0
+                self.answerLabel.alpha = 1.0
+            }, completion: nil)
+            questionLabel.isHidden = true
+            answerLabel.isHidden = false
+            bodyPresent()
+        }
     }
 }
-
 
 

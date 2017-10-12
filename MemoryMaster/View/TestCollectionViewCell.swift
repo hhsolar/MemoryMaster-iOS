@@ -28,9 +28,9 @@ class TestCollectionViewCell: UICollectionViewCell {
         setupUI()
     }
     
-    func updateUI(question: String, answer: String, index: Int, total: Int) {
-        qTextView.text = question
-        aTextView.text = answer
+    func updateUI(question: NSAttributedString, answer: NSAttributedString, index: Int, total: Int) {
+        qTextView.attributedText = question
+        aTextView.attributedText = answer
         indexLabel.text = String(format: "%d / %d", index + 1, total)
     }
     
@@ -66,11 +66,13 @@ class TestCollectionViewCell: UICollectionViewCell {
         qTextView.font = UIFont(name: "Helvetica", size: 16)
         qTextView.textColor = UIColor.darkGray
         qTextView.backgroundColor = CustomColor.lightBlue
+        qTextView.showsVerticalScrollIndicator = false
         
         aTextView.isEditable = false
         aTextView.font = UIFont(name: "Helvetica", size: 16)
         aTextView.textColor = UIColor.darkGray
         aTextView.backgroundColor = CustomColor.lightGreen
+        aTextView.showsVerticalScrollIndicator = false
     }
     
     override func layoutSubviews() {

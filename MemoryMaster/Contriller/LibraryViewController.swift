@@ -120,7 +120,7 @@ class LibraryViewController: UIViewController {
             controller.container = self.container
             if let card = fetchedResultsController?.object(at: selectedCellIndex!) {
                 let passCard = MyBasicNoteInfo(id: Int(card.id), time: card.createTime as Date, type: card.type, name: card.name, numberOfCard: Int(card.numberOfCard))
-                controller.passedInNodeInfo = passCard
+                controller.passedInNoteInfo = passCard
                 controller.container = container
             }
         }

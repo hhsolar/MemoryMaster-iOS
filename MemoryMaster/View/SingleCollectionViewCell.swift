@@ -38,13 +38,13 @@ class SingleCollectionViewCell: CardCell {
     
     weak var delegate: SingleCollectionViewCellDelegate?
     
-    func updateCell(title: String, body: String, index: Int) {
+    func updateCell(title: String, body: NSAttributedString, index: Int) {
         if title == "" {
-            nameLabel.text = String(format: "%d. %@", index, body)
+            nameLabel.text = String(format: "%d. %@", index, body.string)
         } else {
             nameLabel.text = String(format: "%d. %@", index, title)
         }
-        bodyLabel.text = body
+        bodyLabel.attributedText = body
     }
     
     override func awakeFromNib() {
