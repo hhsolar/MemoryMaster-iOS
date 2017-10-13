@@ -363,6 +363,7 @@ extension NoteEditViewController: TOCropViewControllerDelegate {
         } else {
             notes[currentCardIndex!].body = updateTextView(notes[currentCardIndex!].body, image: insertImage!)
         }
+        changedCard.insert(currentCardIndex!)
         cropViewController.dismiss(animated: true) {
             let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
             self.editCollectionView.reloadItems(at: [indexPath])
