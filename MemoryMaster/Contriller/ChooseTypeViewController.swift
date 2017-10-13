@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ChooseTypeViewController: UIViewController {
+class ChooseTypeViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var popView: UIView!
     @IBOutlet weak var closeButton: UIButton!
@@ -98,6 +98,7 @@ class ChooseTypeViewController: UIViewController {
         nameTextField.layer.masksToBounds = true
         nameTextField.layer.borderWidth = 1
         nameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        nameTextField.delegate = self
         nameTextField.becomeFirstResponder()
         
         // right move the cursor
@@ -117,6 +118,10 @@ class ChooseTypeViewController: UIViewController {
         qaCardButton.setTitleColor(UIColor.white, for: .normal)
         qaCardButton.layer.cornerRadius = 10
         qaCardButton.layer.masksToBounds = true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
     }
 }
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SVProgressHUD
 
 class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegateFlowLayout {
 
@@ -46,9 +47,13 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
     
     private func getPhotoData() {
         photoAsset = UIImage.getPhotoAssets()
+        SVProgressHUD.show()
         UIImage.async_getLibraryThumbnails { (allSmallImageArray) in
             self.smallPhotoArray.append(contentsOf: allSmallImageArray)
+            print(self.smallPhotoArray[0])
+            SVProgressHUD.dismiss()
             self.photoCollectionView.reloadData()
+            print(self.smallPhotoArray[0])
         }
     }
 }

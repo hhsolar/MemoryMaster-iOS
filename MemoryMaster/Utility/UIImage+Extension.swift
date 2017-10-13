@@ -31,7 +31,7 @@ extension UIImage {
         return scaledImage
     }
     
-    // make the photo ti fit the UITextView size
+    // make the photo to fit the UITextView size
     class func scaleImageToFitTextView(_ image: UIImage, fit textViewWidth: CGFloat) -> UIImage? {
         if image.size.width <= textViewWidth {
             return image

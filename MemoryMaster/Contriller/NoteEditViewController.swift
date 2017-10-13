@@ -242,7 +242,7 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
     }
 }
 
-extension NoteEditViewController {
+extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
     func addNoteCard(for cell: NoteEditCollectionViewCell) {
         let cardContent = CardContent(title: NSAttributedString.init(), body: NSAttributedString.init())
         editCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
@@ -263,7 +263,7 @@ extension NoteEditViewController {
             return
         }
         let index = cell.cardIndex!
-
+        
         if index == 0 {
             editCollectionView.scrollToItem(at: IndexPath(item: index + 1, section: 0), at: .left, animated: true)
             notes.remove(at: index)
@@ -301,9 +301,7 @@ extension NoteEditViewController {
             }
         }
     }
-}
-
-extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
+    
     func singleNoteTitleEdit(for cell: SingleEditCollectionViewCell) {
         if cell.titleButtonText == "ADD TITLE" {
             cell.addTitle()
@@ -323,14 +321,8 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
         passInRange = range
         currentCardIndex = index
         addPhotoCellStatus = cellStatus
-        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-        controller.lastController = self
-        present(controller, animated: true, completion: {
-            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
-            self.passedInCardIndex = indexPath
-        })
+        showPhotoMenu()
     }
-
 }
 
 extension NoteEditViewController: QAEditCollectionViewCellDelegate {
@@ -343,14 +335,8 @@ extension NoteEditViewController: QAEditCollectionViewCellDelegate {
         passInRange = range
         currentCardIndex = index
         addPhotoCellStatus = cellStatus
-        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-        controller.lastController = self
-        present(controller, animated: true, completion: {
-            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
-            self.passedInCardIndex = indexPath
-        })
+        showPhotoMenu()
     }
-
 }
 
 extension NoteEditViewController: TOCropViewControllerDelegate {
@@ -380,3 +366,32 @@ extension NoteEditViewController: TOCropViewControllerDelegate {
     }
 }
 
+extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func showPhotoMenu() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        let takePhotoAction = UIAlertAction(title: "Take Photo", style: .default, handler: { _ in self.takePhotoWithCamera() })
+        alertController.addAction(takePhotoAction)
+        let chooseFormLibraryAction = UIAlertAction(title: "Choose From Library", style: .default, handler: { _ in self.choosePhotoFromLibrary() })
+        alertController.addAction(chooseFormLibraryAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func takePhotoWithCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+
+    func choosePhotoFromLibrary() {
+        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+        controller.lastController = self
+        present(controller, animated: true, completion: {
+            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
+            self.passedInCardIndex = indexPath
+        })
+    }
+}
