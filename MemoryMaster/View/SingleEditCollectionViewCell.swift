@@ -11,6 +11,8 @@ import UIKit
 protocol SingleEditCollectionViewCellDelegate: NoteEditCollectionViewCellDelegate {
     func singleNoteTitleEdit(for cell: SingleEditCollectionViewCell)
     func filpSingleNoteCard(for cell: SingleEditCollectionViewCell)
+    func singleNoteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange, cellStatus: CellStatus)
+
 }
 
 class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
@@ -61,30 +63,44 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         titleTextView.frame.size.height -= CustomSize.titleLabelHeight
         
         titleTextView.isHidden = true
+        
+        addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
     }
     
-    func updataCell(with cardContent: CardContent, at index: Int, total: Int) {
+    func updataCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {
         super.cardIndex = index
         super.indexLabel.text = String.init(format: "%d / %d", index + 1, total)
         
         bodyTextView.attributedText = cardContent.body
-        if cardContent.title != NSAttributedString.init() {
-            addTitle()
+        switch cellStatus {
+        case .titleFront:
             titleTextView.attributedText = cardContent.title
-        } else {
+            addTitle()
+            titleTextView.isHidden = false
+            bodyTextView.isHidden = true
+            titleTextView.alpha = 1.0
+            bodyTextView.alpha = 0.0
+        case .bodyFrontWithTitle:
+            titleTextView.attributedText = cardContent.title
+            addTitle()
+            titleTextView.isHidden = true
+            bodyTextView.isHidden = false
+            titleTextView.alpha = 0.0
+            bodyTextView.alpha = 1.0
+        default:
             removeTitle()
+            titleTextView.isHidden = true
+            bodyTextView.isHidden = false
+            titleTextView.alpha = 0.0
+            bodyTextView.alpha = 1.0
         }
-    }
-    
-    @objc func addTitleAction(_ sender: UIButton) {
-        singleCellDelegate?.singleNoteTitleEdit(for: self)
+        
     }
     
     func addTitle() {
         titleButtonText = "REMOVE TITLE"
         addTitleButton.setTitle(titleButtonText, for: .normal)
         
-        titlePresent()
         titleLabel.isHidden = false
         
         filpButton.setImage(UIImage.init(named: "filp_icon"), for: .normal)
@@ -95,12 +111,35 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         titleButtonText = "ADD TITLE"
         addTitleButton.setTitle(titleButtonText, for: .normal)
         
-        bodyPresent()
         titleLabel.isHidden = true
         titleTextView.attributedText = NSAttributedString()
         
         filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
         filpButton.isEnabled = false
+    }
+    
+    @objc func addTitleAction(_ sender: UIButton) {
+        singleCellDelegate?.singleNoteTitleEdit(for: self)
+    }
+    
+    @objc func addPhotoAction(_ sender: UIButton) {
+        if bodyTextView.isHidden {
+            var range = titleTextView.selectedRange
+            if range.location == NSNotFound {
+                range.location = titleTextView.text.count
+            }
+            singleCellDelegate?.singleNoteAddPhoto(for: titleTextView, at: cardIndex!, with: range, cellStatus: CellStatus.titleFront)
+        } else {
+            var range = bodyTextView.selectedRange
+            if range.location == NSNotFound {
+                range.location = bodyTextView.text.count
+            }
+            if filpButton.isEnabled {
+                singleCellDelegate?.singleNoteAddPhoto(for: bodyTextView, at: cardIndex!, with: range, cellStatus: CellStatus.bodyFrontWithTitle)
+            } else {
+                singleCellDelegate?.singleNoteAddPhoto(for: bodyTextView, at: cardIndex!, with: range, cellStatus: CellStatus.bodyFrontWithoutTitle)
+            }
+        }
     }
     
     @objc func filpCardAction(_ sender: UIButton) {

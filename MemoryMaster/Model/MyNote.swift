@@ -48,7 +48,5 @@ struct CardContent {
         } catch {
             print("Error removing file: \(error)")
         }
-    }
-
-    
+    }    
 }

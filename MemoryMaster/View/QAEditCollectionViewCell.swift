@@ -10,6 +10,8 @@ import UIKit
 
 protocol QAEditCollectionViewCellDelegate: NoteEditCollectionViewCellDelegate {
     func filpQANoteCard(for cell: QAEditCollectionViewCell)
+    func qaNoteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange, cellStatus: CellStatus)
+
 }
 
 class QAEditCollectionViewCell: NoteEditCollectionViewCell {
@@ -52,17 +54,54 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
         backView.addSubview(filpButton)
         
         bodyTextView.isHidden = true
+        
+        addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
     }
     
-    func updateCell(with cardContent: CardContent, at index: Int, total: Int) {
+    func updateCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {
         super.cardIndex = index
         super.indexLabel.text = String.init(format: "%d / %d", index + 1, total)
         titleTextView.attributedText = cardContent.title
         bodyTextView.attributedText = cardContent.body
+        if cellStatus == CellStatus.titleFront {
+            questionLabel.alpha = 1.0
+            answerLabel.alpha = 0.0
+            questionLabel.isHidden = false
+            answerLabel.isHidden = true
+            titleTextView.alpha = 1.0
+            bodyTextView.alpha = 0.0
+            titleTextView.isHidden = false
+            bodyTextView.isHidden = true
+        } else {
+            questionLabel.alpha = 0.0
+            answerLabel.alpha = 1.0
+            questionLabel.isHidden = true
+            answerLabel.isHidden = false
+            titleTextView.alpha = 0.0
+            bodyTextView.alpha = 1.0
+            titleTextView.isHidden = true
+            bodyTextView.isHidden = false
+        }
     }
 
     @objc func filpCardAction(_ sender: UIButton) {
         qaCellDelegate?.filpQANoteCard(for: self)
+    }
+    
+    @objc func addPhotoAction(_ sender: UIButton) {
+        if bodyTextView.isHidden {
+            var range = titleTextView.selectedRange
+            if range.location == NSNotFound {
+                range.location = titleTextView.text.count
+            }
+            qaCellDelegate?.qaNoteAddPhoto(for: titleTextView, at: cardIndex!, with: range, cellStatus: CellStatus.titleFront)
+        } else {
+            var range = bodyTextView.selectedRange
+            if range.location == NSNotFound {
+                range.location = bodyTextView.text.count
+            }
+            qaCellDelegate?.qaNoteAddPhoto(for: bodyTextView, at: cardIndex!, with: range, cellStatus: CellStatus.bodyFrontWithTitle)
+        }
     }
     
     func changeFilpButtonText() {

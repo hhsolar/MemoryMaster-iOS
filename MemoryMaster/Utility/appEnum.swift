@@ -18,3 +18,9 @@ enum OutletTag: Int {
     case titleTextView = 1
     case bodyTextView = 2
 }
+
+enum CellStatus {
+    case titleFront
+    case bodyFrontWithTitle
+    case bodyFrontWithoutTitle
+}

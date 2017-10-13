@@ -11,7 +11,6 @@ import UIKit
 protocol NoteEditCollectionViewCellDelegate: class {
     func addNoteCard(for cell: NoteEditCollectionViewCell)
     func removeNoteCard(for cell: NoteEditCollectionViewCell)
-    func noteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange)
     func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString)
 }
 
@@ -86,7 +85,6 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         addPhotoButton.frame = removeCardButton.frame
         addPhotoButton.frame.origin.x = (backView.bounds.width - CustomSize.buttonWidth) / 2
         addPhotoButton.setImage(UIImage.init(named: "photo_icon"), for: .normal)
-        addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
         backView.addSubview(addPhotoButton)
         
         addCardButton.frame = removeCardButton.frame
@@ -98,22 +96,6 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         
     @objc func removeCardAction(_ sender: UIButton) {
         delegate?.removeNoteCard(for: self)
-    }
-    
-    @objc func addPhotoAction(_ sender: UIButton) {
-        if bodyTextView.isHidden {
-            var range = titleTextView.selectedRange
-            if range.location == NSNotFound {
-                range.location = titleTextView.text.count
-            }
-            delegate?.noteAddPhoto(for: titleTextView, at: cardIndex!, with: range)
-        } else {
-            var range = bodyTextView.selectedRange
-            if range.location == NSNotFound {
-                range.location = bodyTextView.text.count
-            }
-            delegate?.noteAddPhoto(for: bodyTextView, at: cardIndex!, with: range)
-        }
     }
  
     @objc func addCardAction(_ sender: UIButton) {

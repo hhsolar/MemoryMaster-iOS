@@ -22,6 +22,11 @@ class NoteEditViewController: UIViewController {
         didSet {
             minAddCardIndex = passedInNoteInfo?.numberOfCard
             minRemoveCardIndex = passedInNoteInfo?.numberOfCard
+            if passedInNoteInfo?.type == NoteType.single.rawValue {
+                addPhotoCellStatus = CellStatus.bodyFrontWithoutTitle
+            } else if passedInNoteInfo?.type == NoteType.qa.rawValue {
+                addPhotoCellStatus = CellStatus.titleFront
+            }
         }
     }
     var passedInCardIndex: IndexPath?
@@ -35,6 +40,7 @@ class NoteEditViewController: UIViewController {
     var currentCardIndex: Int?
     var currentTextView: UITextView?
     var passInRange: NSRange?
+    var addPhotoCellStatus: CellStatus?
 
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -217,7 +223,8 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.delegate = self
                 cell.awakeFromNib()
                 cell.setNeedsLayout()
-                cell.updataCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count)
+                cell.updataCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCellStatus!)
+                addPhotoCellStatus = CellStatus.bodyFrontWithoutTitle
                 return cell
             } else if noteInfo.type == NoteType.qa.rawValue {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
@@ -225,7 +232,8 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.delegate = self
                 cell.awakeFromNib()
                 cell.setNeedsLayout()
-                cell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count)
+                cell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCellStatus!)
+                addPhotoCellStatus = CellStatus.titleFront
                 return cell
             }
         }
@@ -276,18 +284,6 @@ extension NoteEditViewController {
         }
     }
     
-    func noteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange) {
-        currentTextView = textView
-        passInRange = range
-        currentCardIndex = index
-        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-        controller.lastController = self
-        present(controller, animated: true, completion: {
-            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
-            self.passedInCardIndex = indexPath
-        })
-    }
-    
     func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString) {
         if textViewType == "title" {
             if !notes[cardIndex].title.isEqual(to: textContent) {
@@ -311,20 +307,50 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
     func singleNoteTitleEdit(for cell: SingleEditCollectionViewCell) {
         if cell.titleButtonText == "ADD TITLE" {
             cell.addTitle()
+            cell.titlePresent()
         } else {
             cell.removeTitle()
+            cell.bodyPresent()
         }
     }
     
     func filpSingleNoteCard(for cell: SingleEditCollectionViewCell) {
         cell.changeFilpButtonText()
     }
+    
+    func singleNoteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange, cellStatus: CellStatus) {
+        currentTextView = textView
+        passInRange = range
+        currentCardIndex = index
+        addPhotoCellStatus = cellStatus
+        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+        controller.lastController = self
+        present(controller, animated: true, completion: {
+            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
+            self.passedInCardIndex = indexPath
+        })
+    }
+
 }
 
 extension NoteEditViewController: QAEditCollectionViewCellDelegate {
     func filpQANoteCard(for cell: QAEditCollectionViewCell) {
         cell.changeFilpButtonText()
     }
+    
+    func qaNoteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange, cellStatus: CellStatus) {
+        currentTextView = textView
+        passInRange = range
+        currentCardIndex = index
+        addPhotoCellStatus = cellStatus
+        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+        controller.lastController = self
+        present(controller, animated: true, completion: {
+            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
+            self.passedInCardIndex = indexPath
+        })
+    }
+
 }
 
 extension NoteEditViewController: TOCropViewControllerDelegate {
