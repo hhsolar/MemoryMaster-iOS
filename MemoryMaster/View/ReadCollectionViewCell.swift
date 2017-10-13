@@ -30,6 +30,9 @@ class ReadCollectionViewCell: UICollectionViewCell {
             showString.append(body)
         }
         bodyTextView.attributedText = showString
+        
+        // make the TextView show form the top
+        bodyTextView.scrollRangeToVisible(NSRange.init(location: 0, length: 1))
     }
     
     override func awakeFromNib() {
@@ -38,5 +41,4 @@ class ReadCollectionViewCell: UICollectionViewCell {
         bodyTextView.showsHorizontalScrollIndicator = false
         bodyTextView.showsVerticalScrollIndicator = false
     }
-
 }

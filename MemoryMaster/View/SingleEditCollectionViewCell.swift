@@ -94,7 +94,6 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             titleTextView.alpha = 0.0
             bodyTextView.alpha = 1.0
         }
-        
     }
     
     func addTitle() {
