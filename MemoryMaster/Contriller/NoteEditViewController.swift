@@ -385,6 +385,15 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let controller = TOCropViewController.init(image: image!)
+        controller.delegate = self
+        dismiss(animated: true, completion: {
+            self.present(controller, animated: true, completion: nil)
+        })
+    }
 
     func choosePhotoFromLibrary() {
         let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
