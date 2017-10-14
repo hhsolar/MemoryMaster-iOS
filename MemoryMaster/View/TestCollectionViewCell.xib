@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6m-Go-Nbz">
-                        <rect key="frame" x="20" y="20" width="248" height="388"/>
+                        <rect key="frame" x="12" y="12" width="264" height="404"/>
                         <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                     </view>
@@ -28,12 +27,11 @@
             </view>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="M6m-Go-Nbz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="Scv-mG-lc0"/>
-                <constraint firstAttribute="bottom" secondItem="M6m-Go-Nbz" secondAttribute="bottom" constant="20" id="Uzh-pN-9EC"/>
-                <constraint firstAttribute="trailing" secondItem="M6m-Go-Nbz" secondAttribute="trailing" constant="20" id="eKb-qT-nds"/>
-                <constraint firstItem="M6m-Go-Nbz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="fj3-um-Njv"/>
+                <constraint firstItem="M6m-Go-Nbz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="Scv-mG-lc0"/>
+                <constraint firstAttribute="bottom" secondItem="M6m-Go-Nbz" secondAttribute="bottom" constant="12" id="Uzh-pN-9EC"/>
+                <constraint firstAttribute="trailing" secondItem="M6m-Go-Nbz" secondAttribute="trailing" constant="12" id="eKb-qT-nds"/>
+                <constraint firstItem="M6m-Go-Nbz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="fj3-um-Njv"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="288" height="428"/>
             <connections>
                 <outlet property="containerView" destination="M6m-Go-Nbz" id="ZB5-gN-23L"/>

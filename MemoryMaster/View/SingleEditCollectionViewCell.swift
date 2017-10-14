@@ -52,16 +52,15 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
         filpButton.isEnabled = false
         
-        titleLabel.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance * 2 + indexLabel.bounds.height, width: 80, height: CustomSize.titleLabelHeight)
+        backView.addSubview(titleLabel)
+        titleLabel.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance * 2 + CustomSize.titleLabelHeight, width: 80, height: CustomSize.titleLabelHeight)
         titleLabel.text = "Title:"
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         titleLabel.textColor = CustomColor.medianBlue
-        backView.addSubview(titleLabel)
         titleLabel.isHidden = true
         
         titleTextView.frame.origin.y += CustomSize.titleLabelHeight
         titleTextView.frame.size.height -= CustomSize.titleLabelHeight
-        
         titleTextView.isHidden = true
         
         addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)

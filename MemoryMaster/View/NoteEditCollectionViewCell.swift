@@ -93,7 +93,7 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         addCardButton.addTarget(self, action: #selector(addCardAction), for: .touchUpInside)
         backView.addSubview(addCardButton)
     }
-        
+    
     @objc func removeCardAction(_ sender: UIButton) {
         delegate?.removeNoteCard(for: self)
     }

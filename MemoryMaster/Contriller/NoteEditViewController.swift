@@ -103,7 +103,7 @@ class NoteEditViewController: UIViewController {
         editCollectionView.register(SingleEditCollectionViewCell.self, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
         editCollectionView.register(QAEditCollectionViewCell.self, forCellWithReuseIdentifier: "QAEditCollectionViewCell")
     }
-
+    
     @IBAction func saveNote(_ sender: UIButton) {
         save()
         showSavedPrompt()
@@ -221,8 +221,8 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
                 cell.singleCellDelegate = self
                 cell.delegate = self
-                cell.awakeFromNib()
                 cell.setNeedsLayout()
+                cell.awakeFromNib()
                 cell.updataCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCellStatus!)
                 addPhotoCellStatus = CellStatus.bodyFrontWithoutTitle
                 return cell
@@ -230,8 +230,8 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
                 cell.qaCellDelegate = self
                 cell.delegate = self
-                cell.awakeFromNib()
                 cell.setNeedsLayout()
+                cell.awakeFromNib()
                 cell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCellStatus!)
                 addPhotoCellStatus = CellStatus.titleFront
                 return cell
