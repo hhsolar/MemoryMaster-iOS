@@ -61,12 +61,6 @@ class NoteEditViewController: UIViewController {
         swipeRecognizer.direction = .down
         swipeRecognizer.numberOfTouchesRequired = 1
         editCollectionView.addGestureRecognizer(swipeRecognizer)
-        
-        self.registerForKeyboardNotifications()
-    }
-    
-    private func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
     
     @objc private func keyboardWasShown(notification: Notification) {
@@ -78,6 +72,8 @@ class NoteEditViewController: UIViewController {
         cell.indexLabel.isHidden = true
         cell.addPhotoBtnWithKB.isHidden = false
         cell.addPhotoBtnWithKB.isEnabled = true
+        
+        cell.cutTextView(KBHeight: keyBoardHeight)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +82,11 @@ class NoteEditViewController: UIViewController {
         if let cardIndex = passedInCardIndex {
             editCollectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
         }
+        self.registerForKeyboardNotifications()
+    }
+    
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -138,6 +139,7 @@ class NoteEditViewController: UIViewController {
             cell.indexLabel.isHidden = false
             cell.addPhotoBtnWithKB.isHidden = true
             cell.addPhotoBtnWithKB.isEnabled = false
+            cell.extendTextView()
         }
     }
     
@@ -240,7 +242,7 @@ class NoteEditViewController: UIViewController {
         }
         let controller = self.presentingViewController?.presentingViewController
         controller?.dismiss(animated: true, completion: nil)
-    }
+    }    
 }
 
 extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewDataSource {

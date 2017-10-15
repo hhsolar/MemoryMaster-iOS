@@ -48,12 +48,11 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
     private func getPhotoData() {
         photoAsset = UIImage.getPhotoAssets()
         SVProgressHUD.show()
-        UIImage.async_getLibraryThumbnails { (allSmallImageArray) in
-            self.smallPhotoArray.append(contentsOf: allSmallImageArray)
-            print(self.smallPhotoArray[0])
+        UIImage.async_getLibraryThumbnails { [weak self] (allSmallImageArray) in
+            self?.smallPhotoArray.append(contentsOf: allSmallImageArray)
             SVProgressHUD.dismiss()
-            self.photoCollectionView.reloadData()
-            print(self.smallPhotoArray[0])
+            self?.photoCollectionView.reloadData()
+            self?.photoCollectionView.scrollToItem(at: IndexPath(item: (self?.smallPhotoArray.count )! - 1, section: 0), at: .top, animated: false)
         }
     }
 }

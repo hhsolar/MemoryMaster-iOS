@@ -71,7 +71,7 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         titleTextView.showsVerticalScrollIndicator = false
         titleTextView.delegate = self
         backView.addSubview(titleTextView)
-
+        
         bodyTextView.frame = titleTextView.frame
         bodyTextView.font = UIFont(name: "HelveticaNeue", size: 15)
         bodyTextView.tag = OutletTag.bodyTextView.rawValue
@@ -108,6 +108,14 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
  
     @objc func addCardAction(_ sender: UIButton) {
         delegate?.addNoteCard(for: self)
+    }
+    
+    func cutTextView(KBHeight: CGFloat) {
+        editingTextView?.frame.size.height = backView.bounds.height - KBHeight - CustomSize.titleLabelHeight * 2 - CustomDistance.viewToScreenEdgeDistance
+    }
+    
+    func extendTextView() {
+        editingTextView?.frame.size.height = backView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 4 - CustomSize.titleLabelHeight - CustomSize.buttonWidth
     }
     
     func titlePresent() {
