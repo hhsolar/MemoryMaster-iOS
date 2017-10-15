@@ -12,6 +12,7 @@ protocol NoteEditCollectionViewCellDelegate: class {
     func addNoteCard(for cell: NoteEditCollectionViewCell)
     func removeNoteCard(for cell: NoteEditCollectionViewCell)
     func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString)
+    func passCardIndexBack(cardIndex: Int)
 }
 
 class NoteEditCollectionViewCell: UICollectionViewCell {
@@ -23,6 +24,7 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
     let removeCardButton = UIButton()
     let addPhotoButton = UIButton()
     let addCardButton = UIButton()
+    let addPhotoBtnWithKB = UIButton()
     
     var cardIndex: Int?
     var editingTextView: UITextView?
@@ -92,6 +94,12 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         addCardButton.setImage(UIImage.init(named: "addNote_icon"), for: .normal)
         addCardButton.addTarget(self, action: #selector(addCardAction), for: .touchUpInside)
         backView.addSubview(addCardButton)
+        
+        addPhotoBtnWithKB.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance - 2, width: 28, height: 28)
+        addPhotoBtnWithKB.setImage(UIImage.init(named: "photo_icon"), for: .normal)
+        backView.addSubview(addPhotoBtnWithKB)
+        addPhotoBtnWithKB.isHidden = true
+        addPhotoBtnWithKB.isEnabled = false
     }
     
     @objc func removeCardAction(_ sender: UIButton) {
@@ -132,5 +140,6 @@ extension NoteEditCollectionViewCell: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         editingTextView = textView
+        delegate?.passCardIndexBack(cardIndex: cardIndex!)
     }
 }

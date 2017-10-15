@@ -51,6 +51,7 @@ class NoteEditViewController: UIViewController {
     var minRemoveCardIndex: Int?
     
     weak var delegate: NoteEditViewControllerDelegate?
+    var keyBoardHeight: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,23 @@ class NoteEditViewController: UIViewController {
         swipeRecognizer.direction = .down
         swipeRecognizer.numberOfTouchesRequired = 1
         editCollectionView.addGestureRecognizer(swipeRecognizer)
+        
+        self.registerForKeyboardNotifications()
+    }
+    
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+    }
+    
+    @objc private func keyboardWasShown(notification: Notification) {
+        let info = notification.userInfo! as NSDictionary
+        let nsValue = info.object(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        keyBoardHeight = nsValue.cgRectValue.size.height
+        let indexPath = IndexPath(item: currentCardIndex!, section: 0)
+        let cell = editCollectionView.cellForItem(at: indexPath) as! NoteEditCollectionViewCell
+        cell.indexLabel.isHidden = true
+        cell.addPhotoBtnWithKB.isHidden = false
+        cell.addPhotoBtnWithKB.isEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +86,11 @@ class NoteEditViewController: UIViewController {
         if let cardIndex = passedInCardIndex {
             editCollectionView.scrollToItem(at: cardIndex, at: .left, animated: false)
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func updateUI() {
@@ -109,10 +132,12 @@ class NoteEditViewController: UIViewController {
     
     @objc func returnKeyBoard(byReactiongTo swipeRecognizer: UISwipeGestureRecognizer) {
         if swipeRecognizer.state == .ended {
-            let tapPoint = swipeRecognizer.location(in: editCollectionView)
-            let indexPath = editCollectionView.indexPathForItem(at: tapPoint)
-            let cell = editCollectionView.cellForItem(at: indexPath!) as! NoteEditCollectionViewCell
+            let indexPath = IndexPath(item: currentCardIndex!, section: 0)
+            let cell = editCollectionView.cellForItem(at: indexPath) as! NoteEditCollectionViewCell
             cell.editingTextView?.resignFirstResponder()
+            cell.indexLabel.isHidden = false
+            cell.addPhotoBtnWithKB.isHidden = true
+            cell.addPhotoBtnWithKB.isEnabled = false
         }
     }
     
@@ -339,6 +364,11 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
         addPhotoCellStatus = cellStatus
         showPhotoMenu()
     }
+    
+    func passCardIndexBack(cardIndex: Int) {
+        currentCardIndex = cardIndex
+    }
+    
 }
 
 extension NoteEditViewController: QAEditCollectionViewCellDelegate {

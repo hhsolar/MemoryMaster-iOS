@@ -64,6 +64,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         titleTextView.isHidden = true
         
         addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        addPhotoBtnWithKB.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
     }
     
     func updataCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {
