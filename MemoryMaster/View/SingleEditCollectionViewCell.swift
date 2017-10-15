@@ -79,6 +79,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             bodyTextView.isHidden = true
             titleTextView.alpha = 1.0
             bodyTextView.alpha = 0.0
+            titleLabel.isHidden = false
         case .bodyFrontWithTitle:
             titleTextView.attributedText = cardContent.title
             addTitle()
@@ -86,12 +87,14 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             bodyTextView.isHidden = false
             titleTextView.alpha = 0.0
             bodyTextView.alpha = 1.0
+            titleLabel.isHidden = true
         default:
             removeTitle()
             titleTextView.isHidden = true
             bodyTextView.isHidden = false
             titleTextView.alpha = 0.0
             bodyTextView.alpha = 1.0
+            titleLabel.isHidden = true
         }
     }
     

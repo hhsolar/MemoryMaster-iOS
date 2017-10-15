@@ -22,9 +22,7 @@ class NoteEditViewController: UIViewController {
         didSet {
             minAddCardIndex = passedInNoteInfo?.numberOfCard
             minRemoveCardIndex = passedInNoteInfo?.numberOfCard
-            if passedInNoteInfo?.type == NoteType.single.rawValue {
-                addPhotoCellStatus = CellStatus.bodyFrontWithoutTitle
-            } else if passedInNoteInfo?.type == NoteType.qa.rawValue {
+            if passedInNoteInfo?.type == NoteType.qa.rawValue {
                 addPhotoCellStatus = CellStatus.titleFront
             }
         }
@@ -57,6 +55,11 @@ class NoteEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(returnKeyBoard))
+        swipeRecognizer.direction = .down
+        swipeRecognizer.numberOfTouchesRequired = 1
+        editCollectionView.addGestureRecognizer(swipeRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,6 +105,15 @@ class NoteEditViewController: UIViewController {
         
         editCollectionView.register(SingleEditCollectionViewCell.self, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
         editCollectionView.register(QAEditCollectionViewCell.self, forCellWithReuseIdentifier: "QAEditCollectionViewCell")
+    }
+    
+    @objc func returnKeyBoard(byReactiongTo swipeRecognizer: UISwipeGestureRecognizer) {
+        if swipeRecognizer.state == .ended {
+            let tapPoint = swipeRecognizer.location(in: editCollectionView)
+            let indexPath = editCollectionView.indexPathForItem(at: tapPoint)
+            let cell = editCollectionView.cellForItem(at: indexPath!) as! NoteEditCollectionViewCell
+            cell.editingTextView?.resignFirstResponder()
+        }
     }
     
     @IBAction func saveNote(_ sender: UIButton) {
@@ -221,16 +233,20 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
                 cell.singleCellDelegate = self
                 cell.delegate = self
-                cell.setNeedsLayout()
                 cell.awakeFromNib()
-                cell.updataCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCellStatus!)
-                addPhotoCellStatus = CellStatus.bodyFrontWithoutTitle
+                var singleCellStatus = CellStatus.bodyFrontWithoutTitle
+                if let addPhotoCellStatus = addPhotoCellStatus {
+                    singleCellStatus = addPhotoCellStatus
+                } else if notes[indexPath.row].title != NSAttributedString.init() {
+                    singleCellStatus = CellStatus.titleFront
+                }
+                cell.updataCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: singleCellStatus)
+                addPhotoCellStatus = nil
                 return cell
             } else if noteInfo.type == NoteType.qa.rawValue {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
                 cell.qaCellDelegate = self
                 cell.delegate = self
-                cell.setNeedsLayout()
                 cell.awakeFromNib()
                 cell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCellStatus!)
                 addPhotoCellStatus = CellStatus.titleFront
