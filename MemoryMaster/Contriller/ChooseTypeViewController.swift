@@ -99,7 +99,6 @@ class ChooseTypeViewController: UIViewController, UITextFieldDelegate {
         nameTextField.layer.borderWidth = 1
         nameTextField.layer.borderColor = UIColor.lightGray.cgColor
         nameTextField.delegate = self
-        nameTextField.becomeFirstResponder()
         
         // right move the cursor
         let leftView = UILabel.init(frame: CGRect(x: 5, y: 0, width: 10, height: 25))

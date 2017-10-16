@@ -220,13 +220,22 @@
                                 <rect key="frame" x="0.0" y="120" width="375" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efo-0a-LlD">
+                                <rect key="frame" x="0.0" y="120" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="5rx-2C-Quu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kG-z8-VBb">
                                 <rect key="frame" x="330" y="24" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="sXW-cl-BB3"/>
                                     <constraint firstAttribute="height" constant="30" id="yzm-Bx-m2n"/>
                                 </constraints>
-                                <state key="normal" image="add_icon"/>
+                                <state key="normal" image="add_icon_white"/>
                                 <connections>
                                     <segue destination="ZtS-6r-Ztb" kind="presentation" id="Ary-tx-ASd"/>
                                 </connections>
@@ -238,12 +247,15 @@
                             <constraint firstItem="ec5-Fr-A8a" firstAttribute="centerX" secondItem="I2B-38-uTZ" secondAttribute="centerX" id="B2p-Ye-gQ6"/>
                             <constraint firstItem="pcg-gM-N4z" firstAttribute="top" secondItem="0kG-z8-VBb" secondAttribute="bottom" constant="10" id="Ew1-Bw-exI"/>
                             <constraint firstItem="3aQ-6Q-AE4" firstAttribute="trailing" secondItem="0kG-z8-VBb" secondAttribute="trailing" constant="15" id="FKe-vi-gkf"/>
+                            <constraint firstItem="Efo-0a-LlD" firstAttribute="leading" secondItem="3aQ-6Q-AE4" secondAttribute="leading" id="KuT-3y-OpI"/>
                             <constraint firstItem="ec5-Fr-A8a" firstAttribute="top" secondItem="Hcu-ME-4u1" secondAttribute="bottom" constant="-34" id="Uen-OW-QKK"/>
                             <constraint firstItem="r76-Mf-XfG" firstAttribute="bottom" secondItem="3aQ-6Q-AE4" secondAttribute="bottom" id="Uy6-AD-BSp"/>
+                            <constraint firstItem="Efo-0a-LlD" firstAttribute="trailing" secondItem="3aQ-6Q-AE4" secondAttribute="trailing" id="WEb-fe-y7E"/>
                             <constraint firstItem="Hcu-ME-4u1" firstAttribute="top" secondItem="3aQ-6Q-AE4" secondAttribute="top" id="XOe-6v-Gwq"/>
                             <constraint firstItem="pcg-gM-N4z" firstAttribute="leading" secondItem="3aQ-6Q-AE4" secondAttribute="leading" id="XWV-0o-kCo"/>
                             <constraint firstItem="r76-Mf-XfG" firstAttribute="leading" secondItem="3aQ-6Q-AE4" secondAttribute="leading" id="bMi-Vl-X41"/>
                             <constraint firstItem="pcg-gM-N4z" firstAttribute="trailing" secondItem="3aQ-6Q-AE4" secondAttribute="trailing" id="fMg-is-JQj"/>
+                            <constraint firstItem="Efo-0a-LlD" firstAttribute="top" secondItem="pcg-gM-N4z" secondAttribute="bottom" id="hHe-br-Erv"/>
                             <constraint firstItem="r76-Mf-XfG" firstAttribute="top" secondItem="pcg-gM-N4z" secondAttribute="bottom" id="oc0-dg-HwR"/>
                             <constraint firstItem="pcg-gM-N4z" firstAttribute="top" secondItem="Hcu-ME-4u1" secondAttribute="bottom" constant="6" id="puq-xx-zRs"/>
                             <constraint firstItem="Hcu-ME-4u1" firstAttribute="centerX" secondItem="I2B-38-uTZ" secondAttribute="centerX" id="z9P-a6-lzx"/>
@@ -256,6 +268,7 @@
                         <outlet property="addButton" destination="0kG-z8-VBb" id="Hk0-F8-Fdp"/>
                         <outlet property="allNoteButton" destination="1uh-yA-H6x" id="avu-RD-bHc"/>
                         <outlet property="noteSearchBar" destination="pcg-gM-N4z" id="li1-yT-23m"/>
+                        <outlet property="nothingFoundLabel" destination="Efo-0a-LlD" id="Nm6-Mj-HVK"/>
                         <outlet property="qaNoteButton" destination="LlW-9y-mfI" id="2Ql-eH-W1J"/>
                         <outlet property="singleNoteButton" destination="atZ-tn-ZhR" id="FPX-ME-vMg"/>
                         <outlet property="tableView" destination="r76-Mf-XfG" id="4t3-AY-zI4"/>
@@ -530,7 +543,7 @@
     </scenes>
     <resources>
         <image name="Twitter_logo" width="256" height="256"/>
-        <image name="add_icon" width="30" height="30"/>
+        <image name="add_icon_white" width="30" height="30"/>
         <image name="all_icon_click" width="30" height="30"/>
         <image name="close_icon" width="30" height="30"/>
         <image name="facebook_logo" width="2000" height="2000"/>

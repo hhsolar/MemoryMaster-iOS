@@ -16,6 +16,7 @@ class LibraryViewController: UIViewController {
     @IBOutlet weak var qaNoteButton: UIButton!
     @IBOutlet weak var singleNoteButton: UIButton!
     @IBOutlet weak var noteSearchBar: UISearchBar!
+    @IBOutlet weak var nothingFoundLabel: UILabel!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
@@ -23,6 +24,7 @@ class LibraryViewController: UIViewController {
             tableView.separatorStyle = .none
         }
     }
+    let topView = UIView()
     
     // public api
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
@@ -88,6 +90,11 @@ class LibraryViewController: UIViewController {
     
     private func setupUI()
     {
+        topView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: CustomSize.barHeight + CustomSize.statusBarHeight)
+        topView.backgroundColor = CustomColor.medianBlue
+        view.addSubview(topView)
+        view.sendSubview(toBack: topView)
+        
         // remove black border line
         noteSearchBar.isTranslucent = false
         noteSearchBar.backgroundImage = UIImage()
@@ -104,14 +111,19 @@ class LibraryViewController: UIViewController {
         qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
         
         addButton.tintColor = UIColor.white
+        
+        tableView.rowHeight = 44
+        let nib = UINib(nibName: "LibraryTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "LibraryTableViewCell")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
-        let nib = UINib(nibName: "LibraryTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "LibraryTableViewCell")
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -134,6 +146,11 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController?.sections, sections.count > 0 {
+            if sections[section].numberOfObjects == 0 {
+                nothingFoundLabel.isHidden = false
+            } else {
+                nothingFoundLabel.isHidden = true
+            }
             return sections[section].numberOfObjects
         } else {
             return 0
@@ -150,14 +167,22 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCellIndex = indexPath
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "ToNoteViewController", sender: indexPath)
+    }
+        
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let note = fetchedResultsController?.object(at: indexPath)
+            for i in 0..<Int((note?.numberOfCard)!) {
+                CardContent.removeCardContent(with: (note?.name)!, at: i, in: (note?.type)!)
+            }
+            let context = container?.viewContext
+            context?.delete(note!)
+            try? context?.save()
+        }
     }
 }
 
