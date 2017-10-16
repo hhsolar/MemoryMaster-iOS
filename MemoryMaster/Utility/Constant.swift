@@ -31,7 +31,8 @@ struct CustomDistance {
 
 struct CustomSize {
     static let statusBarHeight: CGFloat = 20
-    static let buttonWidth: CGFloat = 30
+    static let buttonHeight: CGFloat = 30
+    static let smallBtnHeight: CGFloat = 26
     static let barHeight: CGFloat = 44
     static let titleLabelHeight: CGFloat = 24
 }

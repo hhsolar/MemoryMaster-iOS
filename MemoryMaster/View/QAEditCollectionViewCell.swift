@@ -56,7 +56,8 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
         bodyTextView.isHidden = true
         
         addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
-        addPhotoBtnWithKB.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        photoBtnInTitleAccessoryView.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        photoBtnInBodyAccessoryView.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
     }
     
     func updateCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {

@@ -70,9 +70,6 @@ class NoteEditViewController: UIViewController {
         keyBoardHeight = nsValue.cgRectValue.size.height
         let indexPath = IndexPath(item: currentCardIndex!, section: 0)
         let cell = editCollectionView.cellForItem(at: indexPath) as! NoteEditCollectionViewCell
-        cell.indexLabel.isHidden = true
-        cell.addPhotoBtnWithKB.isHidden = false
-        cell.addPhotoBtnWithKB.isEnabled = true
         
         cell.cutTextView(KBHeight: keyBoardHeight)
     }
@@ -137,9 +134,6 @@ class NoteEditViewController: UIViewController {
             let indexPath = IndexPath(item: currentCardIndex!, section: 0)
             let cell = editCollectionView.cellForItem(at: indexPath) as! NoteEditCollectionViewCell
             cell.editingTextView?.resignFirstResponder()
-            cell.indexLabel.isHidden = false
-            cell.addPhotoBtnWithKB.isHidden = true
-            cell.addPhotoBtnWithKB.isEnabled = false
             cell.extendTextView()
         }
     }
@@ -434,16 +428,20 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
         let oldStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         AVCaptureDevice.requestAccess(for: .video) { isPermit in
             if isPermit {
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .camera
-                imagePicker.delegate = self
-                imagePicker.allowsEditing = true
-                self.present(imagePicker, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.sourceType = .camera
+                    imagePicker.delegate = self
+                    imagePicker.allowsEditing = true
+                    self.present(imagePicker, animated: true, completion: nil)
+                }
             } else {
                 if oldStatus == .notDetermined {
                     return
                 }
-                self.showAlert(title: "Alert!", message: "Please allow us to use your phone camera. You can set the permission at Setting -> Privacy -> Camera")
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Alert!", message: "Please allow us to use your phone camera. You can set the permission at Setting -> Privacy -> Camera")
+                }
             }
         }
     }
@@ -462,17 +460,21 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
         PHPhotoLibrary.requestAuthorization { status in
             switch status {
             case .authorized:
-                let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-                controller.lastController = self
-                self.present(controller, animated: true, completion: {
-                    let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
-                    self.passedInCardIndex = indexPath
-                })
+                DispatchQueue.main.async {
+                    let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+                    controller.lastController = self
+                    self.present(controller, animated: true, completion: {
+                        let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
+                        self.passedInCardIndex = indexPath
+                    })
+                }
             case .denied:
                 if oldStatus == .notDetermined {
                     return
                 }
-                self.showAlert(title: "Alert!", message: "Please allow us to access your photo library. You can set the permission at Setting -> Privacy -> Photos")
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Alert!", message: "Please allow us to access your photo library. You can set the permission at Setting -> Privacy -> Photos")
+                }
             default:
                 break
             }

@@ -30,8 +30,8 @@ class BaseTopViewController: UIViewController {
         topView.backgroundColor = CustomColor.medianBlue
         view.addSubview(topView)
         
-        let titleWidth = screenWidth - CustomSize.buttonWidth * 2 - CustomDistance.viewToScreenEdgeDistance * 4
-        titleLabel.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance * 2 + CustomSize.buttonWidth,
+        let titleWidth = screenWidth - CustomSize.buttonHeight * 2 - CustomDistance.viewToScreenEdgeDistance * 4
+        titleLabel.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance * 2 + CustomSize.buttonHeight,
                                   y: (CustomSize.barHeight - CustomSize.titleLabelHeight) / 2 + CustomSize.statusBarHeight,
                                   width: titleWidth, height: CustomSize.titleLabelHeight)
         titleLabel.textAlignment = .center
@@ -40,8 +40,8 @@ class BaseTopViewController: UIViewController {
         topView.addSubview(titleLabel)
         
         backButton.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance,
-                                  y: (CustomSize.barHeight - CustomSize.buttonWidth) / 2 + CustomSize.statusBarHeight,
-                                  width: CustomSize.buttonWidth, height: CustomSize.buttonWidth)
+                                  y: (CustomSize.barHeight - CustomSize.buttonHeight) / 2 + CustomSize.statusBarHeight,
+                                  width: CustomSize.buttonHeight, height: CustomSize.buttonHeight)
         backButton.setImage(UIImage(named: "exit_icon_white"), for: .normal)
         backButton.addTarget(self, action: #selector(backAction), for: .touchUpInside)
         topView.addSubview(backButton)

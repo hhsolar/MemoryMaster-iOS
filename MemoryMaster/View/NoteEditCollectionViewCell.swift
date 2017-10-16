@@ -24,7 +24,8 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
     let removeCardButton = UIButton()
     let addPhotoButton = UIButton()
     let addCardButton = UIButton()
-    let addPhotoBtnWithKB = UIButton()
+    let photoBtnInTitleAccessoryView = UIButton()
+    let photoBtnInBodyAccessoryView = UIButton()
     
     var cardIndex: Int?
     var editingTextView: UITextView?
@@ -65,7 +66,7 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         titleTextView.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance,
                                      y: CustomDistance.viewToScreenEdgeDistance * 2 + CustomSize.titleLabelHeight,
                                      width: backView.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2,
-                                     height: backView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 4 - CustomSize.titleLabelHeight - CustomSize.buttonWidth)
+                                     height: backView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 4 - CustomSize.titleLabelHeight - CustomSize.buttonHeight)
         titleTextView.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         titleTextView.tag = OutletTag.titleTextView.rawValue
         titleTextView.showsVerticalScrollIndicator = false
@@ -79,27 +80,33 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         bodyTextView.delegate = self
         backView.addSubview(bodyTextView)
         
-        removeCardButton.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: backView.bounds.height - CustomDistance.viewToScreenEdgeDistance - CustomSize.buttonWidth, width: CustomSize.buttonWidth, height: CustomSize.buttonWidth)
+        removeCardButton.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: backView.bounds.height - CustomDistance.viewToScreenEdgeDistance - CustomSize.buttonHeight, width: CustomSize.buttonHeight, height: CustomSize.buttonHeight)
         removeCardButton.setImage(UIImage.init(named: "bin_icon"), for: .normal)
         removeCardButton.addTarget(self, action: #selector(removeCardAction), for: .touchUpInside)
         backView.addSubview(removeCardButton)
         
         addPhotoButton.frame = removeCardButton.frame
-        addPhotoButton.frame.origin.x = (backView.bounds.width - CustomSize.buttonWidth) / 2
+        addPhotoButton.frame.origin.x = (backView.bounds.width - CustomSize.buttonHeight) / 2
         addPhotoButton.setImage(UIImage.init(named: "photo_icon"), for: .normal)
         backView.addSubview(addPhotoButton)
         
         addCardButton.frame = removeCardButton.frame
-        addCardButton.frame.origin.x = backView.bounds.width - CustomSize.buttonWidth - CustomDistance.viewToScreenEdgeDistance
+        addCardButton.frame.origin.x = backView.bounds.width - CustomSize.buttonHeight - CustomDistance.viewToScreenEdgeDistance
         addCardButton.setImage(UIImage.init(named: "addNote_icon"), for: .normal)
         addCardButton.addTarget(self, action: #selector(addCardAction), for: .touchUpInside)
         backView.addSubview(addCardButton)
         
-        addPhotoBtnWithKB.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance - 2, width: 28, height: 28)
-        addPhotoBtnWithKB.setImage(UIImage.init(named: "photo_icon"), for: .normal)
-        backView.addSubview(addPhotoBtnWithKB)
-        addPhotoBtnWithKB.isHidden = true
-        addPhotoBtnWithKB.isEnabled = false
+        let titleAccessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        photoBtnInTitleAccessoryView.frame = CGRect(x: UIScreen.main.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2 - CustomSize.smallBtnHeight, y: 0, width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
+        photoBtnInTitleAccessoryView.setImage(UIImage.init(named: "photo_icon"), for: .normal)
+        titleAccessoryView.addSubview(photoBtnInTitleAccessoryView)
+        titleTextView.inputAccessoryView = titleAccessoryView
+        
+        let bodyAccessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        photoBtnInBodyAccessoryView.frame = CGRect(x: UIScreen.main.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2 - CustomSize.smallBtnHeight, y: 0, width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
+        photoBtnInBodyAccessoryView.setImage(UIImage.init(named: "photo_icon"), for: .normal)
+        bodyAccessoryView.addSubview(photoBtnInBodyAccessoryView)
+        bodyTextView.inputAccessoryView = bodyAccessoryView
     }
     
     @objc func removeCardAction(_ sender: UIButton) {
@@ -115,7 +122,7 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
     }
     
     func extendTextView() {
-        editingTextView?.frame.size.height = backView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 4 - CustomSize.titleLabelHeight - CustomSize.buttonWidth
+        editingTextView?.frame.size.height = backView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 4 - CustomSize.titleLabelHeight - CustomSize.buttonHeight
     }
     
     func titlePresent() {
