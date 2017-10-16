@@ -35,13 +35,13 @@ class BaseTopViewController: UIViewController {
                                   y: (CustomSize.barHeight - CustomSize.titleLabelHeight) / 2 + CustomSize.statusBarHeight,
                                   width: titleWidth, height: CustomSize.titleLabelHeight)
         titleLabel.textAlignment = .center
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        titleLabel.font = UIFont(name: CustomFont.navigationTitleFontName, size: CustomFont.navigationTitleFontSize)
         titleLabel.textColor = UIColor.white
         topView.addSubview(titleLabel)
         
         backButton.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance,
-                                  y: (CustomSize.barHeight - CustomSize.buttonHeight) / 2 + CustomSize.statusBarHeight,
-                                  width: CustomSize.buttonHeight, height: CustomSize.buttonHeight)
+                                  y: (CustomSize.barHeight - CustomSize.smallBtnHeight) / 2 + CustomSize.statusBarHeight,
+                                  width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
         backButton.setImage(UIImage(named: "exit_icon_white"), for: .normal)
         backButton.addTarget(self, action: #selector(backAction), for: .touchUpInside)
         topView.addSubview(backButton)

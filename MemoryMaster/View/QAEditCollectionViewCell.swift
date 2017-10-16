@@ -11,7 +11,6 @@ import UIKit
 protocol QAEditCollectionViewCellDelegate: NoteEditCollectionViewCellDelegate {
     func filpQANoteCard(for cell: QAEditCollectionViewCell)
     func qaNoteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange, cellStatus: CellStatus)
-
 }
 
 class QAEditCollectionViewCell: NoteEditCollectionViewCell {
@@ -34,18 +33,16 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
         
         questionLabel.frame = CGRect(x: (containerWidth - 120) / 2, y: CustomDistance.viewToScreenEdgeDistance, width: 120, height: 24)
         questionLabel.text = "QUESTION"
-        questionLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        questionLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         questionLabel.textColor = CustomColor.medianBlue
         questionLabel.textAlignment = .center
         backView.addSubview(questionLabel)
         
         answerLabel.frame = CGRect(x: (containerWidth - 120) / 2, y: CustomDistance.viewToScreenEdgeDistance, width: 120, height: 24)
         answerLabel.text = "ANSWER"
-        answerLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 22)
+        answerLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         answerLabel.textColor = CustomColor.medianBlue
         answerLabel.textAlignment = .center
-        answerLabel.isHidden = true
-        answerLabel.alpha = 0.0
         backView.addSubview(answerLabel)
 
         filpButton.frame = CGRect(x: containerWidth - 28 - CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance - 2, width: 28, height: 28)
@@ -56,8 +53,8 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
         bodyTextView.isHidden = true
         
         addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
-        photoBtnInTitleAccessoryView.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
-        photoBtnInBodyAccessoryView.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        titleKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        bodyKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
     }
     
     func updateCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {
@@ -108,21 +105,27 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
     
     func changeFilpButtonText() {
         if titleTextView.isHidden {
-            UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: {
-                self.questionLabel.alpha = 1.0
-                self.answerLabel.alpha = 0.0
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
+                self?.questionLabel.alpha = 1.0
+                self?.answerLabel.alpha = 0.0
+                self?.titleTextView.alpha = 1.0
+                self?.bodyTextView.alpha = 0.0
             }, completion: nil)
             questionLabel.isHidden = false
             answerLabel.isHidden = true
-            titlePresent()
+            titleTextView.isHidden = false
+            bodyTextView.isHidden = true
         } else {
-            UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: {
-                self.questionLabel.alpha = 0.0
-                self.answerLabel.alpha = 1.0
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
+                self?.questionLabel.alpha = 0.0
+                self?.answerLabel.alpha = 1.0
+                self?.titleTextView.alpha = 0.0
+                self?.bodyTextView.alpha = 1.0
             }, completion: nil)
+            titleTextView.isHidden = true
+            bodyTextView.isHidden = false
             questionLabel.isHidden = true
             answerLabel.isHidden = false
-            bodyPresent()
         }
     }
 }

@@ -70,7 +70,6 @@ class NoteEditViewController: UIViewController {
         keyBoardHeight = nsValue.cgRectValue.size.height
         let indexPath = IndexPath(item: currentCardIndex!, section: 0)
         let cell = editCollectionView.cellForItem(at: indexPath) as! NoteEditCollectionViewCell
-        
         cell.cutTextView(KBHeight: keyBoardHeight)
     }
     
@@ -240,11 +239,8 @@ class NoteEditViewController: UIViewController {
     }    
 }
 
-extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
+extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewDataSource
+{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notes.count
     }
@@ -341,12 +337,10 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
     }
     
     func singleNoteTitleEdit(for cell: SingleEditCollectionViewCell) {
-        if cell.titleButtonText == "ADD TITLE" {
+        if cell.addTitleButton.currentTitle == "ADD TITLE" {
             cell.addTitle()
-            cell.titlePresent()
         } else {
             cell.removeTitle()
-            cell.bodyPresent()
         }
     }
     
@@ -365,7 +359,6 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
     func passCardIndexBack(cardIndex: Int) {
         currentCardIndex = cardIndex
     }
-    
 }
 
 extension NoteEditViewController: QAEditCollectionViewCellDelegate {
@@ -426,21 +419,21 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func takePhotoWithCamera() {
         let oldStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-        AVCaptureDevice.requestAccess(for: .video) { isPermit in
+        AVCaptureDevice.requestAccess(for: .video) { [weak self] isPermit in
             if isPermit {
                 DispatchQueue.main.async {
                     let imagePicker = UIImagePickerController()
                     imagePicker.sourceType = .camera
                     imagePicker.delegate = self
                     imagePicker.allowsEditing = true
-                    self.present(imagePicker, animated: true, completion: nil)
+                    self?.present(imagePicker, animated: true, completion: nil)
                 }
             } else {
                 if oldStatus == .notDetermined {
                     return
                 }
                 DispatchQueue.main.async {
-                    self.showAlert(title: "Alert!", message: "Please allow us to use your phone camera. You can set the permission at Setting -> Privacy -> Camera")
+                    self?.showAlert(title: "Alert!", message: "Please allow us to use your phone camera. You can set the permission at Setting -> Privacy -> Camera")
                 }
             }
         }
@@ -450,22 +443,22 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
         let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         let controller = TOCropViewController.init(image: image!)
         controller.delegate = self
-        dismiss(animated: true, completion: {
-            self.present(controller, animated: true, completion: nil)
+        dismiss(animated: true, completion: { [weak self] in
+            self?.present(controller, animated: true, completion: nil)
         })
     }
 
     func choosePhotoFromLibrary() {
         let oldStatus = PHPhotoLibrary.authorizationStatus()
-        PHPhotoLibrary.requestAuthorization { status in
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
             switch status {
             case .authorized:
                 DispatchQueue.main.async {
                     let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
                     controller.lastController = self
-                    self.present(controller, animated: true, completion: {
-                        let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
-                        self.passedInCardIndex = indexPath
+                    self?.present(controller, animated: true, completion: {
+                        let indexPath = IndexPath(item: (self?.currentCardIndex)!, section: 0)
+                        self?.passedInCardIndex = indexPath
                     })
                 }
             case .denied:
@@ -473,7 +466,7 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
                     return
                 }
                 DispatchQueue.main.async {
-                    self.showAlert(title: "Alert!", message: "Please allow us to access your photo library. You can set the permission at Setting -> Privacy -> Photos")
+                    self?.showAlert(title: "Alert!", message: "Please allow us to access your photo library. You can set the permission at Setting -> Privacy -> Photos")
                 }
             default:
                 break

@@ -21,8 +21,6 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
     let filpButton = UIButton()
     let titleLabel = UILabel()
     
-    var titleButtonText = "ADD TITLE"
-
     weak var singleCellDelegate: SingleEditCollectionViewCellDelegate?
     
     override func awakeFromNib() {
@@ -37,7 +35,6 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         
         addTitleButton.frame = CGRect(x: (containerWidth - 150) / 2, y: CustomDistance.viewToScreenEdgeDistance, width: 150, height: CustomSize.titleLabelHeight)
         addTitleButton.backgroundColor = CustomColor.medianBlue
-        addTitleButton.setTitle(titleButtonText, for: .normal)
         addTitleButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
         addTitleButton.setTitleColor(UIColor.white, for: .normal)
         addTitleButton.layer.cornerRadius = 11
@@ -48,24 +45,19 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         filpButton.frame = CGRect(x: containerWidth - 28 - CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance - 2, width: 28, height: 28)
         filpButton.addTarget(self, action: #selector(filpCardAction), for: .touchUpInside)
         backView.addSubview(filpButton)
-
-        filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
-        filpButton.isEnabled = false
         
         backView.addSubview(titleLabel)
         titleLabel.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance * 2 + CustomSize.titleLabelHeight, width: 80, height: CustomSize.titleLabelHeight)
         titleLabel.text = "Title:"
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         titleLabel.textColor = CustomColor.medianBlue
-        titleLabel.isHidden = true
         
         titleTextView.frame.origin.y += CustomSize.titleLabelHeight
         titleTextView.frame.size.height -= CustomSize.titleLabelHeight
-        titleTextView.isHidden = true
         
         addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
-        photoBtnInTitleAccessoryView.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
-        photoBtnInBodyAccessoryView.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        titleKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        bodyKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
     }
     
     func updataCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {
@@ -77,48 +69,47 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         case .titleFront:
             titleTextView.attributedText = cardContent.title
             addTitle()
-            titleTextView.isHidden = false
-            bodyTextView.isHidden = true
-            titleTextView.alpha = 1.0
-            bodyTextView.alpha = 0.0
-            titleLabel.isHidden = false
         case .bodyFrontWithTitle:
             titleTextView.attributedText = cardContent.title
             addTitle()
+            titleLabel.isHidden = true
             titleTextView.isHidden = true
             bodyTextView.isHidden = false
+            titleLabel.alpha = 0.0
             titleTextView.alpha = 0.0
             bodyTextView.alpha = 1.0
-            titleLabel.isHidden = true
         default:
             removeTitle()
-            titleTextView.isHidden = true
-            bodyTextView.isHidden = false
-            titleTextView.alpha = 0.0
-            bodyTextView.alpha = 1.0
-            titleLabel.isHidden = true
         }
     }
     
     func addTitle() {
-        titleButtonText = "REMOVE TITLE"
-        addTitleButton.setTitle(titleButtonText, for: .normal)
-        
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
+            self?.addTitleButton.setTitle("REMOVE TITLE", for: .normal)
+            self?.filpButton.setImage(UIImage.init(named: "filp_icon"), for: .normal)
+            self?.titleLabel.alpha = 1.0
+            self?.titleTextView.alpha = 1.0
+            self?.bodyTextView.alpha = 0.0
+        }, completion: nil)
         titleLabel.isHidden = false
-        
-        filpButton.setImage(UIImage.init(named: "filp_icon"), for: .normal)
         filpButton.isEnabled = true
+        titleTextView.isHidden = false
+        bodyTextView.isHidden = true
     }
     
     func removeTitle() {
-        titleButtonText = "ADD TITLE"
-        addTitleButton.setTitle(titleButtonText, for: .normal)
-        
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
+            self?.addTitleButton.setTitle("ADD TITLE", for: .normal)
+            self?.filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
+            self?.titleLabel.alpha = 0.0
+            self?.titleTextView.alpha = 0.0
+            self?.bodyTextView.alpha = 1.0
+        }, completion: nil)
         titleLabel.isHidden = true
-        titleTextView.attributedText = NSAttributedString()
-        
-        filpButton.setImage(UIImage.init(named: "flip_icon_disable"), for: .disabled)
         filpButton.isEnabled = false
+        titleTextView.isHidden = true
+        bodyTextView.isHidden = false
+        titleTextView.attributedText = NSAttributedString()
     }
     
     @objc func addTitleAction(_ sender: UIButton) {
@@ -151,11 +142,23 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
     
     func changeFilpButtonText() {
         if titleTextView.isHidden {
-            titlePresent()
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
+                self?.titleLabel.alpha = 1.0
+                self?.titleTextView.alpha = 1.0
+                self?.bodyTextView.alpha = 0.0
+            }, completion: nil)
             titleLabel.isHidden = false
+            titleTextView.isHidden = false
+            bodyTextView.isHidden = true
         } else {
-            bodyPresent()
+            UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
+                self?.titleLabel.alpha = 0.0
+                self?.titleTextView.alpha = 0.0
+                self?.bodyTextView.alpha = 1.0
+            }, completion: nil)
             titleLabel.isHidden = true
+            titleTextView.isHidden = true
+            bodyTextView.isHidden = false
         }
     }
 }

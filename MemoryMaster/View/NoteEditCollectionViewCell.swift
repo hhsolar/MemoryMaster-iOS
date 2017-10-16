@@ -22,10 +22,10 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
     let titleTextView = UITextView()
     let bodyTextView = UITextView()
     let removeCardButton = UIButton()
-    let addPhotoButton = UIButton()
     let addCardButton = UIButton()
-    let photoBtnInTitleAccessoryView = UIButton()
-    let photoBtnInBodyAccessoryView = UIButton()
+    let addPhotoButton = UIButton()
+    let titleKeyboardAddPhotoButton = UIButton()
+    let bodyKeyboardAddPhotoButton = UIButton()
     
     var cardIndex: Int?
     var editingTextView: UITextView?
@@ -97,15 +97,15 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         backView.addSubview(addCardButton)
         
         let titleAccessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
-        photoBtnInTitleAccessoryView.frame = CGRect(x: UIScreen.main.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2 - CustomSize.smallBtnHeight, y: 0, width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
-        photoBtnInTitleAccessoryView.setImage(UIImage.init(named: "photo_icon"), for: .normal)
-        titleAccessoryView.addSubview(photoBtnInTitleAccessoryView)
+        titleKeyboardAddPhotoButton.frame = CGRect(x: UIScreen.main.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2 - CustomSize.smallBtnHeight, y: 0, width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
+        titleKeyboardAddPhotoButton.setImage(UIImage.init(named: "photo_icon"), for: .normal)
+        titleAccessoryView.addSubview(titleKeyboardAddPhotoButton)
         titleTextView.inputAccessoryView = titleAccessoryView
         
         let bodyAccessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
-        photoBtnInBodyAccessoryView.frame = CGRect(x: UIScreen.main.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2 - CustomSize.smallBtnHeight, y: 0, width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
-        photoBtnInBodyAccessoryView.setImage(UIImage.init(named: "photo_icon"), for: .normal)
-        bodyAccessoryView.addSubview(photoBtnInBodyAccessoryView)
+        bodyKeyboardAddPhotoButton.frame = CGRect(x: UIScreen.main.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2 - CustomSize.smallBtnHeight, y: 0, width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
+        bodyKeyboardAddPhotoButton.setImage(UIImage.init(named: "photo_icon"), for: .normal)
+        bodyAccessoryView.addSubview(bodyKeyboardAddPhotoButton)
         bodyTextView.inputAccessoryView = bodyAccessoryView
     }
     
@@ -118,29 +118,11 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
     }
     
     func cutTextView(KBHeight: CGFloat) {
-        editingTextView?.frame.size.height = backView.bounds.height - KBHeight - CustomSize.titleLabelHeight * 2 - CustomDistance.viewToScreenEdgeDistance
+        editingTextView?.frame.size.height = backView.bounds.height - KBHeight - CustomSize.titleLabelHeight - CustomDistance.viewToScreenEdgeDistance
     }
     
     func extendTextView() {
         editingTextView?.frame.size.height = backView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 4 - CustomSize.titleLabelHeight - CustomSize.buttonHeight
-    }
-    
-    func titlePresent() {
-        UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: {
-            self.titleTextView.alpha = 1.0
-            self.bodyTextView.alpha = 0.0
-        }, completion: nil)
-        titleTextView.isHidden = false
-        bodyTextView.isHidden = true
-    }
-    
-    func bodyPresent() {
-        UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
-            self.titleTextView.alpha = 0.0
-            self.bodyTextView.alpha = 1.0
-        }, completion: nil)
-        titleTextView.isHidden = true
-        bodyTextView.isHidden = false
     }
 }
 
