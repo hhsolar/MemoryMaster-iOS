@@ -42,6 +42,8 @@ class LibraryTableViewCell: UITableViewCell {
         self.contentView.addSubview(backView)
         self.contentView.sendSubview(toBack: backView)
         
+        
+        
         let rect = CGRect(x: 0, y: 0, width: backView.bounds.width, height: backView.bounds.height)
         let radio = CGSize(width: 10, height: 10)
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft, .topRight], cornerRadii: radio)

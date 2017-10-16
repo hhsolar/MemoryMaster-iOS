@@ -34,7 +34,7 @@ class LibraryViewController: UIViewController {
     var selectedCellIndex: IndexPath?
     var showFlag: NoteType = .all
     
-    func updateUI() {
+    func updateUI(noteType: NoteType, keyWord: String?) {
         if let context = container?.viewContext {
             let request: NSFetchRequest<BasicNoteInfo> = BasicNoteInfo.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(
@@ -42,10 +42,14 @@ class LibraryViewController: UIViewController {
                 ascending: true,
                 selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
             )]
-            if showFlag == .single {
-                request.predicate = NSPredicate(format: "type == %@", NoteType.single.rawValue)
-            } else if showFlag == .qa {
-                request.predicate = NSPredicate(format: "type == %@", NoteType.qa.rawValue)
+            if let keyWord = keyWord, keyWord != "" {
+                if noteType != NoteType.all {
+                    request.predicate = NSPredicate(format: "type == %@ && name CONTAINS %@", noteType.rawValue, keyWord)
+                } else {
+                    request.predicate = NSPredicate(format: "name CONTAINS %@", keyWord)
+                }
+            } else if noteType != NoteType.all {
+                request.predicate = NSPredicate(format: "type == %@", noteType.rawValue)
             }
             fetchedResultsController = NSFetchedResultsController<BasicNoteInfo>(
                 fetchRequest: request,
@@ -61,31 +65,31 @@ class LibraryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        updateUI()
+        updateUI(noteType: showFlag, keyWord: nil)
     }
     
     @IBAction func showAllNote(_ sender: UIButton) {
-        showFlag = .all
+        showFlag = NoteType.all
         allNoteButton.setImage(UIImage(named: "all_icon_click.png"), for: .normal)
         qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
-        updateUI()
+        updateUI(noteType: showFlag, keyWord: nil)
     }
     
     @IBAction func showQANote(_ sender: UIButton) {
-        showFlag = .qa
+        showFlag = NoteType.qa
         allNoteButton.setImage(UIImage(named: "all_icon_unclick.png"), for: .normal)
         qaNoteButton.setImage(UIImage(named: "qa_icon_click.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
-        updateUI()
+        updateUI(noteType: showFlag, keyWord: nil)
     }
     
     @IBAction func showSingleNote(_ sender: UIButton) {
-        showFlag = .single
+        showFlag = NoteType.single
         allNoteButton.setImage(UIImage(named: "all_icon_unclick.png"), for: .normal)
         qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_click.png"), for: .normal)
-        updateUI()
+        updateUI(noteType: showFlag, keyWord: nil)
     }
     
     private func setupUI()
@@ -98,6 +102,7 @@ class LibraryViewController: UIViewController {
         // remove black border line
         noteSearchBar.isTranslucent = false
         noteSearchBar.backgroundImage = UIImage()
+        noteSearchBar.delegate = self
         
         // set background color
         noteSearchBar.barTintColor = CustomColor.deepBlue
@@ -122,10 +127,6 @@ class LibraryViewController: UIViewController {
         setupUI()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToNoteViewController" {
             let controller = segue.destination as! NoteViewController
@@ -136,6 +137,21 @@ class LibraryViewController: UIViewController {
                 controller.container = container
             }
         } 
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+}
+
+extension LibraryViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        updateUI(noteType: showFlag, keyWord: searchBar.text)
+        noteSearchBar.resignFirstResponder()
     }
 }
 
