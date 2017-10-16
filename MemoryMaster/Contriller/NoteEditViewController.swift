@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Photos
 import SVProgressHUD
 
 protocol NoteEditViewControllerDelegate: class {
@@ -405,11 +406,14 @@ extension NoteEditViewController: TOCropViewControllerDelegate {
     }
     
     private func updateTextView(_ text: NSAttributedString, image: UIImage) -> NSAttributedString {
+        let font = currentTextView?.font
         let imgTextAtta = NSTextAttachment()
         imgTextAtta.image = image
         if let rg = passInRange {
             currentTextView?.textStorage.insert(NSAttributedString.init(attachment: imgTextAtta), at: rg.location)
         }
+        currentTextView?.font = font
+        currentTextView?.selectedRange = NSRange(location: (passInRange?.location)! + 1, length: 0)
         return (currentTextView?.attributedText)!
     }
 }
@@ -427,11 +431,21 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
     }
     
     func takePhotoWithCamera() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
+        let oldStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        AVCaptureDevice.requestAccess(for: .video) { isPermit in
+            if isPermit {
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            } else {
+                if oldStatus == .notDetermined {
+                    return
+                }
+                self.showAlert(title: "Alert!", message: "Please allow us to use your phone camera. You can set the permission at Setting -> Privacy -> Camera")
+            }
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -444,11 +458,24 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
     }
 
     func choosePhotoFromLibrary() {
-        let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-        controller.lastController = self
-        present(controller, animated: true, completion: {
-            let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
-            self.passedInCardIndex = indexPath
-        })
+        let oldStatus = PHPhotoLibrary.authorizationStatus()
+        PHPhotoLibrary.requestAuthorization { status in
+            switch status {
+            case .authorized:
+                let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
+                controller.lastController = self
+                self.present(controller, animated: true, completion: {
+                    let indexPath = IndexPath(item: self.currentCardIndex!, section: 0)
+                    self.passedInCardIndex = indexPath
+                })
+            case .denied:
+                if oldStatus == .notDetermined {
+                    return
+                }
+                self.showAlert(title: "Alert!", message: "Please allow us to access your photo library. You can set the permission at Setting -> Privacy -> Photos")
+            default:
+                break
+            }
+        }
     }
 }

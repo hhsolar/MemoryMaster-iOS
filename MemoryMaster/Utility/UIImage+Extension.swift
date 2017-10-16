@@ -106,6 +106,8 @@ extension UIImage {
         var array = [UIImage]()
         let options = PHImageRequestOptions()
         options.isSynchronous = true
+//        let scale = UIScreen.main.scale
+//        let width = (UIScreen.main.bounds.width - 20) / 3
         let assets = PHAsset.fetchAssets(in: assetCollection, options: nil)
         for i in 0..<assets.count {
             let size = origial ? CGSize(width: assets[i].pixelWidth, height:assets[i].pixelHeight) : CGSize.zero
