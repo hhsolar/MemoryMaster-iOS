@@ -10,26 +10,48 @@ import UIKit
 
 class ReciteViewController: UIViewController {
 
+    @IBOutlet weak var indexLabel: UILabel!
+    @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        setupUI()
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    private func setupUI() {
+        indexLabel.textColor = CustomColor.medianBlue
+        indexLabel.font = UIFont(name: CustomFont.navigationSideFontName, size: CustomFont.navigationSideFontSize)
+        
+        continueButton.backgroundColor = CustomColor.medianBlue
+        continueButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
+        continueButton.setTitleColor(UIColor.white, for: .normal)
+        continueButton.layer.cornerRadius = 14
+        continueButton.layer.masksToBounds = true
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        let nib = UINib(nibName: "CircularCollectionViewCell", bundle: Bundle.main)
+        collectionView.register(nib, forCellWithReuseIdentifier: "CircularCollectionViewCell")
     }
-    */
+    
+    @IBAction func toFirstCard(_ sender: UIButton) {
+    }
+    
+    @IBAction func toLastCard(_ sender: UIButton) {
+    }
+}
 
+extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 50
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CircularCollectionViewCell", for: indexPath)
+        return cell
+    }
 }

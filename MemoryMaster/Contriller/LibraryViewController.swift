@@ -94,6 +94,9 @@ class LibraryViewController: UIViewController {
     
     private func setupUI()
     {
+        self.navigationController?.navigationBar.tintColor = CustomColor.medianBlue
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        
         topView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: CustomSize.barHeight + CustomSize.statusBarHeight)
         topView.backgroundColor = CustomColor.medianBlue
         view.addSubview(topView)
