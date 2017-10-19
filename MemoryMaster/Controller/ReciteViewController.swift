@@ -43,11 +43,17 @@ class ReciteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshPage), name: NSNotification.Name(rawValue: "RefreshPage"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         notes.removeAll()
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "RefreshPage"), object: nil)
+    }
+    
+    @objc func refreshPage() {
+        updateUI()
     }
     
     private func updateUI() {
@@ -65,10 +71,16 @@ class ReciteViewController: UIViewController {
                 toPassIndex = lastSet["index"] as? Int
                 readType = lastSet["readType"] as? String
                 toPassCardStatus = lastSet["cardStatus"] as? String
-                title = (noteInfo?.name)!
                 collectionView.reloadData()
                 if let index = toPassIndex {
-                    collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: false)
+                    var sec = 0
+                    if (noteInfo?.numberOfCard)! > 1 {
+                        collectionView.layoutIfNeeded()
+                        view.layoutIfNeeded()
+                        sec = Int(collectionView.contentSize.width - UIScreen.main.bounds.width) / ((noteInfo?.numberOfCard)! - 1)
+                    }
+                    let offset = CGPoint(x: sec * index, y: 0)
+                    collectionView.setContentOffset(offset, animated: false)
                     indexLabel.text = String(format: "%d / %d", index + 1, notes.count)
                 }
                 return
@@ -136,6 +148,8 @@ class ReciteViewController: UIViewController {
             controller.passedInCardIndex = IndexPath(item: toPassIndex!, section: 0)
             controller.passedInCardStatus = toPassCardStatus!
             controller.passedInNoteInfo = noteInfo
+            // container must be sent after passedInNoteInfo sent, since updateUI() will execute when container set
+            controller.container = container
             present(controller, animated: true, completion: nil)
         case ReadType.read.rawValue:
             let controller = ReadNoteViewController.init(nibName: "ReadNoteViewController", bundle: nil)
@@ -167,9 +181,7 @@ class ReciteViewController: UIViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let layout = collectionView.collectionViewLayout as! CircularCollectionViewLayout
         let index = Int(abs(layout.angle / layout.anglePerItem))
-        print(index)
         indexLabel.text = String(format: "%d / %d", index + 1, notes.count)
-        print(String(format: "%d / %d", index + 1, notes.count))
     }
 }
 
@@ -189,5 +201,13 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CircularCollectionViewCell", for: indexPath) as! CircularCollectionViewCell
         cell.updateUI(noteType: (noteInfo?.type)!, title: notes[indexPath.row].title, body: notes[indexPath.row].body, index: indexPath.row)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let toScreenView = UIView(frame: UIScreen.main.bounds)
+        toScreenView.backgroundColor = CustomColor.weakGray
+        let textView = UITextView(frame: CGRect(x: CustomSize.barHeight, y: CustomSize.barHeight, width: UIScreen.main.bounds.width - CustomSize.barHeight * 2, height: UIScreen.main.bounds.height - CustomSize.barHeight * 2))
+        textView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: (noteInfo?.type)!, title: notes[indexPath.item].title, body: notes[indexPath.item].body, index: indexPath.item)
+        textView.backgroundColor = CustomColor.weakGray
     }
 }

@@ -34,7 +34,11 @@ class NoteEditViewController: UIViewController {
             
         }
     }
-    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer 
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer {
+        didSet {
+            updateUI()
+        }
+    }
     
     // public api for cell
     var currentTextView: UITextView?
@@ -82,9 +86,9 @@ class NoteEditViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         editCollectionView.setNeedsLayout()
-        updateUI()
         if let indexPath = passedInCardIndex {
             editCollectionView.scrollToItem(at: indexPath, at: .left, animated: false)
+            
             if let passedInCardStatus = passedInCardStatus {
                 if noteType! == NoteType.single {
                     let cell = editCollectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
@@ -106,25 +110,24 @@ class NoteEditViewController: UIViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         
-        let currentIndex = Int(editCollectionView.contentOffset.x) / Int(editCollectionView.bounds.width)
         var status = CardStatus.bodyFrontWithTitle
         if noteType! == NoteType.single {
-            let cell = editCollectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as! SingleEditCollectionViewCell
+            let cell = editCollectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! SingleEditCollectionViewCell
             status = cell.currentCardStatus!
         } else {
-            let cell = editCollectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as! QAEditCollectionViewCell
+            let cell = editCollectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! QAEditCollectionViewCell
             status = cell.currentCardStatus!
         }
         
         let userDefault = UserDefaults.standard
         if var dict = userDefault.dictionary(forKey: "lastStatus") {
             dict.updateValue((passedInNoteInfo?.id)!, forKey: "id")
-            dict.updateValue(currentIndex, forKey: "index")
+            dict.updateValue(currentCardIndex, forKey: "index")
             dict.updateValue(ReadType.edit.rawValue, forKey: "readType")
             dict.updateValue(status.rawValue, forKey: "cardStatus")
             userDefault.set(dict, forKey: "lastStatus")
         } else {
-            let statusDict: [String : Any] = ["id": (passedInNoteInfo?.id)!, "index": currentIndex, "readType": ReadType.edit.rawValue, "cardStatus": status.rawValue]
+            let statusDict: [String : Any] = ["id": (passedInNoteInfo?.id)!, "index": currentCardIndex, "readType": ReadType.edit.rawValue, "cardStatus": status.rawValue]
             userDefault.set(statusDict, forKey: "lastStatus")
         }
     }
@@ -265,7 +268,9 @@ class NoteEditViewController: UIViewController {
             return
         }
         let controller = self.presentingViewController?.presentingViewController
-        controller?.dismiss(animated: true, completion: nil)
+        controller?.dismiss(animated: true, completion: {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "RefreshPage"), object: nil)
+        })
     }    
 }
 

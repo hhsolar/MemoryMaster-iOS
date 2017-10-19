@@ -27,25 +27,7 @@ class CircularCollectionViewCell: UICollectionViewCell {
     }
     
     func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) {
-        let showString = NSMutableAttributedString(string: String(format: "%d. ", index + 1), attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-        if noteType == NoteType.single.rawValue {
-            if title != NSAttributedString() {
-                showString.append(title)
-                let returnAtt = NSAttributedString(string: "\n\n")
-                showString.append(returnAtt)
-            }
-            showString.append(body)
-        } else {
-            let questionString = NSAttributedString(string: "Question: ", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-            showString.append(questionString)
-            showString.append(title)
-            let returnAtt = NSAttributedString(string: "\n\n")
-            showString.append(returnAtt)
-            let answerString = NSAttributedString(string: "Answer: ", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-            showString.append(answerString)
-            showString.append(body)
-        }
-        contentLabel.attributedText = showString
+        contentLabel.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: title, body: body, index: index)
     }
     
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
