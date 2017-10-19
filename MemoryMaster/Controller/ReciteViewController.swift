@@ -65,9 +65,8 @@ class ReciteViewController: UIViewController {
                 toPassIndex = lastSet["index"] as? Int
                 readType = lastSet["readType"] as? String
                 toPassCardStatus = lastSet["cardStatus"] as? String
+                title = (noteInfo?.name)!
                 collectionView.reloadData()
-                
-                collectionView.setNeedsLayout()
                 if let index = toPassIndex {
                     collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: false)
                     indexLabel.text = String(format: "%d / %d", index + 1, notes.count)
@@ -157,17 +156,20 @@ class ReciteViewController: UIViewController {
     }
     
     @IBAction func toFirstCard(_ sender: UIButton) {
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        collectionView.setContentOffset(CGPoint.zero, animated: true)
     }
     
     @IBAction func toLastCard(_ sender: UIButton) {
-        collectionView.scrollToItem(at: IndexPath(item: notes.count - 1, section: 0), at: .left, animated: false)
+        let bottom = CGPoint(x: collectionView.contentSize.width - collectionView.bounds.width, y: 0)
+        collectionView.setContentOffset(bottom, animated: true)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let layout = collectionView.collectionViewLayout as! CircularCollectionViewLayout
-        let index = layout.angle / layout.anglePerItem
+        let index = Int(abs(layout.angle / layout.anglePerItem))
+        print(index)
         indexLabel.text = String(format: "%d / %d", index + 1, notes.count)
+        print(String(format: "%d / %d", index + 1, notes.count))
     }
 }
 
