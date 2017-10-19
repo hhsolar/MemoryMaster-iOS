@@ -22,6 +22,19 @@ struct MyBasicNoteInfo {
         userDefaults.synchronize()
         return currentID
     }
+    
+    static func convertToMyBasicNoteInfo(basicNoteInfo: BasicNoteInfo) -> MyBasicNoteInfo {
+        return MyBasicNoteInfo(id: Int(basicNoteInfo.id), time: basicNoteInfo.createTime as Date, type: basicNoteInfo.type, name: basicNoteInfo.name, numberOfCard: Int(basicNoteInfo.numberOfCard))
+    }
+}
+
+struct MyBookmark {
+    var name: String
+    var id: Int
+    var time: Date
+    var readType: String
+    var readPage: Int
+    var readPageStatus: String?
 }
 
 struct CardContent {

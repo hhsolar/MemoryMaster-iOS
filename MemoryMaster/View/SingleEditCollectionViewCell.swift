@@ -11,8 +11,8 @@ import UIKit
 protocol SingleEditCollectionViewCellDelegate: NoteEditCollectionViewCellDelegate {
     func singleNoteTitleEdit(for cell: SingleEditCollectionViewCell)
     func filpSingleNoteCard(for cell: SingleEditCollectionViewCell)
-    func singleNoteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange, cellStatus: CellStatus)
-
+    func singleNoteAddPhoto(for textView: UITextView, with range: NSRange, cellStatus: CardStatus)
+    func singleNoteAddBookmark(index: Int, cellStatus: CardStatus)
 }
 
 class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
@@ -22,6 +22,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
     let titleLabel = UILabel()
     
     weak var singleCellDelegate: SingleEditCollectionViewCellDelegate?
+    var currentCardStatus: CardStatus?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,10 +59,13 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
         titleKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
         bodyKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        
+        addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
     }
     
-    func updataCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {
+    func updateCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CardStatus) {
         super.cardIndex = index
+        currentCardStatus = cellStatus
         super.indexLabel.text = String.init(format: "%d / %d", index + 1, total)
         
         bodyTextView.attributedText = cardContent.body
@@ -95,6 +99,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         filpButton.isEnabled = true
         titleTextView.isHidden = false
         bodyTextView.isHidden = true
+        currentCardStatus = CardStatus.titleFront
     }
     
     func removeTitle() {
@@ -110,6 +115,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         titleTextView.isHidden = true
         bodyTextView.isHidden = false
         titleTextView.attributedText = NSAttributedString()
+        currentCardStatus = CardStatus.bodyFrontWithoutTitle
     }
     
     @objc func addTitleAction(_ sender: UIButton) {
@@ -122,18 +128,22 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             if range.location == NSNotFound {
                 range.location = titleTextView.text.count
             }
-            singleCellDelegate?.singleNoteAddPhoto(for: titleTextView, at: cardIndex!, with: range, cellStatus: CellStatus.titleFront)
+            singleCellDelegate?.singleNoteAddPhoto(for: titleTextView, with: range, cellStatus: CardStatus.titleFront)
         } else {
             var range = bodyTextView.selectedRange
             if range.location == NSNotFound {
                 range.location = bodyTextView.text.count
             }
             if filpButton.isEnabled {
-                singleCellDelegate?.singleNoteAddPhoto(for: bodyTextView, at: cardIndex!, with: range, cellStatus: CellStatus.bodyFrontWithTitle)
+                singleCellDelegate?.singleNoteAddPhoto(for: bodyTextView, with: range, cellStatus: CardStatus.bodyFrontWithTitle)
             } else {
-                singleCellDelegate?.singleNoteAddPhoto(for: bodyTextView, at: cardIndex!, with: range, cellStatus: CellStatus.bodyFrontWithoutTitle)
+                singleCellDelegate?.singleNoteAddPhoto(for: bodyTextView, with: range, cellStatus: CardStatus.bodyFrontWithoutTitle)
             }
         }
+    }
+    
+    @objc func addBookmark(_ sender: UIButton) {
+        singleCellDelegate?.singleNoteAddBookmark(index: cardIndex!, cellStatus: currentCardStatus!)
     }
     
     @objc func filpCardAction(_ sender: UIButton) {
@@ -150,6 +160,11 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             titleLabel.isHidden = false
             titleTextView.isHidden = false
             bodyTextView.isHidden = true
+            if filpButton.isEnabled {
+                currentCardStatus = CardStatus.bodyFrontWithTitle
+            } else {
+                currentCardStatus = CardStatus.bodyFrontWithoutTitle
+            }
         } else {
             UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
                 self?.titleLabel.alpha = 0.0
@@ -159,6 +174,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             titleLabel.isHidden = true
             titleTextView.isHidden = true
             bodyTextView.isHidden = false
+            currentCardStatus = CardStatus.titleFront
         }
     }
 }

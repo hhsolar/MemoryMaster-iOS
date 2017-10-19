@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 extension String {
     func isValidEmail() -> Bool {
@@ -22,6 +23,14 @@ extension UIViewController {
         let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showSavedPrompt() {
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.setFadeInAnimationDuration(0.2)
+        SVProgressHUD.showSuccess(withStatus: "Saved!")
+        SVProgressHUD.dismiss(withDelay: 0.9)
+        SVProgressHUD.setFadeOutAnimationDuration(0.4)
     }
 }
 

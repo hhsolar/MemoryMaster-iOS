@@ -58,7 +58,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="vgi-Yt-Va3" kind="presentation" id="iTo-wN-Z0e"/>
+                                    <segue destination="vgi-Yt-Va3" kind="show" id="yIu-TJ-L2g"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="P90-ZJ-cIg">
@@ -342,6 +342,9 @@
                                     <constraint firstAttribute="height" constant="30" id="WIX-6d-5tH"/>
                                 </constraints>
                                 <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="continueAction:" destination="Kz7-gM-iqn" eventType="touchUpInside" id="Zc0-II-tpK"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HO8-3B-JcN">
                                 <rect key="frame" x="315" y="84" width="30" height="30"/>
@@ -358,8 +361,39 @@
                                 <rect key="frame" x="0.0" y="114" width="375" height="474"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewLayout key="collectionViewLayout" id="06c-vA-1RY" customClass="CircularCollectionViewLayout" customModule="MemoryMaster" customModuleProvider="target"/>
-                                <cells/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="cell" id="5EN-tG-bPt" customClass="NothingCell" customModule="MemoryMaster" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
                             </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studyBoy" translatesAutoresizingMaskIntoConstraints="NO" id="bga-wH-w0Z">
+                                <rect key="frame" x="37.5" y="114" width="300" height="281.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bga-wH-w0Z" secondAttribute="height" multiplier="1024:961" id="0nX-9w-nYL"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, your study library seems empty. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8n-ZH-x9L">
+                                <rect key="frame" x="52.5" y="425.5" width="270" height="41"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oU8-0r-itQ">
+                                <rect key="frame" x="93" y="548" width="189" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="fBA-kx-Cob"/>
+                                </constraints>
+                                <state key="normal" title="Add First Note"/>
+                                <connections>
+                                    <segue destination="ZtS-6r-Ztb" kind="presentation" identifier="ReciteToAddNote" id="qJU-Nu-YFH"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVz-qJ-wfy">
                                 <rect key="frame" x="166" y="580" width="42" height="22"/>
                                 <constraints>
@@ -372,7 +406,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="oU8-0r-itQ" firstAttribute="centerX" secondItem="tY9-y7-ZHg" secondAttribute="centerX" id="3yE-Bc-9pT"/>
+                            <constraint firstItem="bga-wH-w0Z" firstAttribute="top" secondItem="a8W-Oz-854" secondAttribute="top" constant="50" id="8sq-j5-Tg7"/>
                             <constraint firstItem="VqV-ni-Ij8" firstAttribute="centerX" secondItem="tY9-y7-ZHg" secondAttribute="centerX" id="KMb-3n-9G2"/>
+                            <constraint firstItem="bga-wH-w0Z" firstAttribute="centerX" secondItem="tY9-y7-ZHg" secondAttribute="centerX" id="LsP-0X-fv3"/>
                             <constraint firstItem="uVz-qJ-wfy" firstAttribute="top" secondItem="pUm-zE-JbD" secondAttribute="bottom" constant="-8" id="Pj5-lA-g1C"/>
                             <constraint firstItem="pUm-zE-JbD" firstAttribute="top" secondItem="VqV-ni-Ij8" secondAttribute="bottom" id="QDE-hA-KeQ"/>
                             <constraint firstItem="a8W-Oz-854" firstAttribute="trailing" secondItem="HO8-3B-JcN" secondAttribute="trailing" constant="30" id="SAk-Oe-TSu"/>
@@ -381,17 +418,28 @@
                             <constraint firstItem="pUm-zE-JbD" firstAttribute="trailing" secondItem="a8W-Oz-854" secondAttribute="trailing" id="Yqw-K2-itU"/>
                             <constraint firstItem="VqV-ni-Ij8" firstAttribute="top" secondItem="a8W-Oz-854" secondAttribute="top" constant="20" id="ZuQ-mr-Q2z"/>
                             <constraint firstItem="uVz-qJ-wfy" firstAttribute="centerX" secondItem="tY9-y7-ZHg" secondAttribute="centerX" id="Zy2-7f-t7I"/>
+                            <constraint firstItem="a8W-Oz-854" firstAttribute="bottom" secondItem="oU8-0r-itQ" secondAttribute="bottom" constant="40" id="b9N-2H-4nC"/>
                             <constraint firstItem="a8W-Oz-854" firstAttribute="bottom" secondItem="pUm-zE-JbD" secondAttribute="bottom" constant="30" id="bXe-N8-DT8"/>
+                            <constraint firstItem="oU8-0r-itQ" firstAttribute="width" secondItem="P8n-ZH-x9L" secondAttribute="width" multiplier="0.7" id="gga-bT-6gx"/>
+                            <constraint firstItem="bga-wH-w0Z" firstAttribute="width" secondItem="pUm-zE-JbD" secondAttribute="width" multiplier="0.8" id="lj3-Qz-cgg"/>
+                            <constraint firstItem="P8n-ZH-x9L" firstAttribute="top" secondItem="bga-wH-w0Z" secondAttribute="bottom" constant="30" id="nUq-e2-UJb"/>
+                            <constraint firstItem="P8n-ZH-x9L" firstAttribute="centerX" secondItem="tY9-y7-ZHg" secondAttribute="centerX" id="nbg-7H-PHR"/>
                             <constraint firstItem="pUm-zE-JbD" firstAttribute="leading" secondItem="a8W-Oz-854" secondAttribute="leading" id="r2p-G2-mzq"/>
                             <constraint firstItem="HO8-3B-JcN" firstAttribute="top" secondItem="a8W-Oz-854" secondAttribute="top" constant="20" id="twN-xC-YDP"/>
+                            <constraint firstItem="P8n-ZH-x9L" firstAttribute="width" secondItem="bga-wH-w0Z" secondAttribute="width" multiplier="0.9" id="zGD-j6-712"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="a8W-Oz-854"/>
                     </view>
                     <navigationItem key="navigationItem" id="pjW-L9-YfS"/>
                     <connections>
+                        <outlet property="addNoteButton" destination="oU8-0r-itQ" id="zAD-HG-J3b"/>
                         <outlet property="collectionView" destination="pUm-zE-JbD" id="God-vK-5SZ"/>
                         <outlet property="continueButton" destination="VqV-ni-Ij8" id="qWq-oN-f0s"/>
                         <outlet property="indexLabel" destination="uVz-qJ-wfy" id="aKx-3x-bWj"/>
+                        <outlet property="noNoteImageView" destination="bga-wH-w0Z" id="y6p-Rr-9lw"/>
+                        <outlet property="noNoteLabel" destination="P8n-ZH-x9L" id="bI2-VH-Cct"/>
+                        <outlet property="toLeftButton" destination="FUS-nK-ShH" id="Njo-e8-G1P"/>
+                        <outlet property="toRightButton" destination="HO8-3B-JcN" id="iCS-HJ-R4S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CX0-Wj-pqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -401,7 +449,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="e9y-K9-yfN">
             <objects>
-                <tabBarController id="vgi-Yt-Va3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="vgi-Yt-Va3" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gzk-cd-yPT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -625,5 +673,9 @@
         <image name="qa_icon_unclick" width="30" height="30"/>
         <image name="recite_icon" width="30" height="30"/>
         <image name="single_icon_unclick" width="30" height="30"/>
+        <image name="studyBoy" width="1024" height="961"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qJU-Nu-YFH"/>
+    </inferredMetricsTieBreakers>
 </document>

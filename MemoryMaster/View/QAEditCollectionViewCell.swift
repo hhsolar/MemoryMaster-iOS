@@ -10,7 +10,8 @@ import UIKit
 
 protocol QAEditCollectionViewCellDelegate: NoteEditCollectionViewCellDelegate {
     func filpQANoteCard(for cell: QAEditCollectionViewCell)
-    func qaNoteAddPhoto(for textView: UITextView, at index: Int, with range: NSRange, cellStatus: CellStatus)
+    func qaNoteAddPhoto(for textView: UITextView, with range: NSRange, cellStatus: CardStatus)
+    func qaNoteAddBookmark(index: Int, cellStatus: CardStatus)
 }
 
 class QAEditCollectionViewCell: NoteEditCollectionViewCell {
@@ -20,7 +21,8 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
     let filpButton = UIButton()
     
     weak var qaCellDelegate: QAEditCollectionViewCellDelegate?
-    
+    var currentCardStatus: CardStatus?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
@@ -55,14 +57,17 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
         addPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
         titleKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
         bodyKeyboardAddPhotoButton.addTarget(self, action: #selector(addPhotoAction), for: .touchUpInside)
+        
+        addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
     }
     
-    func updateCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CellStatus) {
+    func updateCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CardStatus) {
         super.cardIndex = index
+        currentCardStatus = cellStatus
         super.indexLabel.text = String.init(format: "%d / %d", index + 1, total)
         titleTextView.attributedText = cardContent.title
         bodyTextView.attributedText = cardContent.body
-        if cellStatus == CellStatus.titleFront {
+        if cellStatus == CardStatus.titleFront {
             questionLabel.alpha = 1.0
             answerLabel.alpha = 0.0
             questionLabel.isHidden = false
@@ -93,14 +98,18 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
             if range.location == NSNotFound {
                 range.location = titleTextView.text.count
             }
-            qaCellDelegate?.qaNoteAddPhoto(for: titleTextView, at: cardIndex!, with: range, cellStatus: CellStatus.titleFront)
+            qaCellDelegate?.qaNoteAddPhoto(for: titleTextView, with: range, cellStatus: CardStatus.titleFront)
         } else {
             var range = bodyTextView.selectedRange
             if range.location == NSNotFound {
                 range.location = bodyTextView.text.count
             }
-            qaCellDelegate?.qaNoteAddPhoto(for: bodyTextView, at: cardIndex!, with: range, cellStatus: CellStatus.bodyFrontWithTitle)
+            qaCellDelegate?.qaNoteAddPhoto(for: bodyTextView, with: range, cellStatus: CardStatus.bodyFrontWithTitle)
         }
+    }
+    
+    @objc func addBookmark(_ sender: UIButton) {
+        qaCellDelegate?.qaNoteAddBookmark(index: cardIndex!, cellStatus: currentCardStatus!)
     }
     
     func changeFilpButtonText() {
@@ -115,6 +124,7 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
             answerLabel.isHidden = true
             titleTextView.isHidden = false
             bodyTextView.isHidden = true
+            currentCardStatus = CardStatus.bodyFrontWithTitle
         } else {
             UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
                 self?.questionLabel.alpha = 0.0
@@ -126,6 +136,7 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
             bodyTextView.isHidden = false
             questionLabel.isHidden = true
             answerLabel.isHidden = false
+            currentCardStatus = CardStatus.bodyFrontWithoutTitle
         }
     }
 }

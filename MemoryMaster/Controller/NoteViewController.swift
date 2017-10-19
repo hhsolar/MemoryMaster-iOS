@@ -90,10 +90,10 @@ extension NoteViewController: SingleCollectionViewCellDelegate {
     func toSingleNoteEdit(with indexPath: IndexPath) {
         let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
 
+        controller.passedInCardIndex = indexPath
         if let note = passedInNoteInfo {
             controller.passedInNoteInfo = note
         }
-        controller.passedInCardIndex = indexPath
         controller.container = self.container
         controller.isFirstTimeEdit = false
         controller.delegate = self
@@ -117,10 +117,10 @@ extension NoteViewController: QACollectionViewCellDelegate {
     func toQANoteEdit(with indexPath: IndexPath) {
         let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
         
+        controller.passedInCardIndex = indexPath
         if let note = passedInNoteInfo {
             controller.passedInNoteInfo = note
         }
-        controller.passedInCardIndex = indexPath
         controller.container = self.container
         controller.isFirstTimeEdit = false
         controller.delegate = self

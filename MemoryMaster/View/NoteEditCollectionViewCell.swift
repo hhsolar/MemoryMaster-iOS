@@ -12,7 +12,6 @@ protocol NoteEditCollectionViewCellDelegate: class {
     func addNoteCard(for cell: NoteEditCollectionViewCell)
     func removeNoteCard(for cell: NoteEditCollectionViewCell)
     func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString)
-    func passCardIndexBack(cardIndex: Int)
 }
 
 class NoteEditCollectionViewCell: UICollectionViewCell {
@@ -24,6 +23,7 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
     let removeCardButton = UIButton()
     let addCardButton = UIButton()
     let addPhotoButton = UIButton()
+    let addBookmarkButton = UIButton()
     let titleKeyboardAddPhotoButton = UIButton()
     let bodyKeyboardAddPhotoButton = UIButton()
     
@@ -85,10 +85,16 @@ class NoteEditCollectionViewCell: UICollectionViewCell {
         removeCardButton.addTarget(self, action: #selector(removeCardAction), for: .touchUpInside)
         backView.addSubview(removeCardButton)
         
+        let buttonInterval = (backView.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2 - CustomSize.buttonHeight * 4) / 3
         addPhotoButton.frame = removeCardButton.frame
-        addPhotoButton.frame.origin.x = (backView.bounds.width - CustomSize.buttonHeight) / 2
+        addPhotoButton.frame.origin.x = CustomDistance.viewToScreenEdgeDistance + CustomSize.buttonHeight + buttonInterval
         addPhotoButton.setImage(UIImage.init(named: "photo_icon"), for: .normal)
         backView.addSubview(addPhotoButton)
+        
+        addBookmarkButton.frame = removeCardButton.frame
+        addBookmarkButton.frame.origin.x = CustomDistance.viewToScreenEdgeDistance + CustomSize.buttonHeight * 2 + buttonInterval * 2
+        addBookmarkButton.setImage(UIImage.init(named: "bookMark_icon"), for: .normal)
+        backView.addSubview(addBookmarkButton)
         
         addCardButton.frame = removeCardButton.frame
         addCardButton.frame.origin.x = backView.bounds.width - CustomSize.buttonHeight - CustomDistance.viewToScreenEdgeDistance
@@ -137,6 +143,5 @@ extension NoteEditCollectionViewCell: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         editingTextView = textView
-        delegate?.passCardIndexBack(cardIndex: cardIndex!)
     }
 }

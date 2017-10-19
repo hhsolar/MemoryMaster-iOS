@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ReadNoteViewController: BaseTopViewController {
 
@@ -18,6 +19,9 @@ class ReadNoteViewController: BaseTopViewController {
     @IBOutlet weak var progressBarView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     let barFinishedPart = UIView()
+    let addBookmarkButton = UIButton()
+    
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +36,35 @@ class ReadNoteViewController: BaseTopViewController {
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        let currentIndex = Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
+        
+        let userDefault = UserDefaults.standard
+        if var dict = userDefault.dictionary(forKey: "lastStatus") {
+            dict.updateValue((passedInNoteInfo?.id)!, forKey: "id")
+            dict.updateValue(currentIndex, forKey: "index")
+            dict.updateValue(ReadType.read.rawValue, forKey: "readType")
+            dict.updateValue("", forKey: "cardStatus")
+            userDefault.set(dict, forKey: "lastStatus")
+        } else {
+            let statusDict: [String : Any] = ["id": (passedInNoteInfo?.id)!, "index": currentIndex, "readType": ReadType.read.rawValue, "cardStatus": ""]
+            userDefault.set(statusDict, forKey: "lastStatus")
+        }
+    }
+    
     override func setupUI() {
         super.setupUI()
         super.titleLabel.text = passedInNoteInfo?.name
         self.automaticallyAdjustsScrollViewInsets = false
-
+        
+        addBookmarkButton.frame = CGRect(x: topView.bounds.width - CustomSize.smallBtnHeight - CustomDistance.viewToScreenEdgeDistance,
+                                         y: CustomSize.statusBarHeight + (CustomSize.barHeight - CustomSize.smallBtnHeight) / 2,
+                                         width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
+        addBookmarkButton.setImage(UIImage.init(named: "bookMark_icon"), for: .normal)
+        addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
+        
         progressBarView.layer.cornerRadius = 4
         progressBarView.layer.masksToBounds = true
         progressBarView.layer.borderWidth = 1
@@ -51,8 +79,8 @@ class ReadNoteViewController: BaseTopViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView?.isPagingEnabled = true
-        collectionView?.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         
         let layout = UICollectionViewFlowLayout.init()
         layout.itemSize = CGSize(width: (collectionView?.bounds.width)!, height: (collectionView?.bounds.height)!)
@@ -64,6 +92,39 @@ class ReadNoteViewController: BaseTopViewController {
         
         let nib = UINib(nibName: "ReadCollectionViewCell", bundle: Bundle.main)
         collectionView?.register(nib, forCellWithReuseIdentifier: "ReadCollectionViewCell")
+    }
+    
+    @objc func addBookmark() {
+        let currentIndex = Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
+        
+        let placeholder = String(format: "%@-%@-%@-%d", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.read.rawValue, currentIndex + 1)
+
+        let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
+        alert.addTextField { textFiled in
+            textFiled.placeholder = placeholder
+        }
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
+            var text = placeholder
+            if alert.textFields![0].text! != "" {
+                text = alert.textFields![0].text!
+            }
+            let isNameUsed = try? BookMark.find(matching: text, in: (self?.container?.viewContext)!)
+            if isNameUsed! {
+                self?.showAlert(title: "Error!", message: "Name already used, please give another name.")
+            } else {
+                let bookmark = MyBookmark(name: text, id: (self?.passedInNoteInfo?.id)!, time: Date(), readType: ReadType.read.rawValue, readPage: currentIndex, readPageStatus: nil)
+                self?.container?.performBackgroundTask({ (context) in
+                    BookMark.findOrCreate(matching: bookmark, in: context)
+                    DispatchQueue.main.async {
+                        self?.showSavedPrompt()
+                    }
+                })
+            }
+        })
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: draw prograss bar

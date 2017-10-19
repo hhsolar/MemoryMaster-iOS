@@ -7,7 +7,16 @@
         <attribute name="numberOfCard" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="BookMark" representedClassName=".BookMark" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readPage" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="readPageStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
     <elements>
         <element name="BasicNoteInfo" positionX="-36" positionY="9" width="128" height="120"/>
+        <element name="BookMark" positionX="-27" positionY="54" width="128" height="135"/>
     </elements>
 </model>

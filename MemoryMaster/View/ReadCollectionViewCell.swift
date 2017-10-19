@@ -15,9 +15,11 @@ class ReadCollectionViewCell: UICollectionViewCell {
     func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) {
         let showString = NSMutableAttributedString(string: String(format: "%d. ", index), attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
         if noteType == NoteType.single.rawValue {
-            showString.append(title)
-            let returnAtt = NSAttributedString(string: "\n\n")
-            showString.append(returnAtt)
+            if title != NSAttributedString() {
+                showString.append(title)
+                let returnAtt = NSAttributedString(string: "\n\n")
+                showString.append(returnAtt)
+            }
             showString.append(body)
         } else {
             let questionString = NSAttributedString(string: "Question: ", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])

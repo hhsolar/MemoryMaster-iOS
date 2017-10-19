@@ -19,8 +19,14 @@ enum OutletTag: Int {
     case bodyTextView = 2
 }
 
-enum CellStatus {
-    case titleFront
-    case bodyFrontWithTitle
-    case bodyFrontWithoutTitle
+enum ReadType: String {
+    case edit = "Edit"
+    case read = "Read"
+    case test = "Test"
+}
+
+enum CardStatus: String {
+    case titleFront = "titleFront"
+    case bodyFrontWithTitle = "bodyFrontWithTitle"
+    case bodyFrontWithoutTitle = "bodyFrontWithoutTitle"
 }

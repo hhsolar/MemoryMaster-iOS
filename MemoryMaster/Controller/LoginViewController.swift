@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import CoreData
 import SVProgressHUD
 
 class LoginViewController: UIViewController {
-
+    
+    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
+    
+
 }

@@ -48,4 +48,18 @@ public class BasicNoteInfo: NSManagedObject {
         basicNote.numberOfCard = Int32(noteInfo.numberOfCard)
         return basicNote
     }
+    
+    class func find(matching id: Int32, in context: NSManagedObjectContext) -> BasicNoteInfo? {
+        let request: NSFetchRequest<BasicNoteInfo> = BasicNoteInfo.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", id)
+        do {
+            let matches = try context.fetch(request)
+            if matches.count > 0 {
+                return matches[0]
+            }
+        } catch {
+            print("BasicNoteInfo - find - error: \(error)")
+        }
+        return nil
+    }
 }
