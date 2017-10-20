@@ -169,7 +169,7 @@ class NoteEditViewController: UIViewController {
         editCollectionView.register(QAEditCollectionViewCell.self, forCellWithReuseIdentifier: "QAEditCollectionViewCell")
     }
     
-    @objc func returnKeyBoard(byReactiongTo swipeRecognizer: UISwipeGestureRecognizer) {
+    @objc func returnKeyBoard(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {
         if swipeRecognizer.state == .ended {
             let indexPath = IndexPath(item: currentCardIndex, section: 0)
             let cell = editCollectionView.cellForItem(at: indexPath) as! NoteEditCollectionViewCell
@@ -249,6 +249,9 @@ class NoteEditViewController: UIViewController {
             let yes = UIAlertAction(title: "YES", style: .default, handler: { [weak self] action in
                 self?.save()
                 self?.showSavedPrompt()
+                self?.afterDelay(1.0) {
+                    self?.dismissView()
+                }
             })
             let no = UIAlertAction(title: "NO", style: .default, handler: { [weak self] action in
                 self?.dismissView()
@@ -259,6 +262,10 @@ class NoteEditViewController: UIViewController {
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    private func afterDelay(_ seconds: Double, closure: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: closure)
     }
     
     private func dismissView() {

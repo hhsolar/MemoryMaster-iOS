@@ -29,8 +29,8 @@ extension UIViewController {
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setFadeInAnimationDuration(0.2)
         SVProgressHUD.showSuccess(withStatus: "Saved!")
-        SVProgressHUD.dismiss(withDelay: 0.9)
-        SVProgressHUD.setFadeOutAnimationDuration(0.4)
+        SVProgressHUD.dismiss(withDelay: 0.5)
+        SVProgressHUD.setFadeOutAnimationDuration(0.3)
     }
 }
 

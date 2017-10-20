@@ -35,9 +35,17 @@ class ReciteViewController: UIViewController {
     var toPassCardStatus: String?
     var readType: String?
     
+    let toScreenView = UIView()
+    let toScreenTextView = UITextView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(removeScreenView))
+        swipeRecognizer.direction = .left
+        swipeRecognizer.numberOfTouchesRequired = 1
+        toScreenView.addGestureRecognizer(swipeRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -203,11 +211,46 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let toScreenView = UIView(frame: UIScreen.main.bounds)
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        prepareForToScreenView(collectionView: collectionView, indexPath: indexPath)
+        let finalFrame = CGRect(x: 0, y: CustomSize.barHeight + CustomSize.statusBarHeight, width: collectionView.bounds.width, height: UIScreen.main.bounds.height - CustomSize.barHeight * 2 - CustomSize.statusBarHeight)
+        let finalScreenFrame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance, width: finalFrame.size.width - CustomDistance.viewToScreenEdgeDistance * 2, height: finalFrame.size.height - CustomDistance.viewToScreenEdgeDistance * 2)
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.2, options: [], animations: {
+            self.toScreenView.frame = finalFrame
+            self.toScreenTextView.frame = finalScreenFrame
+            self.toScreenView.layer.cornerRadius = 0
+            self.toScreenView.layer.masksToBounds = false
+            self.toScreenView.layer.borderWidth = 0
+        })
+        
+        collectionView.deselectItem(at: indexPath, animated: false)
+    }
+    
+    private func prepareForToScreenView(collectionView: UICollectionView, indexPath: IndexPath) {
+        toScreenView.layer.cornerRadius = 10
+        toScreenView.layer.masksToBounds = true
+        toScreenView.layer.borderWidth = 1
         toScreenView.backgroundColor = CustomColor.weakGray
-        let textView = UITextView(frame: CGRect(x: CustomSize.barHeight, y: CustomSize.barHeight, width: UIScreen.main.bounds.width - CustomSize.barHeight * 2, height: UIScreen.main.bounds.height - CustomSize.barHeight * 2))
-        textView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: (noteInfo?.type)!, title: notes[indexPath.item].title, body: notes[indexPath.item].body, index: indexPath.item)
-        textView.backgroundColor = CustomColor.weakGray
+        let attributes: UICollectionViewLayoutAttributes! = collectionView.layoutAttributesForItem(at: indexPath)
+        let frameInSuperView: CGRect! = collectionView.convert(attributes.frame, to: collectionView.superview)
+        toScreenView.frame = frameInSuperView
+        view.addSubview(toScreenView)
+
+        toScreenTextView.frame = CGRect(x: CustomSize.barHeight, y: CustomSize.barHeight, width: toScreenView.bounds.width - CustomSize.barHeight * 2, height: toScreenView.bounds.height - CustomSize.barHeight * 2)
+        toScreenTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: (noteInfo?.type)!, title: notes[indexPath.item].title, body: notes[indexPath.item].body, index: indexPath.item)
+        toScreenTextView.backgroundColor = CustomColor.weakGray
+        toScreenView.addSubview(toScreenTextView)
+    }
+    
+    @objc private func removeScreenView(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {
+        if swipeRecognizer.state == .ended {
+            UIView.animateKeyframes(withDuration: 0.3, delay: 0.01, options: [], animations: {
+                self.toScreenView.frame.origin.x = -UIScreen.main.bounds.width
+            }) { finished in
+                self.toScreenView.removeFromSuperview()
+            }
+        }
     }
 }

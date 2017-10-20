@@ -34,7 +34,6 @@
 		18C2AB7E1F81C8F9003249BE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB7D1F81C8F9003249BE /* LoginViewController.swift */; };
 		18C2AB821F81CB4F003249BE /* ReciteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB811F81CB4F003249BE /* ReciteViewController.swift */; };
 		18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB831F81CB88003249BE /* LibraryViewController.swift */; };
-		18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB851F81CB99003249BE /* MeViewController.swift */; };
 		18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */; };
 		18C2ABD61F82129C003249BE /* SingleEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD41F82129C003249BE /* SingleEditCollectionViewCell.swift */; };
 		18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2ABD81F82A8A0003249BE /* NoteViewController.swift */; };
@@ -58,6 +57,7 @@
 		18DBB8F91F84ABFB00B34228 /* ReadCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */; };
 		18E94AAA1F8DA20400525EDE /* appEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E94AA91F8DA20400525EDE /* appEnum.swift */; };
 		18E94AAF1F8DEAD500525EDE /* NoteEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E94AAD1F8DEAD400525EDE /* NoteEditCollectionViewCell.swift */; };
+		18E9CE0C1F996AE6001B14F1 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9CE0B1F996AE6001B14F1 /* MeTableViewController.swift */; };
 		18EC40131F95525C00BA7A4E /* CircularCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC40121F95525C00BA7A4E /* CircularCollectionViewLayout.swift */; };
 		18EC40161F9553C500BA7A4E /* CircularCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC40141F9553C500BA7A4E /* CircularCollectionViewCell.swift */; };
 		18EC40171F9553C500BA7A4E /* CircularCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC40151F9553C500BA7A4E /* CircularCollectionViewCell.xib */; };
@@ -123,7 +123,6 @@
 		18C2AB801F81CB10003249BE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		18C2AB811F81CB4F003249BE /* ReciteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciteViewController.swift; sourceTree = "<group>"; };
 		18C2AB831F81CB88003249BE /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
-		18C2AB851F81CB99003249BE /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		18C2AB8E1F81F428003249BE /* BasicNoteInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicNoteInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		18C2AB8F1F81F428003249BE /* BasicNoteInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasicNoteInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18C2AB941F81F4EB003249BE /* MyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNote.swift; sourceTree = "<group>"; };
@@ -146,6 +145,7 @@
 		18DBB8F71F84ABFB00B34228 /* ReadCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadCollectionViewCell.xib; sourceTree = "<group>"; };
 		18E94AA91F8DA20400525EDE /* appEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appEnum.swift; sourceTree = "<group>"; };
 		18E94AAD1F8DEAD400525EDE /* NoteEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditCollectionViewCell.swift; sourceTree = "<group>"; };
+		18E9CE0B1F996AE6001B14F1 /* MeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeTableViewController.swift; sourceTree = "<group>"; };
 		18EC40121F95525C00BA7A4E /* CircularCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCollectionViewLayout.swift; sourceTree = "<group>"; };
 		18EC40141F9553C500BA7A4E /* CircularCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCollectionViewCell.swift; sourceTree = "<group>"; };
 		18EC40151F9553C500BA7A4E /* CircularCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CircularCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -314,7 +314,7 @@
 				18C2AB7D1F81C8F9003249BE /* LoginViewController.swift */,
 				18C2AB811F81CB4F003249BE /* ReciteViewController.swift */,
 				18C2AB831F81CB88003249BE /* LibraryViewController.swift */,
-				18C2AB851F81CB99003249BE /* MeViewController.swift */,
+				18E9CE0B1F996AE6001B14F1 /* MeTableViewController.swift */,
 				18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */,
 				18C2ABD81F82A8A0003249BE /* NoteViewController.swift */,
 				184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */,
@@ -673,7 +673,6 @@
 				184B33081F8AFCC600EACD89 /* ImagePickerViewController.swift in Sources */,
 				18DBB8DE1F84307000B34228 /* BorderUIView.swift in Sources */,
 				18DBB8F21F849B3B00B34228 /* QACollectionViewCell.swift in Sources */,
-				18C2AB861F81CB99003249BE /* MeViewController.swift in Sources */,
 				1800FBF51F8552B800A9A703 /* QAEditCollectionViewCell.swift in Sources */,
 				18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */,
 				184B330F1F8B4BFF00EACD89 /* BaseTopViewController.swift in Sources */,
@@ -690,6 +689,7 @@
 				18EC40161F9553C500BA7A4E /* CircularCollectionViewCell.swift in Sources */,
 				18DBB8E41F843F3C00B34228 /* LibraryTableViewCell.swift in Sources */,
 				180336DA1F96862C007ACC8B /* BookMark+CoreDataProperties.swift in Sources */,
+				18E9CE0C1F996AE6001B14F1 /* MeTableViewController.swift in Sources */,
 				18E94AAA1F8DA20400525EDE /* appEnum.swift in Sources */,
 				18C2AB4D1F81B7A1003249BE /* MemoryMaster.xcdatamodeld in Sources */,
 				18C2ABE11F82B48C003249BE /* SlideOutAnimationController.swift in Sources */,
