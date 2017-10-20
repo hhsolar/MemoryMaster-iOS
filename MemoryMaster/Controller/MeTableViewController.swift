@@ -25,15 +25,16 @@ class MeTableViewController: UITableViewController {
 
 extension MeTableViewController
 {
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        switch (indexPath.section, indexPath.row) {
-//        case (0, 0):
-//            
-//        default:
-//            print()
-//        }
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch (indexPath.section, indexPath.row) {
+        case (1, 0):
+            let controller = BookmarkTableViewController.init(nibName: "BookmarkTableViewController", bundle: nil)
+            self.navigationController?.pushViewController(controller, animated: true)
+        default:
+            print()
+        }
+    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {

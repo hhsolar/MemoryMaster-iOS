@@ -1,8 +1,8 @@
 //
-//  appEnum.swift
+//  Enums.swift
 //  MemoryMaster
 //
-//  Created by apple on 10/10/2017.
+//  Created by apple on 20/10/2017.
 //  Copyright © 2017 greatwall. All rights reserved.
 //
 
