@@ -25,6 +25,16 @@ class MeTableViewController: UITableViewController {
 
 extension MeTableViewController
 {
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        switch (indexPath.section, indexPath.row) {
+//        case (0, 0):
+//            
+//        default:
+//            print()
+//        }
+//    }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:

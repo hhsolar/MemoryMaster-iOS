@@ -552,7 +552,7 @@ extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationC
             case .authorized:
                 DispatchQueue.main.async {
                     let controller = ImagePickerViewController.init(nibName: "ImagePickerViewController", bundle: nil)
-                    controller.lastController = self
+                    controller.noteController = self
                     self?.present(controller, animated: true, completion: {
                         let indexPath = IndexPath(item: (self?.currentCardIndex)!, section: 0)
                         self?.passedInCardIndex = indexPath

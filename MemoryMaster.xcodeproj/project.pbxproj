@@ -16,6 +16,7 @@
 		1813170D1F8D3C880099FE89 /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813170B1F8D3C880099FE89 /* NoteEditViewController.swift */; };
 		1813170E1F8D3C880099FE89 /* NoteEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1813170C1F8D3C880099FE89 /* NoteEditViewController.xib */; };
 		181317101F8D7D850099FE89 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */; };
+		182EF9531F99931E0037A43E /* PersonEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */; };
 		184B33081F8AFCC600EACD89 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */; };
 		184B33091F8AFCC600EACD89 /* ImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */; };
 		184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */; };
@@ -98,6 +99,7 @@
 		1813170B1F8D3C880099FE89 /* NoteEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
 		1813170C1F8D3C880099FE89 /* NoteEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteEditViewController.xib; sourceTree = "<group>"; };
 		1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonEditTableViewController.swift; sourceTree = "<group>"; };
 		184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerViewController.xib; sourceTree = "<group>"; };
 		184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */,
 				18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */,
 				18EC401B1F957B6300BA7A4E /* MyViewController.swift */,
+				182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -698,6 +701,7 @@
 				18C2ABDE1F82B481003249BE /* BounceAnimationController.swift in Sources */,
 				18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */,
 				18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */,
+				182EF9531F99931E0037A43E /* PersonEditTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

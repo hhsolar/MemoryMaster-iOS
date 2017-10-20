@@ -220,6 +220,7 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.2, options: [], animations: {
             self.toScreenView.frame = finalFrame
             self.toScreenTextView.frame = finalScreenFrame
+            self.toScreenTextView.isEditable = false
             self.toScreenView.layer.cornerRadius = 0
             self.toScreenView.layer.masksToBounds = false
             self.toScreenView.layer.borderWidth = 0

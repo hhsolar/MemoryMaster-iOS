@@ -13,7 +13,8 @@ import SVProgressHUD
 class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegateFlowLayout {
 
     // public api
-    var lastController: NoteEditViewController?
+    var noteController: NoteEditViewController?
+    var personController: PersonEditTableViewController?
     var smallPhotoArray = [UIImage]()
     var photoAsset = [PHAsset]()
     
@@ -78,10 +79,18 @@ extension ImagePickerViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let image = UIImage.getOriginalPhoto(asset: photoAsset[indexPath.row])
-        let controller = TOCropViewController.init(image: image)
-        controller.delegate = self.lastController
-        dismiss(animated: true) {
-            self.lastController?.present(controller, animated: true, completion: nil)
+        if noteController != nil {
+            let controller = TOCropViewController.init(image: image)
+            controller.delegate = self.noteController
+            dismiss(animated: true) {
+                    self.noteController?.present(controller, animated: true, completion: nil)
+            }
+        } else if personController != nil {
+            let controller = TOCropViewController.init(croppingStyle: .circular, image: image)
+            controller.delegate = self.personController
+            dismiss(animated: true) {
+                self.personController?.present(controller, animated: true, completion: nil)
+            }
         }
     }
 }
