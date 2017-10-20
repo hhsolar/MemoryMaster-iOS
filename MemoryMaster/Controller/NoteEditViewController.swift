@@ -245,22 +245,16 @@ class NoteEditViewController: UIViewController {
             }
             dismissView()
         } else {
-            let alert = UIAlertController(title: "Reminder!", message: "Do you want to save your change?", preferredStyle: .alert)
-            let yes = UIAlertAction(title: "YES", style: .default, handler: { [weak self] action in
-                self?.save()
-                self?.showSavedPrompt()
-                self?.afterDelay(1.0) {
-                    self?.dismissView()
-                }
-            })
-            let no = UIAlertAction(title: "NO", style: .default, handler: { [weak self] action in
+            showAlertWithAction(title: "Reminder!", message: "Do you want to save your change?", hasNo: true,
+                yesHandler: { [weak self] _ in
+                    self?.save()
+                    self?.showSavedPrompt()
+                    self?.afterDelay(1.0) {
+                        self?.dismissView()
+                    }
+                }, noHandler: { [weak self] _ in
                 self?.dismissView()
             })
-            let cancel = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
-            alert.addAction(yes)
-            alert.addAction(no)
-            alert.addAction(cancel)
-            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -399,6 +393,7 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
     
     func singleNoteAddBookmark(index: Int, cellStatus: CardStatus) {
         let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, NoteType.single.rawValue, ReadType.edit.rawValue, index + 1, cellStatus.rawValue)
+        
         let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
         alert.addTextField { textFiled in
             textFiled.placeholder = placeholder
@@ -443,6 +438,7 @@ extension NoteEditViewController: QAEditCollectionViewCellDelegate {
     
     func qaNoteAddBookmark(index: Int, cellStatus: CardStatus) {
         let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, NoteType.qa.rawValue, ReadType.edit.rawValue, index + 1, cellStatus.rawValue)
+        
         let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
         alert.addTextField { textFiled in
             textFiled.placeholder = placeholder

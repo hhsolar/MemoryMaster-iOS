@@ -21,13 +21,13 @@ class SettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            showAlertView(title: "Clear All Notes", message: "Do you really want to remove all notes?") {
-                [weak self] action in self?.deleteAllNotes()
-            }
+            showAlertWithAction(title: "Clear All Notes", message: "Do you really want to remove all notes?", hasNo: false, yesHandler: {
+                [weak self] _ in self?.deleteAllNotes()
+            }, noHandler: nil)
         case (0, 1):
-            showAlertView(title: "Clear All Bookmarks", message: "Do you really want to remove all bookmarks?") {
-                [weak self] action in self?.deleteAllBookmarks()
-            }
+            showAlertWithAction(title: "Clear All Bookmarks", message: "Do you really want to remove all bookmarks?", hasNo: false, yesHandler: {
+                [weak self] _ in self?.deleteAllBookmarks()
+            }, noHandler: nil)
         default:
             break
         }

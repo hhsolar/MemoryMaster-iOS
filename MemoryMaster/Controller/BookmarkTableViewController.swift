@@ -11,6 +11,8 @@ import CoreData
 
 class BookmarkTableViewController: UITableViewController {
     
+    let nothingFoundLabel = UILabel()
+    
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     var fetchedResultsController: NSFetchedResultsController<BookMark>?
@@ -21,9 +23,17 @@ class BookmarkTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nothingFoundLabel.frame = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: 60)
+        nothingFoundLabel.text = "Nothing Found"
+        nothingFoundLabel.textColor = CustomColor.wordGray
+        nothingFoundLabel.textAlignment = .center
+        view.addSubview(nothingFoundLabel)
+        
         tableView.rowHeight = 60
-        let nib = UINib(nibName: "BookmarkTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "bookmarkCell")
+        var nib = UINib(nibName: "BookmarkTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "BookmarkCell")
+        nib = UINib(nibName: "NothingCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "NothingCell")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +69,11 @@ extension BookmarkTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController?.sections, sections.count > 0 {
+            if sections[section].numberOfObjects == 0 {
+                nothingFoundLabel.isHidden = false
+            } else {
+                nothingFoundLabel.isHidden = true
+            }
             return sections[section].numberOfObjects
         } else {
             return 0
@@ -66,7 +81,7 @@ extension BookmarkTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BookmarkCell", for: indexPath) as! BookmarkTableViewCell
         if let bookmark = fetchedResultsController?.object(at: indexPath) {
             cell.nameLabel.text = bookmark.name
             let dateFormatter = DateFormatter()
