@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+private let cellReuseIdentifier = "BookmarkTableViewCell"
+
 class BookmarkTableViewController: UITableViewController {
     
     let nothingFoundLabel = UILabel()
@@ -30,10 +32,8 @@ class BookmarkTableViewController: UITableViewController {
         view.addSubview(nothingFoundLabel)
         
         tableView.rowHeight = 60
-        var nib = UINib(nibName: "BookmarkTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "BookmarkCell")
-        nib = UINib(nibName: "NothingCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "NothingCell")
+        let nib = UINib(nibName: cellReuseIdentifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cellReuseIdentifier)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +81,7 @@ extension BookmarkTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookmarkCell", for: indexPath) as! BookmarkTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! BookmarkTableViewCell
         if let bookmark = fetchedResultsController?.object(at: indexPath) {
             cell.nameLabel.text = bookmark.name
             let dateFormatter = DateFormatter()

@@ -52,7 +52,7 @@ class ChooseTypeViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            let noteInfo = MyBasicNoteInfo(id: MyBasicNoteInfo.nextNoteID(), time: Date(), type: NoteType.single.rawValue, name: name, numberOfCard: 1)
+            let noteInfo = MyBasicNoteInfo(id: MyBasicNoteInfo.nextNoteID(), time: Date(), type: noteType.rawValue, name: name, numberOfCard: 1)
             let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
             controller.passedInNoteInfo = noteInfo
             controller.container = self.container

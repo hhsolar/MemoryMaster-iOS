@@ -61,5 +61,10 @@ struct CardContent {
         } catch {
             print("Error removing file: \(error)")
         }
-    }    
+    }
+    
+    func saveCardContentToFile(cardIndex: Int, noteName: String, noteType: String) {
+        self.title.saveTextToFile(with: noteName, at: cardIndex, in: noteType, contentType: "title")
+        self.body.saveTextToFile(with: noteName, at: cardIndex, in: noteType, contentType: "body")
+    }
 }

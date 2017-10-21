@@ -77,7 +77,7 @@ class ReciteViewController: UIViewController {
     private func updateUI() {
         // read last visit note infomation from userDefault
         let userDefault = UserDefaults.standard
-        if let lastSet = userDefault.dictionary(forKey: "lastStatus") {
+        if let lastSet = userDefault.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
             let id = lastSet[UserDefaultsDictKey.id] as! Int32
             let note = BasicNoteInfo.find(matching: id, in: (container?.viewContext)!)
             if let note = note {
@@ -103,11 +103,24 @@ class ReciteViewController: UIViewController {
                     indexLabel.text = String(format: "%d / %d", index + 1, notes.count)
                 }
                 return
+            } else if let noteNumber = noteNumber, noteNumber > 0 {
+                noNoteLabel.text = "Oops, the note you read last time seems removed."
+                presentNoNoteLayout()
+                addNoteButton.isHidden = true
+                addNoteButton.isEnabled = false
+                return
             }
         }
         presentNoNoteLayout()
     }
 
+    var noteNumber: Int? {
+        if let context = container?.viewContext {
+            return try? context.count(for: BasicNoteInfo.fetchRequest())
+        }
+        return nil
+    }
+    
     private func setupUI()
     {
         addNoteButton.backgroundColor = CustomColor.medianBlue

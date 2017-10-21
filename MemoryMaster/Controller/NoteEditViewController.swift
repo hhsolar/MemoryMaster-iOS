@@ -11,6 +11,9 @@ import CoreData
 import Photos
 import SVProgressHUD
 
+private let cellReuseIdentifier1 = "SingleEditCollectionViewCell"
+private let cellReuseIdentifier2 = "QAEditCollectionViewCell"
+
 protocol NoteEditViewControllerDelegate: class {
     func passNoteInforBack(noteInfo: MyBasicNoteInfo)
 }
@@ -91,10 +94,10 @@ class NoteEditViewController: UIViewController {
             
             if let passedInCardStatus = passedInCardStatus {
                 if noteType! == NoteType.single {
-                    let cell = editCollectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
+                    let cell = editCollectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier1, for: indexPath) as! SingleEditCollectionViewCell
                     cell.updateCell(with: notes[indexPath.item], at: indexPath.item, total: notes.count, cellStatus: CardStatus(rawValue: passedInCardStatus)!)
                 } else {
-                    let cell = editCollectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
+                    let cell = editCollectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier2, for: indexPath) as! QAEditCollectionViewCell
                     cell.updateCell(with: notes[indexPath.item], at: indexPath.item, total: notes.count, cellStatus: CardStatus(rawValue: passedInCardStatus)!)
                 }
             }
@@ -120,15 +123,15 @@ class NoteEditViewController: UIViewController {
         }
         
         let userDefault = UserDefaults.standard
-        if var dict = userDefault.dictionary(forKey: "lastStatus") {
-            dict.updateValue((passedInNoteInfo?.id)!, forKey: "id")
-            dict.updateValue(currentCardIndex, forKey: "index")
-            dict.updateValue(ReadType.edit.rawValue, forKey: "readType")
-            dict.updateValue(status.rawValue, forKey: "cardStatus")
-            userDefault.set(dict, forKey: "lastStatus")
+        if var dict = userDefault.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
+            dict.updateValue((passedInNoteInfo?.id)!, forKey: UserDefaultsDictKey.id)
+            dict.updateValue(currentCardIndex, forKey: UserDefaultsDictKey.cardIndex)
+            dict.updateValue(ReadType.edit.rawValue, forKey: UserDefaultsDictKey.readType)
+            dict.updateValue(status.rawValue, forKey: UserDefaultsDictKey.cardStatus)
+            userDefault.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
         } else {
-            let statusDict: [String : Any] = ["id": (passedInNoteInfo?.id)!, "index": currentCardIndex, "readType": ReadType.edit.rawValue, "cardStatus": status.rawValue]
-            userDefault.set(statusDict, forKey: "lastStatus")
+            let statusDict: [String : Any] = [UserDefaultsDictKey.id: (passedInNoteInfo?.id)!, UserDefaultsDictKey.cardIndex: currentCardIndex, UserDefaultsDictKey.readType: ReadType.edit.rawValue, UserDefaultsDictKey.cardStatus: status.rawValue]
+            userDefault.set(statusDict, forKey: UserDefaultsKeys.lastReadStatus)
         }
     }
     
@@ -147,7 +150,11 @@ class NoteEditViewController: UIViewController {
         titleLabel.textColor = CustomColor.medianBlue
         
         self.view.backgroundColor = UIColor.lightGray
-        topView.backgroundColor = CustomColor.lightGreen
+        if noteType! == NoteType.single {
+            topView.backgroundColor = CustomColor.lightGreen
+        } else {
+            topView.backgroundColor = CustomColor.lightBlue
+        }
         
         topView.layer.cornerRadius = 15
         topView.layer.masksToBounds = true
@@ -165,8 +172,8 @@ class NoteEditViewController: UIViewController {
         layout.minimumLineSpacing = 0
         editCollectionView.collectionViewLayout = layout
         
-        editCollectionView.register(SingleEditCollectionViewCell.self, forCellWithReuseIdentifier: "SingleEditCollectionViewCell")
-        editCollectionView.register(QAEditCollectionViewCell.self, forCellWithReuseIdentifier: "QAEditCollectionViewCell")
+        editCollectionView.register(SingleEditCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier1)
+        editCollectionView.register(QAEditCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier2)
     }
     
     @objc func returnKeyBoard(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {
@@ -190,20 +197,17 @@ class NoteEditViewController: UIViewController {
         {
             // case 1: no card added or removed
             for i in changedCard {
-                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
-                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+                notes[i].saveCardContentToFile(cardIndex: i, noteName: (passedInNoteInfo?.name)!, noteType: (passedInNoteInfo?.type)!)
             }
         } else if minChangedIndex == (passedInNoteInfo?.numberOfCard)! && notes.count > (passedInNoteInfo?.numberOfCard)!
         {
             // case 2: card only add or removed after original length
             for i in minChangedIndex..<notes.count {
-                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
-                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+                notes[i].saveCardContentToFile(cardIndex: i, noteName: (passedInNoteInfo?.name)!, noteType: (passedInNoteInfo?.type)!)
             }
             
             for i in changedCard {
-                notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
-                notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+                notes[i].saveCardContentToFile(cardIndex: i, noteName: (passedInNoteInfo?.name)!, noteType: (passedInNoteInfo?.type)!)
             }
         } else
         {
@@ -213,15 +217,13 @@ class NoteEditViewController: UIViewController {
             }
             if minChangedIndex <= notes.count {
                 for i in minChangedIndex..<notes.count {
-                    notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
-                    notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+                    notes[i].saveCardContentToFile(cardIndex: i, noteName: (passedInNoteInfo?.name)!, noteType: (passedInNoteInfo?.type)!)
                 }
             }
             
             for i in changedCard {
                 if i < minChangedIndex {
-                    notes[i].title.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "title")
-                    notes[i].body.saveTextToFile(with: (passedInNoteInfo?.name)!, at: i, in: (passedInNoteInfo?.type)!, contentType: "body")
+                    notes[i].saveCardContentToFile(cardIndex: i, noteName: (passedInNoteInfo?.name)!, noteType: (passedInNoteInfo?.type)!)
                 } else {
                     break
                 }
@@ -249,7 +251,7 @@ class NoteEditViewController: UIViewController {
                 yesHandler: { [weak self] _ in
                     self?.save()
                     self?.showSavedPrompt()
-                    self?.afterDelay(1.0) {
+                    self?.afterDelay(0.8) {
                         self?.dismissView()
                     }
                 }, noHandler: { [weak self] _ in
@@ -281,34 +283,38 @@ extension NoteEditViewController: UICollectionViewDelegate, UICollectionViewData
         return notes.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let noteInfo = passedInNoteInfo {
             if noteInfo.type == NoteType.single.rawValue {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
-                cell.singleCellDelegate = self
-                cell.delegate = self
-                cell.awakeFromNib()
+                let newCell = cell as! SingleEditCollectionViewCell
+                newCell.singleCellDelegate = self
+                newCell.delegate = self
+                newCell.awakeFromNib()
                 var singleCellStatus = CardStatus.bodyFrontWithoutTitle
                 if let addPhotoCardStatus = addPhotoCardStatus {
                     singleCellStatus = addPhotoCardStatus
                 } else if notes[indexPath.row].title != NSAttributedString.init() {
                     singleCellStatus = CardStatus.titleFront
                 }
-                cell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: singleCellStatus)
+                newCell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: singleCellStatus)
                 addPhotoCardStatus = nil
-                return cell
-            } else if noteInfo.type == NoteType.qa.rawValue {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
-                cell.qaCellDelegate = self
-                cell.delegate = self
-                cell.awakeFromNib()
-                cell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCardStatus!)
+            } else {
+                let newCell = cell as! QAEditCollectionViewCell
+                newCell.qaCellDelegate = self
+                newCell.delegate = self
+                newCell.awakeFromNib()
+                newCell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: addPhotoCardStatus!)
                 addPhotoCardStatus = CardStatus.titleFront
-                return cell
             }
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
-        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if (passedInNoteInfo?.type)! == NoteType.single.rawValue {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "SingleEditCollectionViewCell", for: indexPath) as! SingleEditCollectionViewCell
+        } else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "QAEditCollectionViewCell", for: indexPath) as! QAEditCollectionViewCell
+        }
     }
 }
 
@@ -392,8 +398,12 @@ extension NoteEditViewController: SingleEditCollectionViewCellDelegate {
     }
     
     func singleNoteAddBookmark(index: Int, cellStatus: CardStatus) {
-        let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, NoteType.single.rawValue, ReadType.edit.rawValue, index + 1, cellStatus.rawValue)
-        
+        addBookmark(index: index, noteType: NoteType.single.rawValue, cellStatus: cellStatus)
+    }
+    
+    private func addBookmark(index: Int, noteType: String, cellStatus: CardStatus)
+    {
+        let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, noteType, ReadType.edit.rawValue, index + 1, cellStatus.rawValue)
         let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
         alert.addTextField { textFiled in
             textFiled.placeholder = placeholder
@@ -437,35 +447,7 @@ extension NoteEditViewController: QAEditCollectionViewCellDelegate {
     }
     
     func qaNoteAddBookmark(index: Int, cellStatus: CardStatus) {
-        let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, NoteType.qa.rawValue, ReadType.edit.rawValue, index + 1, cellStatus.rawValue)
-        
-        let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
-        alert.addTextField { textFiled in
-            textFiled.placeholder = placeholder
-        }
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
-            var text = placeholder
-            if alert.textFields![0].text! != "" {
-                text = alert.textFields![0].text!
-            }
-            let isNameUsed = try? BookMark.find(matching: text, in: (self?.container?.viewContext)!)
-            if isNameUsed! {
-                self?.showAlert(title: "Error!", message: "Name already used, please give another name.")
-            } else {
-                let bookmark = MyBookmark(name: text, id: (self?.passedInNoteInfo?.id)!, time: Date(), readType: ReadType.edit.rawValue, readPage: index, readPageStatus: cellStatus.rawValue)
-                self?.container?.performBackgroundTask({ (context) in
-                    self?.save()
-                    BookMark.findOrCreate(matching: bookmark, in: context)
-                    DispatchQueue.main.async {
-                        self?.showSavedPrompt()
-                    }
-                })
-            }
-        })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(ok)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
+        addBookmark(index: index, noteType: NoteType.qa.rawValue, cellStatus: cellStatus)
     }
 }
 

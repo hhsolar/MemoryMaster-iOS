@@ -213,12 +213,13 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let note = fetchedResultsController?.object(at: indexPath)
-            for i in 0..<Int((note?.numberOfCard)!) {
-                CardContent.removeCardContent(with: (note?.name)!, at: i, in: (note?.type)!)
+            let note: BasicNoteInfo! = fetchedResultsController?.object(at: indexPath)
+            for i in 0..<Int(note.numberOfCard) {
+                CardContent.removeCardContent(with: note.name, at: i, in: note.type)
             }
             let context = container?.viewContext
-            context?.delete(note!)
+            BookMark.remove(matching: note.id, in: context!)
+            context?.delete(note)
             try? context?.save()
         }
     }
