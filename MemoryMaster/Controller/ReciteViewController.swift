@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 
+private let cellReuseIdentifier1 = "CircularCollectionViewCell"
+private let cellReuseIdentifier2 = "cell"
+
 class NothingCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,8 +32,11 @@ class ReciteViewController: UIViewController {
     
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
 
+    // var for show data and pass
     var noteInfo: MyBasicNoteInfo?
     var notes = [CardContent]()
+    
+    // var for pass
     var toPassIndex: Int?
     var toPassCardStatus: String?
     var readType: String?
@@ -51,12 +57,16 @@ class ReciteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUI()
+        
+        // add notification to refreash view when back to the controller
         NotificationCenter.default.addObserver(self, selector: #selector(refreshPage), name: NSNotification.Name(rawValue: "RefreshPage"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         notes.removeAll()
+        
+        // remove notification
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "RefreshPage"), object: nil)
     }
     
@@ -65,9 +75,10 @@ class ReciteViewController: UIViewController {
     }
     
     private func updateUI() {
+        // read last visit note infomation from userDefault
         let userDefault = UserDefaults.standard
         if let lastSet = userDefault.dictionary(forKey: "lastStatus") {
-            let id = lastSet["id"] as! Int32
+            let id = lastSet[UserDefaultsDictKey.id] as! Int32
             let note = BasicNoteInfo.find(matching: id, in: (container?.viewContext)!)
             if let note = note {
                 hideNoNoteLayout()
@@ -76,9 +87,9 @@ class ReciteViewController: UIViewController {
                     let cardContent = CardContent.getCardContent(with: note.name, at: i, in: note.type)
                     notes.append(cardContent)
                 }
-                toPassIndex = lastSet["index"] as? Int
-                readType = lastSet["readType"] as? String
-                toPassCardStatus = lastSet["cardStatus"] as? String
+                toPassIndex = lastSet[UserDefaultsDictKey.cardIndex] as? Int
+                readType = lastSet[UserDefaultsDictKey.readType] as? String
+                toPassCardStatus = lastSet[UserDefaultsDictKey.cardStatus] as? String
                 collectionView.reloadData()
                 if let index = toPassIndex {
                     var sec = 0
@@ -100,16 +111,16 @@ class ReciteViewController: UIViewController {
     private func setupUI()
     {
         addNoteButton.backgroundColor = CustomColor.medianBlue
-        addNoteButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
+        addNoteButton.titleLabel?.font = UIFont(name: CustomFont.HelveticaNeue, size: CustomFont.FontSizeSmall)
         addNoteButton.setTitleColor(UIColor.white, for: .normal)
         addNoteButton.layer.cornerRadius = 14
         addNoteButton.layer.masksToBounds = true
         
         indexLabel.textColor = CustomColor.medianBlue
-        indexLabel.font = UIFont(name: CustomFont.navigationSideFontName, size: CustomFont.navigationSideFontSize)
+        indexLabel.font = UIFont(name: CustomFont.HelveticaNeue, size: CustomFont.FontSizeMid)
         
         continueButton.backgroundColor = CustomColor.medianBlue
-        continueButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
+        continueButton.titleLabel?.font = UIFont(name: CustomFont.HelveticaNeue, size: CustomFont.FontSizeSmall)
         continueButton.setTitleColor(UIColor.white, for: .normal)
         continueButton.layer.cornerRadius = 14
         continueButton.layer.masksToBounds = true
@@ -118,9 +129,9 @@ class ReciteViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
         
-        let nib = UINib(nibName: "CircularCollectionViewCell", bundle: Bundle.main)
-        collectionView.register(nib, forCellWithReuseIdentifier: "CircularCollectionViewCell")
-        collectionView.register(NothingCell.self, forCellWithReuseIdentifier: "cell")
+        let nib = UINib(nibName: cellReuseIdentifier1, bundle: Bundle.main)
+        collectionView.register(nib, forCellWithReuseIdentifier: cellReuseIdentifier1)
+        collectionView.register(NothingCell.self, forCellWithReuseIdentifier: cellReuseIdentifier2)
     }
     
     private func presentNoNoteLayout() {
@@ -201,16 +212,21 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return notes.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if notes.count == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-            return cell
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if notes.count != 0 {
+            let newCell = cell as! CircularCollectionViewCell
+            newCell.updateUI(noteType: (noteInfo?.type)!, title: notes[indexPath.row].title, body: notes[indexPath.row].body, index: indexPath.row)
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CircularCollectionViewCell", for: indexPath) as! CircularCollectionViewCell
-        cell.updateUI(noteType: (noteInfo?.type)!, title: notes[indexPath.row].title, body: notes[indexPath.row].body, index: indexPath.row)
-        return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if notes.count == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier2, for: indexPath)
+            return cell
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier1, for: indexPath) as! CircularCollectionViewCell
+        return cell
+    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {

@@ -35,38 +35,24 @@ class ChooseTypeViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func toSingleNoteEditPage(_ sender: UIButton)
     {
+        presentNoteEditController(noteType: NoteType.single)
+    }
+    
+    @IBAction func toQANoteEditPage(_ sender: UIButton)
+    {
+        presentNoteEditController(noteType: NoteType.qa)
+    }
+    
+    private func presentNoteEditController(noteType: NoteType) {
         if let name = nameTextField.text, name.characters.count > 0 {
             let context = container?.viewContext
-            let isUesdName = BasicNoteInfo.isNoteExist(name: name, type: NoteType.single.rawValue, in: context!)
+            let isUesdName = BasicNoteInfo.isNoteExist(name: name, type: noteType.rawValue, in: context!)
             if isUesdName {
                 showAlert(title: "Used Name!", message: "Please choose another name, or edit the exist note.")
                 return
             }
             
             let noteInfo = MyBasicNoteInfo(id: MyBasicNoteInfo.nextNoteID(), time: Date(), type: NoteType.single.rawValue, name: name, numberOfCard: 1)
-            let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
-            controller.passedInNoteInfo = noteInfo
-            controller.container = self.container
-            controller.isFirstTimeEdit = true
-            present(controller, animated: true, completion: {
-                self.view.alpha = 0
-            })
-            return
-        }
-        showAlert(title: "Error!", message: "Please give a name for the note.")
-    }
-    
-    @IBAction func toQANoteEditPage(_ sender: UIButton)
-    {
-        if let name = nameTextField.text, name.characters.count > 0 {
-            let context = container?.viewContext
-            let isUesdName = BasicNoteInfo.isNoteExist(name: name, type: NoteType.qa.rawValue, in: context!)
-            if isUesdName {
-                showAlert(title: "Used Name!", message: "Please choose another name, or edit the exist note.")
-                return
-            }
-            
-            let noteInfo = MyBasicNoteInfo(id: MyBasicNoteInfo.nextNoteID(), time: Date(), type: NoteType.qa.rawValue, name: name, numberOfCard: 1)
             let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
             controller.passedInNoteInfo = noteInfo
             controller.container = self.container

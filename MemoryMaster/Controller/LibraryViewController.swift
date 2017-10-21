@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class LibraryViewController: UIViewController {
+private let cellReuseIdentifier = "LibraryTableViewCell"
+
+class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var allNoteButton: UIButton!
@@ -34,7 +36,7 @@ class LibraryViewController: UIViewController {
     var selectedCellIndex: IndexPath?
     var showFlag: NoteType = .all
     
-    func updateUI(noteType: NoteType, keyWord: String?) {
+    func updateUI(noteType: NoteType, searchKeyWord: String?) {
         if let context = container?.viewContext {
             let request: NSFetchRequest<BasicNoteInfo> = BasicNoteInfo.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(
@@ -42,11 +44,11 @@ class LibraryViewController: UIViewController {
                 ascending: true,
                 selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
             )]
-            if let keyWord = keyWord, keyWord != "" {
+            if let searchKeyWord = searchKeyWord, searchKeyWord != "" {
                 if noteType != NoteType.all {
-                    request.predicate = NSPredicate(format: "type == %@ && name CONTAINS %@", noteType.rawValue, keyWord)
+                    request.predicate = NSPredicate(format: "type == %@ && name CONTAINS %@", noteType.rawValue, searchKeyWord)
                 } else {
-                    request.predicate = NSPredicate(format: "name CONTAINS %@", keyWord)
+                    request.predicate = NSPredicate(format: "name CONTAINS %@", searchKeyWord)
                 }
             } else if noteType != NoteType.all {
                 request.predicate = NSPredicate(format: "type == %@", noteType.rawValue)
@@ -65,7 +67,7 @@ class LibraryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        updateUI(noteType: showFlag, keyWord: nil)
+        updateUI(noteType: showFlag, searchKeyWord: nil)
     }
     
     @IBAction func showAllNote(_ sender: UIButton) {
@@ -73,7 +75,7 @@ class LibraryViewController: UIViewController {
         allNoteButton.setImage(UIImage(named: "all_icon_click.png"), for: .normal)
         qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
-        updateUI(noteType: showFlag, keyWord: nil)
+        updateUI(noteType: showFlag, searchKeyWord: nil)
     }
     
     @IBAction func showQANote(_ sender: UIButton) {
@@ -81,7 +83,7 @@ class LibraryViewController: UIViewController {
         allNoteButton.setImage(UIImage(named: "all_icon_unclick.png"), for: .normal)
         qaNoteButton.setImage(UIImage(named: "qa_icon_click.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
-        updateUI(noteType: showFlag, keyWord: nil)
+        updateUI(noteType: showFlag, searchKeyWord: nil)
     }
     
     @IBAction func showSingleNote(_ sender: UIButton) {
@@ -89,14 +91,22 @@ class LibraryViewController: UIViewController {
         allNoteButton.setImage(UIImage(named: "all_icon_unclick.png"), for: .normal)
         qaNoteButton.setImage(UIImage(named: "qa_icon_unclick.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_click.png"), for: .normal)
-        updateUI(noteType: showFlag, keyWord: nil)
+        updateUI(noteType: showFlag, searchKeyWord: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(returnKeyBoard))
+        swipeRecognizer.direction = .down
+        swipeRecognizer.numberOfTouchesRequired = 1
+        tableView.addGestureRecognizer(swipeRecognizer)
+        swipeRecognizer.delegate = self
     }
     
     private func setupUI()
     {
-        self.navigationController?.navigationBar.tintColor = CustomColor.medianBlue
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-        
         topView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: CustomSize.barHeight + CustomSize.statusBarHeight)
         topView.backgroundColor = CustomColor.medianBlue
         view.addSubview(topView)
@@ -121,13 +131,8 @@ class LibraryViewController: UIViewController {
         addButton.tintColor = UIColor.white
         
         tableView.rowHeight = 44
-        let nib = UINib(nibName: "LibraryTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "LibraryTableViewCell")
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
+        let nib = UINib(nibName: cellReuseIdentifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cellReuseIdentifier)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -141,19 +146,33 @@ class LibraryViewController: UIViewController {
             }
         } 
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    @objc func returnKeyBoard(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {
+        if swipeRecognizer.state == .ended {
+            if noteSearchBar.isFirstResponder {
+                noteSearchBar.resignFirstResponder()
+            }
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if noteSearchBar.isFirstResponder {
+            tableView.isScrollEnabled = false
+            return true
+        } else {
+            tableView.isScrollEnabled = true
+            return false
+        }
     }
 }
 
 extension LibraryViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        updateUI(noteType: showFlag, keyWord: searchBar.text)
+        updateUI(noteType: showFlag, searchKeyWord: searchBar.text)
         noteSearchBar.resignFirstResponder()
     }
 }

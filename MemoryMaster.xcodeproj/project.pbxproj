@@ -68,7 +68,6 @@
 		18EC40131F95525C00BA7A4E /* CircularCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC40121F95525C00BA7A4E /* CircularCollectionViewLayout.swift */; };
 		18EC40161F9553C500BA7A4E /* CircularCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC40141F9553C500BA7A4E /* CircularCollectionViewCell.swift */; };
 		18EC40171F9553C500BA7A4E /* CircularCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EC40151F9553C500BA7A4E /* CircularCollectionViewCell.xib */; };
-		18EC401C1F957B6500BA7A4E /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EC401B1F957B6300BA7A4E /* MyViewController.swift */; };
 		18F0BFD31F8F486700667D2A /* TestNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */; };
 		18F0BFD41F8F486700667D2A /* TestNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */; };
 		2711CC453476ED138685C908 /* Pods_MemoryMasterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08324ED52299B274EC3D0A01 /* Pods_MemoryMasterUITests.framework */; };
@@ -163,7 +162,6 @@
 		18EC40121F95525C00BA7A4E /* CircularCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCollectionViewLayout.swift; sourceTree = "<group>"; };
 		18EC40141F9553C500BA7A4E /* CircularCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCollectionViewCell.swift; sourceTree = "<group>"; };
 		18EC40151F9553C500BA7A4E /* CircularCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CircularCollectionViewCell.xib; sourceTree = "<group>"; };
-		18EC401B1F957B6300BA7A4E /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestNoteViewController.swift; sourceTree = "<group>"; };
 		18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestNoteViewController.xib; sourceTree = "<group>"; };
 		2789D4F38CD0B0EA3B7FD1CF /* Pods-MemoryMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMasterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMasterTests/Pods-MemoryMasterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -343,7 +341,6 @@
 				18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */,
 				18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */,
 				18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */,
-				18EC401B1F957B6300BA7A4E /* MyViewController.swift */,
 				182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */,
 				1818A8CF1F9A6E1B0069AC3A /* BookmarkTableViewController.swift */,
 				1818A8D01F9A6E1B0069AC3A /* BookmarkTableViewController.xib */,
@@ -692,7 +689,6 @@
 				18DBB8F81F84ABFB00B34228 /* ReadCollectionViewCell.swift in Sources */,
 				181317101F8D7D850099FE89 /* NSAttributedString+Extension.swift in Sources */,
 				18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */,
-				18EC401C1F957B6500BA7A4E /* MyViewController.swift in Sources */,
 				1818A8DE1F9A93FB0069AC3A /* String+Extension.swift in Sources */,
 				184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */,
 				18C197051F8F31060072D8B9 /* ReadNoteViewController.swift in Sources */,

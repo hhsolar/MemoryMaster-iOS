@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+private let cellReuseIdentifier = "TestCollectionViewCell"
+
 class TestNoteViewController: BaseTopViewController {
 
     // public api
@@ -21,10 +23,14 @@ class TestNoteViewController: BaseTopViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     let addBookmarkButton = UIButton()
     
+    var currentIndex: Int {
+        return Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
-
+        
         setupUI()
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(flipCard))
         tapRecognizer.numberOfTapsRequired = 1
@@ -39,7 +45,7 @@ class TestNoteViewController: BaseTopViewController {
         }
         if let status = passedInCardStatus {
             if status == CardStatus.bodyFrontWithTitle.rawValue {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCollectionViewCell", for: startCardIndexPath!) as! TestCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: startCardIndexPath!) as! TestCollectionViewCell
                 cell.containerView.sendSubview(toBack: cell.questionView)
                 cell.questionAtFront = false
             }
@@ -48,25 +54,23 @@ class TestNoteViewController: BaseTopViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        let currentIndex = Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
         let status = getCardStatus(index: currentIndex).rawValue
         
         let userDefault = UserDefaults.standard
-        if var dict = userDefault.dictionary(forKey: "lastStatus") {
-            dict.updateValue((passedInNoteInfo?.id)!, forKey: "id")
-            dict.updateValue(currentIndex, forKey: "index")
-            dict.updateValue(ReadType.test.rawValue, forKey: "readType")
-            dict.updateValue(status, forKey: "cardStatus")
-            userDefault.set(dict, forKey: "lastStatus")
+        if var dict = userDefault.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
+            dict.updateValue((passedInNoteInfo?.id)!, forKey: UserDefaultsDictKey.id)
+            dict.updateValue(currentIndex, forKey: UserDefaultsDictKey.cardIndex)
+            dict.updateValue(ReadType.test.rawValue, forKey: UserDefaultsDictKey.readType)
+            dict.updateValue(status, forKey: UserDefaultsDictKey.cardStatus)
+            userDefault.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
         } else {
-            let statusDict: [String : Any] = ["id": (passedInNoteInfo?.id)!, "index": currentIndex, "readType": ReadType.test.rawValue, "cardStatus": status]
-            userDefault.set(statusDict, forKey: "lastStatus")
+            let statusDict: [String : Any] = [UserDefaultsDictKey.id: (passedInNoteInfo?.id)!, UserDefaultsDictKey.cardIndex: currentIndex, UserDefaultsDictKey.readType: ReadType.test.rawValue, UserDefaultsDictKey.cardStatus: status]
+            userDefault.set(statusDict, forKey: UserDefaultsKeys.lastReadStatus)
         }
     }
     
     private func getCardStatus(index: Int) -> CardStatus {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCollectionViewCell", for: IndexPath(item: index, section: 0)) as! TestCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: IndexPath(item: index, section: 0)) as! TestCollectionViewCell
         var status = CardStatus.titleFront
         if cell.questionLabel.isHidden {
             status = CardStatus.bodyFrontWithTitle
@@ -83,6 +87,7 @@ class TestNoteViewController: BaseTopViewController {
                                          width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
         addBookmarkButton.setImage(UIImage.init(named: "bookMark_icon"), for: .normal)
         addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
+        topView.addSubview(addBookmarkButton)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -96,8 +101,8 @@ class TestNoteViewController: BaseTopViewController {
         layout.minimumLineSpacing = 0
         collectionView.collectionViewLayout = layout
         
-        let nib = UINib(nibName: "TestCollectionViewCell", bundle: Bundle.main)
-        collectionView?.register(nib, forCellWithReuseIdentifier: "TestCollectionViewCell")
+        let nib = UINib(nibName: cellReuseIdentifier, bundle: Bundle.main)
+        collectionView?.register(nib, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
     
     @objc func flipCard(byReactingTo tapRecognizer: UITapGestureRecognizer) {
@@ -116,7 +121,6 @@ class TestNoteViewController: BaseTopViewController {
     }
     
     @objc func addBookmark() {
-        let currentIndex = Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
         let status = getCardStatus(index: currentIndex).rawValue
         let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.test.rawValue, currentIndex + 1, status)
         
@@ -133,7 +137,7 @@ class TestNoteViewController: BaseTopViewController {
             if isNameUsed! {
                 self?.showAlert(title: "Error!", message: "Name already used, please give another name.")
             } else {
-                let bookmark = MyBookmark(name: text, id: (self?.passedInNoteInfo?.id)!, time: Date(), readType: ReadType.test.rawValue, readPage: currentIndex, readPageStatus: status)
+                let bookmark = MyBookmark(name: text, id: (self?.passedInNoteInfo?.id)!, time: Date(), readType: ReadType.test.rawValue, readPage: (self?.currentIndex)!, readPageStatus: status)
                 self?.container?.performBackgroundTask({ (context) in
                     BookMark.findOrCreate(matching: bookmark, in: context)
                     DispatchQueue.main.async {
@@ -154,10 +158,13 @@ extension TestNoteViewController: UICollectionViewDelegate, UICollectionViewData
         return passedInNotes.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let newCell = cell as! TestCollectionViewCell
+        newCell.updateUI(question: passedInNotes[indexPath.row].title, answer: passedInNotes[indexPath.row].body, index: indexPath.row, total: passedInNotes.count)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TestCollectionViewCell", for: indexPath) as! TestCollectionViewCell
-        cell.updateUI(question: passedInNotes[indexPath.row].title, answer: passedInNotes[indexPath.row].body, index: indexPath.row, total: passedInNotes.count)
-        return cell
+        return collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
     }
 }

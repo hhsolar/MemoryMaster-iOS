@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+private let cellReuseIdentifier = "ReadCollectionViewCell"
+
 class ReadNoteViewController: BaseTopViewController {
 
     // public api
@@ -22,6 +24,10 @@ class ReadNoteViewController: BaseTopViewController {
     let addBookmarkButton = UIButton()
     
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    
+    var currentCardIndex: Int {
+        return Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,18 +45,16 @@ class ReadNoteViewController: BaseTopViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        let currentIndex = Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
-        
         let userDefault = UserDefaults.standard
-        if var dict = userDefault.dictionary(forKey: "lastStatus") {
-            dict.updateValue((passedInNoteInfo?.id)!, forKey: "id")
-            dict.updateValue(currentIndex, forKey: "index")
-            dict.updateValue(ReadType.read.rawValue, forKey: "readType")
-            dict.updateValue("", forKey: "cardStatus")
-            userDefault.set(dict, forKey: "lastStatus")
+        if var dict = userDefault.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
+            dict.updateValue((passedInNoteInfo?.id)!, forKey: UserDefaultsDictKey.id)
+            dict.updateValue(currentCardIndex, forKey: UserDefaultsDictKey.cardIndex)
+            dict.updateValue(ReadType.read.rawValue, forKey: UserDefaultsDictKey.readType)
+            dict.updateValue("", forKey: UserDefaultsDictKey.cardStatus)
+            userDefault.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
         } else {
-            let statusDict: [String : Any] = ["id": (passedInNoteInfo?.id)!, "index": currentIndex, "readType": ReadType.read.rawValue, "cardStatus": ""]
-            userDefault.set(statusDict, forKey: "lastStatus")
+            let statusDict: [String : Any] = [UserDefaultsDictKey.id: (passedInNoteInfo?.id)!, UserDefaultsDictKey.cardIndex: currentCardIndex, UserDefaultsDictKey.readType: ReadType.read.rawValue, UserDefaultsDictKey.cardStatus: ""]
+            userDefault.set(statusDict, forKey: UserDefaultsKeys.lastReadStatus)
         }
     }
     
@@ -64,6 +68,7 @@ class ReadNoteViewController: BaseTopViewController {
                                          width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
         addBookmarkButton.setImage(UIImage.init(named: "bookMark_icon"), for: .normal)
         addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
+        topView.addSubview(addBookmarkButton)
         
         progressBarView.layer.cornerRadius = 4
         progressBarView.layer.masksToBounds = true
@@ -90,14 +95,13 @@ class ReadNoteViewController: BaseTopViewController {
         
         collectionView.collectionViewLayout = layout
         
-        let nib = UINib(nibName: "ReadCollectionViewCell", bundle: Bundle.main)
-        collectionView?.register(nib, forCellWithReuseIdentifier: "ReadCollectionViewCell")
+        let nib = UINib(nibName: cellReuseIdentifier, bundle: Bundle.main)
+        collectionView?.register(nib, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
     
-    @objc func addBookmark() {
-        let currentIndex = Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
-        
-        let placeholder = String(format: "%@-%@-%@-%d", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.read.rawValue, currentIndex + 1)
+    @objc func addBookmark()
+    {
+        let placeholder = String(format: "%@-%@-%@-%d", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.read.rawValue, currentCardIndex + 1)
 
         let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
         alert.addTextField { textFiled in
@@ -112,7 +116,7 @@ class ReadNoteViewController: BaseTopViewController {
             if isNameUsed! {
                 self?.showAlert(title: "Error!", message: "Name already used, please give another name.")
             } else {
-                let bookmark = MyBookmark(name: text, id: (self?.passedInNoteInfo?.id)!, time: Date(), readType: ReadType.read.rawValue, readPage: currentIndex, readPageStatus: nil)
+                let bookmark = MyBookmark(name: text, id: (self?.passedInNoteInfo?.id)!, time: Date(), readType: ReadType.read.rawValue, readPage: (self?.currentCardIndex)!, readPageStatus: nil)
                 self?.container?.performBackgroundTask({ (context) in
                     BookMark.findOrCreate(matching: bookmark, in: context)
                     DispatchQueue.main.async {
@@ -130,14 +134,13 @@ class ReadNoteViewController: BaseTopViewController {
     // MARK: draw prograss bar
     private func updatePrograssLing(readingIndex: CGFloat) {
         let width = progressBarView.bounds.width * (readingIndex + 1) / CGFloat(passedInNotes.count)
-        UIView.animate(withDuration: 0.4, delay: 0.1, options: [], animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.02, options: [], animations: {
             self.barFinishedPart.frame.size.width = width
         }, completion: nil)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let currentIndex = collectionView.indexPathsForVisibleItems[0].row
-        updatePrograssLing(readingIndex: CGFloat(currentIndex))
+        updatePrograssLing(readingIndex: CGFloat(currentCardIndex))
     }
 }
 
@@ -146,9 +149,12 @@ extension ReadNoteViewController: UICollectionViewDelegate, UICollectionViewData
         return passedInNotes.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let newCell = cell as! ReadCollectionViewCell
+        newCell.updateUI(noteType: (passedInNoteInfo?.type)!, title: passedInNotes[indexPath.row].title, body: passedInNotes[indexPath.row].body, index: indexPath.row)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReadCollectionViewCell", for: indexPath) as! ReadCollectionViewCell
-        cell.updateUI(noteType: (passedInNoteInfo?.type)!, title: passedInNotes[indexPath.row].title, body: passedInNotes[indexPath.row].body, index: indexPath.row)
-        return cell
+        return collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
     }
 }

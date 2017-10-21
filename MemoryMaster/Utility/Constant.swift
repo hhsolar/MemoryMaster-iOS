@@ -19,10 +19,13 @@ struct CustomColor {
 }
 
 struct CustomFont {
-    static let navigationTitleFontName = "Arial-BoldMT"
-    static let navigationTitleFontSize: CGFloat = 17.0
-    static let navigationSideFontName = "ArialMT"
-    static let navigationSideFontSize: CGFloat = 16.0
+    static let FontSizeBig: CGFloat = 20.0
+    static let FontSizeMid: CGFloat = 17.0
+    static let FontSizeSmall: CGFloat = 15.0
+    static let HelveticaNeue = "HelveticaNeue"
+    static let ArialMT = "ArialMT"
+    static let ArialBoldMT = "Arial-BoldMT"
+
 }
 
 struct CustomDistance {
@@ -35,6 +38,17 @@ struct CustomSize {
     static let smallBtnHeight: CGFloat = 26
     static let barHeight: CGFloat = 44
     static let titleLabelHeight: CGFloat = 24
+}
+
+struct UserDefaultsKeys {
+    static let lastReadStatus = "Last Read Status"
+}
+
+struct UserDefaultsDictKey {
+    static let id = "id"
+    static let cardIndex = "cardIndex"
+    static let readType = "readType"
+    static let cardStatus = "cardStatus"
 }
 
 struct LoginErrorCode {
@@ -56,7 +70,6 @@ class Constants {
     static let password = "passwrod"
     static let data = "data"
 }
-
 
 class UserInfo {
     private static var instance: UserInfo = UserInfo()
