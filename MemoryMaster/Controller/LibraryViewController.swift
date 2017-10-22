@@ -17,7 +17,6 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var allNoteButton: UIButton!
     @IBOutlet weak var qaNoteButton: UIButton!
     @IBOutlet weak var singleNoteButton: UIButton!
-    @IBOutlet weak var noteSearchBar: UISearchBar!
     @IBOutlet weak var nothingFoundLabel: UILabel!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -32,6 +31,9 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     var fetchedResultsController: NSFetchedResultsController<BasicNoteInfo>?
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var lastType = ""
     var selectedCellIndex: IndexPath?
     var showFlag: NoteType = .all
@@ -70,6 +72,8 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
         updateUI(noteType: showFlag, searchKeyWord: nil)
     }
     
+    
+    
     @IBAction func showAllNote(_ sender: UIButton) {
         showFlag = NoteType.all
         allNoteButton.setImage(UIImage(named: "all_icon_click.png"), for: .normal)
@@ -103,6 +107,25 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
         swipeRecognizer.numberOfTouchesRequired = 1
         tableView.addGestureRecognizer(swipeRecognizer)
         swipeRecognizer.delegate = self
+
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        // eliminate black line above searchBar
+        searchController.searchBar.isTranslucent = false
+        searchController.searchBar.backgroundImage = UIImage()
+        
+        // set searchBar textField to round corner
+        let searchField = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        searchField?.layer.cornerRadius = 14
+        searchField?.layer.masksToBounds = true
+        
+        searchController.searchBar.delegate = self
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.barTintColor = CustomColor.deepBlue
+        definesPresentationContext = true
+        
+        tableView.tableHeaderView = searchController.searchBar
     }
     
     private func setupUI()
@@ -111,18 +134,6 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
         topView.backgroundColor = CustomColor.medianBlue
         view.addSubview(topView)
         view.sendSubview(toBack: topView)
-        
-        // remove black border line
-        noteSearchBar.isTranslucent = false
-        noteSearchBar.backgroundImage = UIImage()
-        noteSearchBar.delegate = self
-        
-        // set background color
-        noteSearchBar.barTintColor = CustomColor.deepBlue
-        
-        let searchField = noteSearchBar.value(forKey: "searchField") as? UITextField
-        searchField?.layer.cornerRadius = 14
-        searchField?.layer.masksToBounds = true
         
         allNoteButton.setImage(UIImage(named: "all_icon_click.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)
@@ -150,17 +161,19 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
+
     @objc func returnKeyBoard(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {
         if swipeRecognizer.state == .ended {
-            if noteSearchBar.isFirstResponder {
-                noteSearchBar.resignFirstResponder()
+            if searchController.searchBar.isFirstResponder {
+                searchController.searchBar.resignFirstResponder()
+                searchController.searchBar.setShowsCancelButton(false, animated: true)
+//                self.navigationController?.setNavigationBarHidden(false, animated: true)
             }
         }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if noteSearchBar.isFirstResponder {
+        if searchController.searchBar.isFirstResponder {
             tableView.isScrollEnabled = false
             return true
         } else {
@@ -170,10 +183,14 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 }
 
-extension LibraryViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        updateUI(noteType: showFlag, searchKeyWord: searchBar.text)
-        noteSearchBar.resignFirstResponder()
+extension LibraryViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        updateUI(noteType: showFlag, searchKeyWord: searchController.searchBar.text)
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(true, animated: true)
+        return true
     }
 }
 

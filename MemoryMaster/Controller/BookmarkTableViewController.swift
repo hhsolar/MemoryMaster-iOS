@@ -27,7 +27,9 @@ class BookmarkTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nothingFoundLabel.frame = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: 60)
+        self.extendedLayoutIncludesOpaqueBars = true
+
+        nothingFoundLabel.frame = CGRect(x: 0, y: 44, width: UIScreen.main.bounds.width, height: 60)
         nothingFoundLabel.text = "Nothing Found"
         nothingFoundLabel.textColor = CustomColor.wordGray
         nothingFoundLabel.textAlignment = .center
@@ -39,6 +41,15 @@ class BookmarkTableViewController: UITableViewController {
     
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
+        
+        searchController.searchBar.isTranslucent = false
+        searchController.searchBar.backgroundImage = UIImage()
+        
+        let searchField = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        searchField?.layer.cornerRadius = 14
+        searchField?.layer.masksToBounds = true
+        
+        searchController.searchBar.delegate = self
         searchController.searchBar.tintColor = UIColor.white
         searchController.searchBar.barTintColor = CustomColor.deepBlue
         definesPresentationContext = true
@@ -48,6 +59,10 @@ class BookmarkTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateData(searchKeyWord: nil)
+    }
+    
+    deinit {
+        self.searchController.view.removeFromSuperview()
     }
     
     func updateData(searchKeyWord: String?) {
@@ -71,6 +86,12 @@ class BookmarkTableViewController: UITableViewController {
             try? fetchedResultsController?.performFetch()
             tableView.reloadData()
         }
+    }
+}
+
+extension BookmarkTableViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        updateData(searchKeyWord: searchController.searchBar.text)
     }
 }
 
@@ -152,12 +173,6 @@ extension BookmarkTableViewController {
             context?.delete(bookmark!)
             try? context?.save()
         }
-    }
-}
-
-extension BookmarkTableViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        updateData(searchKeyWord: searchController.searchBar.text)
     }
 }
 

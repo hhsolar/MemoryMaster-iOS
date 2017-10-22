@@ -14,7 +14,7 @@ class LibraryTableViewCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var numberOfCardLabel: UILabel!
-    
+        
     let backView = BorderUIView()
     let lastCell = ""
     

@@ -19,6 +19,7 @@ class PersonEditTableViewController: UITableViewController, UIGestureRecognizerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "My Profile"
         mottoTextView.delegate = self
     
         avatarButton.layer.cornerRadius = avatarButton.bounds.width / 2

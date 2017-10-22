@@ -100,6 +100,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
         titleTextView.isHidden = false
         bodyTextView.isHidden = true
         currentCardStatus = CardStatus.titleFront
+        bodyTextView.resignFirstResponder()
     }
     
     func removeTitle() {
@@ -165,6 +166,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             } else {
                 currentCardStatus = CardStatus.bodyFrontWithoutTitle
             }
+            bodyTextView.resignFirstResponder()
         } else {
             UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
                 self?.titleLabel.alpha = 0.0
@@ -175,6 +177,7 @@ class SingleEditCollectionViewCell: NoteEditCollectionViewCell {
             titleTextView.isHidden = true
             bodyTextView.isHidden = false
             currentCardStatus = CardStatus.titleFront
+            titleTextView.resignFirstResponder()
         }
     }
 }

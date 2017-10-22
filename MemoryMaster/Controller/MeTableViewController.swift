@@ -30,6 +30,9 @@ extension MeTableViewController
         switch (indexPath.section, indexPath.row) {
         case (1, 0):
             let controller = BookmarkTableViewController.init(nibName: "BookmarkTableViewController", bundle: nil)
+            controller.hidesBottomBarWhenPushed = true
+            controller.tabBarController?.tabBar.isHidden = true
+            controller.title = "Bookmark"
             self.navigationController?.pushViewController(controller, animated: true)
         default:
             print()

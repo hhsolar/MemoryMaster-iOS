@@ -44,6 +44,10 @@ class ReciteViewController: UIViewController {
     let toScreenView = UIView()
     let toScreenTextView = UITextView()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
