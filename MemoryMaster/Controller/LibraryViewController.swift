@@ -46,9 +46,9 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
             )]
             if let searchKeyWord = searchKeyWord, searchKeyWord != "" {
                 if noteType != NoteType.all {
-                    request.predicate = NSPredicate(format: "type == %@ && name CONTAINS %@", noteType.rawValue, searchKeyWord)
+                    request.predicate = NSPredicate(format: "type == %@ && name CONTAINS[c] %@", noteType.rawValue, searchKeyWord)
                 } else {
-                    request.predicate = NSPredicate(format: "name CONTAINS %@", searchKeyWord)
+                    request.predicate = NSPredicate(format: "name CONTAINS[c] %@", searchKeyWord)
                 }
             } else if noteType != NoteType.all {
                 request.predicate = NSPredicate(format: "type == %@", noteType.rawValue)

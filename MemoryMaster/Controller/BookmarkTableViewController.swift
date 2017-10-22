@@ -19,6 +19,8 @@ class BookmarkTableViewController: UITableViewController {
     
     var fetchedResultsController: NSFetchedResultsController<BookMark>?
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var noteInfo: MyBasicNoteInfo?
     var notes = [CardContent]()
     
@@ -34,14 +36,21 @@ class BookmarkTableViewController: UITableViewController {
         tableView.rowHeight = 60
         let nib = UINib(nibName: cellReuseIdentifier, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellReuseIdentifier)
+    
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.barTintColor = CustomColor.deepBlue
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateUI()
+        updateData(searchKeyWord: nil)
     }
     
-    func updateUI() {
+    func updateData(searchKeyWord: String?) {
         if let context = container?.viewContext {
             let request: NSFetchRequest<BookMark> = BookMark.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(
@@ -49,6 +58,9 @@ class BookmarkTableViewController: UITableViewController {
                 ascending: true,
                 selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
                 )]
+            if let searchKeyWord = searchKeyWord, searchKeyWord != "" {
+                request.predicate = NSPredicate(format: "name CONTAINS[c] %@", searchKeyWord)
+            }
             fetchedResultsController = NSFetchedResultsController<BookMark>(
                 fetchRequest: request,
                 managedObjectContext: context,
@@ -82,13 +94,12 @@ extension BookmarkTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! BookmarkTableViewCell
-        if let bookmark = fetchedResultsController?.object(at: indexPath) {
-            cell.nameLabel.text = bookmark.name
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .long
-            let dateString = dateFormatter.string(from: bookmark.time as Date)
-            cell.timeLabel.text = dateString
-        }
+        let bookmark = (fetchedResultsController?.object(at: indexPath))!
+        cell.nameLabel.text = bookmark.name
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        let dateString = dateFormatter.string(from: bookmark.time as Date)
+        cell.timeLabel.text = dateString
         return cell
     }
     
@@ -141,6 +152,12 @@ extension BookmarkTableViewController {
             context?.delete(bookmark!)
             try? context?.save()
         }
+    }
+}
+
+extension BookmarkTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        updateData(searchKeyWord: searchController.searchBar.text)
     }
 }
 
