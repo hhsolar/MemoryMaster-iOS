@@ -127,6 +127,36 @@ extension UIImage {
         return array
     }
     
+    //////////////////////////
+    
+    // load a group of thumbnails
+    class func async_getLibraryThumbnails(assets: [PHAsset], smallImageCallBack: @escaping (_ allSmallImageArray: [UIImage]) -> ()) {
+        let concurrentQueue = DispatchQueue(label: "getLibiaryAllImage-queue", attributes: .concurrent)
+        concurrentQueue.async {
+            var smallPhotoArray = [UIImage]()
+            smallPhotoArray.append(contentsOf: getThumbnailsByPhotoAssectArray(assets: assets))
+            DispatchQueue.main.async {
+                smallImageCallBack(smallPhotoArray)
+            }
+        }
+    }
+    
+    // get thumbnails according to array of photo assects
+    class func getThumbnailsByPhotoAssectArray(assets: [PHAsset]) -> [UIImage] {
+        var array = [UIImage]()
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        let scale = UIScreen.main.scale
+        let width = (UIScreen.main.bounds.width - 20) / 3
+        let thumbnailSize = CGSize(width: width * scale, height: width * scale)
+        for assets in assets {
+            PHImageManager.default().requestImage(for: assets, targetSize: thumbnailSize, contentMode: .default, options: options, resultHandler: { (result, info) in
+                array.append(result!)
+            })
+        }
+        return array
+    }
+ 
     // get original size photo according to photo assect
     class func getOriginalPhoto(asset: PHAsset) -> UIImage {
         var image = UIImage()

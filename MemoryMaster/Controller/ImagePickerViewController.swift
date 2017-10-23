@@ -8,7 +8,8 @@
 
 import UIKit
 import Photos
-import SVProgressHUD
+
+private let oneTimeLoadPhotos: Int = 50
 
 class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegateFlowLayout {
 
@@ -16,8 +17,11 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
     var noteController: NoteEditViewController?
     var personController: PersonEditTableViewController?
     var smallPhotoArray = [UIImage]()
-    var subPhotoArray = [UIImage]()
     var photoAsset = [PHAsset]()
+    
+    var loadImageIndex: Int?
+    
+    let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
@@ -42,13 +46,27 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: Selector(("loadMorePhoto")), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(self.loadMorePhoto), for: .valueChanged)
         photoCollectionView.addSubview(refreshControl)
     }
     
-    func loadMorePhoto() {
-        
+    @objc func loadMorePhoto() {
+        var upperIndex = 0
+        var scrollIndex = loadImageIndex!
+        if loadImageIndex! - (oneTimeLoadPhotos - 1) >= 0 {
+            upperIndex = loadImageIndex! - (oneTimeLoadPhotos - 1)
+            scrollIndex = oneTimeLoadPhotos - 1
+        }
+        let subAsset = Array(photoAsset[upperIndex...loadImageIndex!])
+        UIImage.async_getLibraryThumbnails(assets: subAsset) { [weak self] (allSmallImageArray) in
+            self?.smallPhotoArray.insert(contentsOf: allSmallImageArray, at: 0)
+            DispatchQueue.main.async {
+                self?.photoCollectionView.reloadData()
+                self?.photoCollectionView.scrollToItem(at: IndexPath(item: scrollIndex, section: 0), at: .top, animated: false)
+                self?.refreshControl.endRefreshing()
+            }
+        }
+        loadImageIndex = upperIndex - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -57,20 +75,12 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
     
     private func getPhotoData() {
         photoAsset = UIImage.getPhotoAssets()
-        DispatchQueue.main.async {
-            SVProgressHUD.show()
-        }
-        UIImage.async_getLibraryThumbnails { [weak self] (allSmallImageArray) in
-            self?.smallPhotoArray.append(contentsOf: allSmallImageArray)
-            SVProgressHUD.dismiss()
-            self?.photoCollectionView.reloadData()
-            self?.photoCollectionView.scrollToItem(at: IndexPath(item: (self?.smallPhotoArray.count )! - 1, section: 0), at: .top, animated: false)
-        }
+        loadImageIndex = photoAsset.count - 1
+        loadMorePhoto()
     }
     
     override func backAction() {
         super.backAction()
-        SVProgressHUD.dismiss()
     }
 }
 
