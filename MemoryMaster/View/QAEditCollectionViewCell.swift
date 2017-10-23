@@ -125,6 +125,7 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
             titleTextView.isHidden = false
             bodyTextView.isHidden = true
             currentCardStatus = CardStatus.bodyFrontWithTitle
+            bodyTextView.resignFirstResponder()
         } else {
             UIView.animateKeyframes(withDuration: 0.5, delay: 0.3, options: [], animations: { [weak self] in
                 self?.questionLabel.alpha = 0.0
@@ -137,6 +138,7 @@ class QAEditCollectionViewCell: NoteEditCollectionViewCell {
             questionLabel.isHidden = true
             answerLabel.isHidden = false
             currentCardStatus = CardStatus.bodyFrontWithoutTitle
+            titleTextView.resignFirstResponder()
         }
     }
 }

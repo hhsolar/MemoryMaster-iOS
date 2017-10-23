@@ -16,6 +16,7 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
     var noteController: NoteEditViewController?
     var personController: PersonEditTableViewController?
     var smallPhotoArray = [UIImage]()
+    var subPhotoArray = [UIImage]()
     var photoAsset = [PHAsset]()
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
@@ -40,6 +41,14 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
         photoCollectionView.backgroundColor = UIColor.white
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: Selector(("loadMorePhoto")), for: .valueChanged)
+        photoCollectionView.addSubview(refreshControl)
+    }
+    
+    func loadMorePhoto() {
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

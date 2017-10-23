@@ -31,6 +31,14 @@ extension UIImage {
         return scaledImage
     }
     
+    class func reSizeImage(_ image: UIImage, to size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContext(CGSize(width: size.width, height: size.height))
+        image.draw(in: CGRect(origin: CGPoint.zero, size: size))
+        let reSizeImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return reSizeImage
+    }
+    
     // make the photo to fit the UITextView size
     class func scaleImageToFitTextView(_ image: UIImage, fit textViewWidth: CGFloat) -> UIImage? {
         if image.size.width <= textViewWidth {
@@ -106,11 +114,12 @@ extension UIImage {
         var array = [UIImage]()
         let options = PHImageRequestOptions()
         options.isSynchronous = true
-//        let scale = UIScreen.main.scale
-//        let width = (UIScreen.main.bounds.width - 20) / 3
+        let scale = UIScreen.main.scale
+        let width = (UIScreen.main.bounds.width - 20) / 3
+        let thumbnailSize = CGSize(width: width * scale, height: width * scale)
         let assets = PHAsset.fetchAssets(in: assetCollection, options: nil)
         for i in 0..<assets.count {
-            let size = origial ? CGSize(width: assets[i].pixelWidth, height:assets[i].pixelHeight) : CGSize.zero
+            let size = origial ? CGSize(width: assets[i].pixelWidth, height:assets[i].pixelHeight) : thumbnailSize
             PHImageManager.default().requestImage(for: assets[i], targetSize: size, contentMode: .default, options: options, resultHandler: { (result, info) in
                 array.append(result!)
             })

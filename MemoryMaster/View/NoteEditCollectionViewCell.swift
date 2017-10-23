@@ -144,4 +144,9 @@ extension NoteEditCollectionViewCell: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         editingTextView = textView
     }
+    
+//    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+//        let image = textAttachment.image
+//        return false
+//    }
 }

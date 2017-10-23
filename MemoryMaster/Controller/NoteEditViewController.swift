@@ -478,6 +478,8 @@ extension NoteEditViewController: TOCropViewControllerDelegate {
         currentTextView?.selectedRange = NSRange(location: (passInRange?.location)! + 1, length: 0)
         return (currentTextView?.attributedText)!
     }
+    
+    
 }
 
 extension NoteEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
