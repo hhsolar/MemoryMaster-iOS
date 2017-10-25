@@ -82,7 +82,7 @@ class TestCollectionViewCell: UICollectionViewCell {
         containerView.layer.cornerRadius = 15
         containerView.layer.masksToBounds = true
         
-        questionView.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2, height: contentView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 2)
+        questionView.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width - CustomDistance.midEdge * 2, height: contentView.bounds.height - CustomDistance.midEdge * 2)
         questionView.layer.cornerRadius = 15
         questionView.layer.masksToBounds = true
         questionView.layer.borderWidth = 3
@@ -104,13 +104,13 @@ class TestCollectionViewCell: UICollectionViewCell {
         answerView.layer.shadowRadius = 10
         answerView.layer.shadowOffset = CGSize(width: 1, height: 1)
         
-        questionLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: CustomDistance.viewToScreenEdgeDistance, width: questionView.bounds.width / 3, height: CustomSize.titleLabelHeight)
-        qTextView.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance * 2 + CustomSize.titleLabelHeight, width: questionView.bounds.width - CustomDistance.viewToScreenEdgeDistance * 2, height: questionView.bounds.height - CustomDistance.viewToScreenEdgeDistance * 4 - CustomSize.titleLabelHeight * 2)
+        questionLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: CustomDistance.midEdge, width: questionView.bounds.width / 3, height: CustomSize.titleLabelHeight)
+        qTextView.frame = CGRect(x: CustomDistance.midEdge, y: CustomDistance.midEdge * 2 + CustomSize.titleLabelHeight, width: questionView.bounds.width - CustomDistance.midEdge * 2, height: questionView.bounds.height - CustomDistance.midEdge * 4 - CustomSize.titleLabelHeight * 2)
         
-        indexLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: questionView.bounds.height - CustomSize.titleLabelHeight - CustomDistance.viewToScreenEdgeDistance, width: questionView.bounds.width / 3, height: CustomSize.titleLabelHeight)
+        indexLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: questionView.bounds.height - CustomSize.titleLabelHeight - CustomDistance.midEdge, width: questionView.bounds.width / 3, height: CustomSize.titleLabelHeight)
         
         answerLabel.frame = questionLabel.frame
         aTextView.frame = qTextView.frame
-        aTextView.frame.size.height += (CustomDistance.viewToScreenEdgeDistance + CustomSize.titleLabelHeight)
+        aTextView.frame.size.height += (CustomDistance.midEdge + CustomSize.titleLabelHeight)
     }
 }

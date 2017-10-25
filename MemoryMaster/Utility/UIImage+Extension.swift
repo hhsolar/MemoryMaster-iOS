@@ -44,11 +44,8 @@ extension UIImage {
         if image.size.width <= textViewWidth {
             return image
         }
-        UIGraphicsBeginImageContext(CGSize(width: textViewWidth, height: textViewWidth * image.size.height / image.size.width))
-        image.draw(in: CGRect(x: 0, y: 0, width: textViewWidth, height: textViewWidth * image.size.height / image.size.width))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return scaledImage
+        let size = CGSize(width: textViewWidth, height: textViewWidth * image.size.height / image.size.width)
+        return UIImage.reSizeImage(image, to: size)
     }
     
     // save photo to the library

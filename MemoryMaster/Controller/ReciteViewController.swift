@@ -180,7 +180,7 @@ class ReciteViewController: UIViewController {
     @IBAction func continueAction(_ sender: UIButton) {
         switch readType! {
         case ReadType.edit.rawValue:
-            let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
+            let controller = EditNoteViewController.init(nibName: "EditNoteViewController", bundle: nil)
             controller.passedInCardIndex = IndexPath(item: toPassIndex!, section: 0)
             controller.passedInCardStatus = toPassCardStatus!
             controller.passedInNoteInfo = noteInfo
@@ -249,7 +249,7 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
     {
         prepareForToScreenView(collectionView: collectionView, indexPath: indexPath)
         let finalFrame = CGRect(x: 0, y: CustomSize.barHeight + CustomSize.statusBarHeight, width: collectionView.bounds.width, height: UIScreen.main.bounds.height - CustomSize.barHeight * 2 - CustomSize.statusBarHeight)
-        let finalScreenFrame = CGRect(x: CustomDistance.viewToScreenEdgeDistance, y: CustomDistance.viewToScreenEdgeDistance, width: finalFrame.size.width - CustomDistance.viewToScreenEdgeDistance * 2, height: finalFrame.size.height - CustomDistance.viewToScreenEdgeDistance * 2)
+        let finalScreenFrame = CGRect(x: CustomDistance.midEdge, y: CustomDistance.midEdge, width: finalFrame.size.width - CustomDistance.midEdge * 2, height: finalFrame.size.height - CustomDistance.midEdge * 2)
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.2, options: [], animations: {
             self.toScreenView.frame = finalFrame
             self.toScreenTextView.frame = finalScreenFrame

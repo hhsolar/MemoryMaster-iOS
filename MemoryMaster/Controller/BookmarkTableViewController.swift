@@ -140,7 +140,7 @@ extension BookmarkTableViewController {
         let bookmark: BookMark! = fetchedResultsController?.object(at: indexPath)
         switch bookmark.readType {
         case ReadType.edit.rawValue:
-            let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
+            let controller = EditNoteViewController.init(nibName: "NoteEditViewController", bundle: nil)
             controller.passedInCardIndex = IndexPath(item: Int(bookmark.readPage), section: 0)
             controller.passedInCardStatus = bookmark.readPageStatus
             controller.passedInNoteInfo = noteInfo

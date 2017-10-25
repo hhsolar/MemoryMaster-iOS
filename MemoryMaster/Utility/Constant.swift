@@ -16,6 +16,7 @@ struct CustomColor {
     static let weakGray = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
     static let lightBlue = UIColor(red: 213/255.0, green: 230/255.0, blue: 246/255.0, alpha: 1.0)
     static let lightGreen = UIColor(red: 224/255.0, green: 244/255.0, blue: 219/255.0, alpha: 1.0)
+    static let paperColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1.0)
 }
 
 struct CustomFont {
@@ -29,7 +30,9 @@ struct CustomFont {
 }
 
 struct CustomDistance {
-    static let viewToScreenEdgeDistance: CGFloat = 12
+    static let narrowEdge: CGFloat = 8
+    static let midEdge: CGFloat = 12
+    static let wideEdge: CGFloat = 20
 }
 
 struct CustomSize {
@@ -38,6 +41,7 @@ struct CustomSize {
     static let smallBtnHeight: CGFloat = 26
     static let barHeight: CGFloat = 44
     static let titleLabelHeight: CGFloat = 24
+    static let smallLabelHeight: CGFloat = 21
 }
 
 struct UserDefaultsKeys {

@@ -82,7 +82,7 @@ class TestNoteViewController: BaseTopViewController {
         super.setupUI()
         super.titleLabel.text = passedInNoteInfo?.name ?? "Name"
         
-        addBookmarkButton.frame = CGRect(x: topView.bounds.width - CustomSize.smallBtnHeight - CustomDistance.viewToScreenEdgeDistance,
+        addBookmarkButton.frame = CGRect(x: topView.bounds.width - CustomSize.smallBtnHeight - CustomDistance.midEdge,
                                          y: CustomSize.statusBarHeight + (CustomSize.barHeight - CustomSize.smallBtnHeight) / 2,
                                          width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
         addBookmarkButton.setImage(UIImage.init(named: "bookMark_icon"), for: .normal)

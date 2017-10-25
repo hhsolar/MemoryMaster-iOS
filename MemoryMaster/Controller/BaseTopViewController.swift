@@ -30,8 +30,8 @@ class BaseTopViewController: UIViewController {
         topView.backgroundColor = CustomColor.medianBlue
         view.addSubview(topView)
         
-        let titleWidth = screenWidth - CustomSize.buttonHeight * 2 - CustomDistance.viewToScreenEdgeDistance * 4
-        titleLabel.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance * 2 + CustomSize.buttonHeight,
+        let titleWidth = screenWidth - CustomSize.buttonHeight * 2 - CustomDistance.midEdge * 4
+        titleLabel.frame = CGRect(x: CustomDistance.midEdge * 2 + CustomSize.buttonHeight,
                                   y: (CustomSize.barHeight - CustomSize.titleLabelHeight) / 2 + CustomSize.statusBarHeight,
                                   width: titleWidth, height: CustomSize.titleLabelHeight)
         titleLabel.textAlignment = .center
@@ -39,7 +39,7 @@ class BaseTopViewController: UIViewController {
         titleLabel.textColor = UIColor.white
         topView.addSubview(titleLabel)
         
-        backButton.frame = CGRect(x: CustomDistance.viewToScreenEdgeDistance,
+        backButton.frame = CGRect(x: CustomDistance.midEdge,
                                   y: (CustomSize.barHeight - CustomSize.smallBtnHeight) / 2 + CustomSize.statusBarHeight,
                                   width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
         backButton.setImage(UIImage(named: "exit_icon_white"), for: .normal)
@@ -47,7 +47,7 @@ class BaseTopViewController: UIViewController {
         topView.addSubview(backButton)
     }
     
-    @objc func backAction() {
+    @objc func backAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 }

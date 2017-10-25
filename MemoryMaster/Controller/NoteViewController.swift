@@ -95,7 +95,7 @@ extension NoteViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     private func presentNoteEditController(with indexPath: IndexPath) {
-        let controller = NoteEditViewController.init(nibName: "NoteEditViewController", bundle: nil)
+        let controller = EditNoteViewController.init(nibName: "EditNoteViewController", bundle: nil)
         
         controller.passedInCardIndex = indexPath
         if let note = passedInNoteInfo {
@@ -153,7 +153,7 @@ extension NoteViewController: QACollectionViewCellDelegate {
     }
 }
 
-extension NoteViewController: NoteEditViewControllerDelegate {
+extension NoteViewController: EditNoteViewControllerDelegate {
     func passNoteInforBack(noteInfo: MyBasicNoteInfo) {
         passedInNoteInfo = noteInfo
     }

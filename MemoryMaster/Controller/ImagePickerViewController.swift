@@ -9,17 +9,20 @@
 import UIKit
 import Photos
 
-private let oneTimeLoadPhotos: Int = 50
+private let oneTimeLoadPhotos: Int = 45
 
 class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegateFlowLayout {
 
     // public api
-    var noteController: NoteEditViewController?
+    var noteController: EditNoteViewController?
     var personController: PersonEditTableViewController?
     var smallPhotoArray = [UIImage]()
     var photoAsset = [PHAsset]()
     
     var loadImageIndex: Int?
+    var unloadImageNumber: Int {
+        return photoAsset.count - smallPhotoArray.count
+    }
     
     let refreshControl = UIRefreshControl()
     
@@ -78,10 +81,6 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
         loadImageIndex = photoAsset.count - 1
         loadMorePhoto()
     }
-    
-    override func backAction() {
-        super.backAction()
-    }
 }
 
 extension ImagePickerViewController: UICollectionViewDelegate, UICollectionViewDataSource
@@ -97,7 +96,7 @@ extension ImagePickerViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let image = UIImage.getOriginalPhoto(asset: photoAsset[indexPath.row])
+        let image = UIImage.getOriginalPhoto(asset: photoAsset[unloadImageNumber + indexPath.row])
         if noteController != nil {
             let controller = TOCropViewController.init(image: image)
             controller.delegate = self.noteController
