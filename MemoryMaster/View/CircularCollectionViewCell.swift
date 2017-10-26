@@ -27,7 +27,7 @@ class CircularCollectionViewCell: UICollectionViewCell {
     }
     
     func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) {
-        contentLabel.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: title, body: body, index: index)
+//        contentLabel.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: title, body: body, index: index)        
     }
     
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {

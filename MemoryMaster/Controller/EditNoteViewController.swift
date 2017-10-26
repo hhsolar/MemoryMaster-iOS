@@ -108,8 +108,6 @@ class EditNoteViewController: BaseTopViewController {
         if let indexPath = passedInCardIndex {
             collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
             if let status = passedInCardStatus {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! EditNoteCollectionViewCell
-                cell.updateCell(with: notes[indexPath.item], at: indexPath.item, total: notes.count, cellStatus: CardStatus(rawValue: status)!, noteType: NoteType(rawValue: passedInNoteInfo.type)!)
                 if status == CardStatus.bodyFrontWithoutTitle.rawValue {
                     flipButton.image = UIImage(named: "flip_icon_disable")
                     flipButton.isEnabled = false
@@ -366,6 +364,8 @@ extension EditNoteViewController: UICollectionViewDelegate, UICollectionViewData
         var cellStatus = CardStatus.titleFront
         if passedInNoteInfo.type == NoteType.single.rawValue && notes[indexPath.item].title == NSAttributedString() {
             cellStatus = CardStatus.bodyFrontWithoutTitle
+        } else if let passIndex = passedInCardIndex, let status = passedInCardStatus, indexPath == passIndex {
+            cellStatus = CardStatus(rawValue: status)!
         }
         newCell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: cellStatus, noteType: NoteType(rawValue: passedInNoteInfo.type)!)
         newCell.delegate = self
