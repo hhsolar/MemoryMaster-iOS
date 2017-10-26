@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadNoteViewController" customModule="MemoryMaster" customModuleProvider="target">
             <connections>
+                <outlet property="addBookmarkButton" destination="slh-zK-C6K" id="R8h-dp-VT1"/>
                 <outlet property="collectionView" destination="BUJ-fQ-VUg" id="6uW-i3-6mh"/>
                 <outlet property="progressBarView" destination="iqQ-fq-3h3" id="LRD-7y-bJP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -39,15 +40,28 @@
                         <constraint firstAttribute="height" constant="10" id="Wal-wI-o4E"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slh-zK-C6K">
+                    <rect key="frame" x="271" y="26" width="37" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="9BB-Mb-gJo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="Mark"/>
+                    <connections>
+                        <action selector="addBookmarkAction:" destination="-1" eventType="touchUpInside" id="1D9-6C-Tgl"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="slh-zK-C6K" secondAttribute="trailing" constant="12" id="3XK-ZA-MD7"/>
                 <constraint firstItem="iqQ-fq-3h3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="84v-5Z-2Nv"/>
                 <constraint firstItem="BUJ-fQ-VUg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9TP-gV-OoJ"/>
                 <constraint firstItem="BUJ-fQ-VUg" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="NBl-Aa-sm2"/>
                 <constraint firstItem="BUJ-fQ-VUg" firstAttribute="top" secondItem="iqQ-fq-3h3" secondAttribute="bottom" id="SZy-mD-mVa"/>
                 <constraint firstItem="iqQ-fq-3h3" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="XcQ-Kh-8kV"/>
                 <constraint firstItem="BUJ-fQ-VUg" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="jdb-R3-jRZ"/>
+                <constraint firstItem="slh-zK-C6K" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="26" id="t1u-dz-AAn"/>
                 <constraint firstItem="iqQ-fq-3h3" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="wDG-zE-tjb"/>
             </constraints>
             <point key="canvasLocation" x="121.5" y="54.5"/>

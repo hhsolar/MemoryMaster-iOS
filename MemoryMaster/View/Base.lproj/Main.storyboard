@@ -690,6 +690,8 @@
                             <outlet property="delegate" destination="ZOo-Jh-GOU" id="M1g-ca-MFD"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="avatarButton" destination="9X7-L2-dpt" id="227-3a-fiK"/>
                         <outlet property="mottoTextView" destination="gRH-cd-iUE" id="wEf-bJ-Unq"/>

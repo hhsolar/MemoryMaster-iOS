@@ -44,6 +44,12 @@ struct CustomSize {
     static let smallLabelHeight: CGFloat = 21
 }
 
+struct CustomRichTextAttri {
+    static let titleNormal: [NSAttributedStringKey : Any] = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline), NSAttributedStringKey.textEffect: NSAttributedString.TextEffectStyle.letterpressStyle]
+
+    static let bodyNormal: [NSAttributedStringKey : Any] = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), NSAttributedStringKey.textEffect: NSAttributedString.TextEffectStyle.letterpressStyle]
+}
+
 struct UserDefaultsKeys {
     static let lastReadStatus = "Last Read Status"
 }

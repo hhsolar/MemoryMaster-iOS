@@ -14,9 +14,6 @@ protocol EditNoteCollectionViewCellDelegate: class {
     func noteAddPhoto()
 }
 
-let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), NSAttributedStringKey.textEffect: NSAttributedString.TextEffectStyle.letterpressStyle]
-
-
 class EditNoteCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var indexLabel: UILabel!
@@ -58,7 +55,6 @@ class EditNoteCollectionViewCell: UICollectionViewCell {
         titleEditButton.setTitleColor(CustomColor.medianBlue, for: .normal)
         
         // titleTextView
-        titleTextView.frame = bodyTextView.frame
         titleTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.midEdge, bottom: 0, right: CustomDistance.midEdge)
         titleTextView.backgroundColor = CustomColor.paperColor
         titleTextView.tag = OutletTag.titleTextView.rawValue
@@ -88,11 +84,16 @@ class EditNoteCollectionViewCell: UICollectionViewCell {
         bodyTextView.inputAccessoryView = bodyAccessoryView
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        titleTextView.frame = bodyTextView.frame
+    }
+    
     func updateCell(with cardContent: CardContent, at index: Int, total: Int, cellStatus: CardStatus, noteType: NoteType) {
         cardIndex = index
         currentStatus = cellStatus
         indexLabel.text = String.init(format: "%d / %d", index + 1, total)
-        bodyTextView.attributedText = cardContent.body
+        bodyTextView.attributedText = cardContent.body.addAttributesForText(CustomRichTextAttri.bodyNormal, range: NSRange(location: 0, length: cardContent.body.length))
         if noteType == NoteType.single {
             titleEditButton.isHidden = false
         } else {
@@ -100,10 +101,10 @@ class EditNoteCollectionViewCell: UICollectionViewCell {
         }
         switch cellStatus {
         case .titleFront:
-            titleTextView.attributedText = cardContent.title
+            titleTextView.attributedText = cardContent.title.addAttributesForText(CustomRichTextAttri.bodyNormal, range: NSRange(location: 0, length: cardContent.title.length))
             showTitle(noteType: noteType)
         case .bodyFrontWithTitle:
-            titleTextView.attributedText = cardContent.title
+            titleTextView.attributedText = cardContent.title.addAttributesForText(CustomRichTextAttri.bodyNormal, range: NSRange(location: 0, length: cardContent.title.length))
             showBody(noteType: noteType)
         default:
             showBody(noteType: noteType)
@@ -183,7 +184,7 @@ extension EditNoteCollectionViewCell: UITextViewDelegate {
             return true
         } else {
             let attrubuteStr = NSMutableAttributedString(attributedString: textView.attributedText)
-            attrubuteStr.addAttributes(attributes, range: NSRange(location: 0, length: textView.text.count))
+            attrubuteStr.addAttributes(CustomRichTextAttri.bodyNormal, range: NSRange(location: 0, length: textView.text.count))
             textView.attributedText = attrubuteStr
             return true
         }

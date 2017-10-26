@@ -40,9 +40,11 @@ class BaseTopViewController: UIViewController {
         topView.addSubview(titleLabel)
         
         backButton.frame = CGRect(x: CustomDistance.midEdge,
-                                  y: (CustomSize.barHeight - CustomSize.smallBtnHeight) / 2 + CustomSize.statusBarHeight,
-                                  width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
-        backButton.setImage(UIImage(named: "exit_icon_white"), for: .normal)
+                                  y: (CustomSize.barHeight - CustomSize.buttonHeight) / 2 + CustomSize.statusBarHeight,
+                                  width: CustomSize.buttonHeight, height: CustomSize.buttonHeight)
+        backButton.setTitle("Exit", for: .normal)
+        backButton.setTitleColor(UIColor.white, for: .normal)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         backButton.addTarget(self, action: #selector(backAction), for: .touchUpInside)
         topView.addSubview(backButton)
     }

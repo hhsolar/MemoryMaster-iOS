@@ -21,8 +21,8 @@ class TestNoteViewController: BaseTopViewController {
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     @IBOutlet weak var collectionView: UICollectionView!
-    let addBookmarkButton = UIButton()
-    
+    @IBOutlet weak var addBookmarkButton: UIButton!
+
     var currentIndex: Int {
         return Int(collectionView.contentOffset.x) / Int(collectionView.bounds.width)
     }
@@ -82,12 +82,8 @@ class TestNoteViewController: BaseTopViewController {
         super.setupUI()
         super.titleLabel.text = passedInNoteInfo?.name ?? "Name"
         
-        addBookmarkButton.frame = CGRect(x: topView.bounds.width - CustomSize.smallBtnHeight - CustomDistance.midEdge,
-                                         y: CustomSize.statusBarHeight + (CustomSize.barHeight - CustomSize.smallBtnHeight) / 2,
-                                         width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
-        addBookmarkButton.setImage(UIImage.init(named: "bookMark_icon"), for: .normal)
-        addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
-        topView.addSubview(addBookmarkButton)
+        addBookmarkButton.setTitleColor(UIColor.white, for: .normal)
+        view.bringSubview(toFront: addBookmarkButton)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -120,7 +116,7 @@ class TestNoteViewController: BaseTopViewController {
         }
     }
     
-    @objc func addBookmark() {
+    @IBAction func addBookmarkAction(_ sender: UIButton) {
         let status = getCardStatus(index: currentIndex).rawValue
         let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.test.rawValue, currentIndex + 1, status)
         

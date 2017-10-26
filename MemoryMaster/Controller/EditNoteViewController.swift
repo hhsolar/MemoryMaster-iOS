@@ -63,13 +63,13 @@ class EditNoteViewController: BaseTopViewController {
         super.setupUI()
         titleLabel.text = passedInNoteInfo.name
         
-        saveButton.setTitleColor(UIColor.white, for: .normal)
-        view.bringSubview(toFront: saveButton)
-        
-        if let status = passedInCardStatus, status == CardStatus.bodyFrontWithoutTitle.rawValue {
-            flipButton.image = UIImage(named: "filp_icon_disable")
+        if passedInNoteInfo.type == NoteType.single.rawValue {
+            flipButton.image = UIImage(named: "flip_icon_disable")
             flipButton.isEnabled = false
         }
+        
+        saveButton.setTitleColor(UIColor.white, for: .normal)
+        view.bringSubview(toFront: saveButton)
     }
     
     private func setupCollectionView() {
@@ -108,8 +108,23 @@ class EditNoteViewController: BaseTopViewController {
         if let indexPath = passedInCardIndex {
             collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
             if let status = passedInCardStatus {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EditNoteCollectionViewCell", for: indexPath) as! EditNoteCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! EditNoteCollectionViewCell
                 cell.updateCell(with: notes[indexPath.item], at: indexPath.item, total: notes.count, cellStatus: CardStatus(rawValue: status)!, noteType: NoteType(rawValue: passedInNoteInfo.type)!)
+                if status == CardStatus.bodyFrontWithoutTitle.rawValue {
+                    flipButton.image = UIImage(named: "flip_icon_disable")
+                    flipButton.isEnabled = false
+                } else {
+                    flipButton.image = UIImage(named: "flip_icon")
+                    flipButton.isEnabled = true
+                }
+            } else {
+                if passedInNoteInfo.type == NoteType.single.rawValue && notes[indexPath.item].title == NSAttributedString() {
+                    flipButton.image = UIImage(named: "flip_icon_disable")
+                    flipButton.isEnabled = false
+                } else {
+                    flipButton.image = UIImage(named: "flip_icon")
+                    flipButton.isEnabled = true
+                }
             }
         }
         self.registerForKeyboardNotifications()
@@ -348,9 +363,9 @@ extension EditNoteViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let newCell = cell as! EditNoteCollectionViewCell
-        var cellStatus = CardStatus.bodyFrontWithoutTitle
-        if passedInNoteInfo.type == NoteType.qa.rawValue {
-            cellStatus = CardStatus.titleFront
+        var cellStatus = CardStatus.titleFront
+        if passedInNoteInfo.type == NoteType.single.rawValue && notes[indexPath.item].title == NSAttributedString() {
+            cellStatus = CardStatus.bodyFrontWithoutTitle
         }
         newCell.updateCell(with: notes[indexPath.row], at: indexPath.row, total: notes.count, cellStatus: cellStatus, noteType: NoteType(rawValue: passedInNoteInfo.type)!)
         newCell.delegate = self
@@ -407,6 +422,9 @@ extension EditNoteViewController: TOCropViewControllerDelegate {
         let cell = collectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! EditNoteCollectionViewCell
         
         let width = (cell.editingTextView?.bounds.width)! - CustomDistance.midEdge * 2 - (cell.editingTextView?.textContainer.lineFragmentPadding)! * 2
+        
+        print((cell.editingTextView?.bounds.width)!)
+        
         let insertImage = UIImage.scaleImageToFitTextView(image, fit: width)
         
         if cell.editingTextView?.tag == OutletTag.titleTextView.rawValue {

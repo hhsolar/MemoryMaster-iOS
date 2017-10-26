@@ -20,8 +20,8 @@ class ReadNoteViewController: BaseTopViewController {
     
     @IBOutlet weak var progressBarView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var addBookmarkButton: UIButton!
     let barFinishedPart = UIView()
-    let addBookmarkButton = UIButton()
     
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
@@ -63,12 +63,8 @@ class ReadNoteViewController: BaseTopViewController {
         super.titleLabel.text = passedInNoteInfo?.name
         self.automaticallyAdjustsScrollViewInsets = false
         
-        addBookmarkButton.frame = CGRect(x: topView.bounds.width - CustomSize.smallBtnHeight - CustomDistance.midEdge,
-                                         y: CustomSize.statusBarHeight + (CustomSize.barHeight - CustomSize.smallBtnHeight) / 2,
-                                         width: CustomSize.smallBtnHeight, height: CustomSize.smallBtnHeight)
-        addBookmarkButton.setImage(UIImage.init(named: "bookMark_icon"), for: .normal)
-        addBookmarkButton.addTarget(self, action: #selector(addBookmark), for: .touchUpInside)
-        topView.addSubview(addBookmarkButton)
+        addBookmarkButton.setTitleColor(UIColor.white, for: .normal)
+        view.bringSubview(toFront: addBookmarkButton)
         
         progressBarView.layer.cornerRadius = 4
         progressBarView.layer.masksToBounds = true
@@ -99,10 +95,9 @@ class ReadNoteViewController: BaseTopViewController {
         collectionView?.register(nib, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
     
-    @objc func addBookmark()
-    {
+    @IBAction func addBookmarkAction(_ sender: UIButton) {
         let placeholder = String(format: "%@-%@-%@-%d", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.read.rawValue, currentCardIndex + 1)
-
+        
         let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
         alert.addTextField { textFiled in
             textFiled.placeholder = placeholder

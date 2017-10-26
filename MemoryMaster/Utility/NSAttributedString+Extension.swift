@@ -39,24 +39,27 @@ extension NSAttributedString {
     }
     
     class func prepareAttributeStringForRead(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) -> NSAttributedString {
-        let showString = NSMutableAttributedString(string: String(format: "%d. ", index + 1), attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-        if noteType == NoteType.single.rawValue {
-            if title != NSAttributedString() {
-                showString.append(title)
-                let returnAtt = NSAttributedString(string: "\n\n")
-                showString.append(returnAtt)
-            }
+        let showString = NSMutableAttributedString(string: String(format: "%d. ", index + 1))
+        if title == NSAttributedString() {
             showString.append(body)
+            showString.addAttributes(CustomRichTextAttri.bodyNormal, range: NSRange.init(location: 0, length: showString.length))
         } else {
-            let questionString = NSAttributedString(string: "Question: ", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-            showString.append(questionString)
             showString.append(title)
+            showString.addAttributes(CustomRichTextAttri.titleNormal, range: NSRange.init(location: 0, length: showString.length))
             let returnAtt = NSAttributedString(string: "\n\n")
             showString.append(returnAtt)
-            let answerString = NSAttributedString(string: "Answer: ", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
-            showString.append(answerString)
+            let location = showString.length
             showString.append(body)
+            showString.addAttributes(CustomRichTextAttri.bodyNormal, range: NSRange.init(location: location, length: body.length))
         }
-        return showString
+        return showString as NSAttributedString
+    }
+    
+    func addAttributesForText(_ attrs: [NSAttributedStringKey : Any] = [:], range: NSRange) -> NSAttributedString {
+        let string = NSMutableAttributedString(attributedString: self)
+        string.addAttributes(attrs, range: range)
+        return string as NSAttributedString
     }
 }
+
+
