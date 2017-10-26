@@ -17,7 +17,6 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var allNoteButton: UIButton!
     @IBOutlet weak var qaNoteButton: UIButton!
     @IBOutlet weak var singleNoteButton: UIButton!
-    @IBOutlet weak var nothingFoundLabel: UILabel!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
@@ -26,6 +25,7 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     let topView = UIView()
+    let nothingFoundLabel = UILabel()
     
     // public api
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
@@ -134,6 +134,12 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
         topView.backgroundColor = CustomColor.medianBlue
         view.addSubview(topView)
         view.sendSubview(toBack: topView)
+        
+        nothingFoundLabel.frame = CGRect(x: 0, y: 44, width: UIScreen.main.bounds.width, height: 44)
+        nothingFoundLabel.text = "Nothing Found"
+        nothingFoundLabel.textColor = CustomColor.wordGray
+        nothingFoundLabel.textAlignment = .center
+        tableView.addSubview(nothingFoundLabel)
         
         allNoteButton.setImage(UIImage(named: "all_icon_click.png"), for: .normal)
         singleNoteButton.setImage(UIImage(named: "single_icon_unclick.png"), for: .normal)

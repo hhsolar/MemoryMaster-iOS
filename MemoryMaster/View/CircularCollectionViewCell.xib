@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="117" height="185"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neR-eH-SlQ">
-                                <rect key="frame" x="20" y="20" width="77" height="0.0"/>
+                                <rect key="frame" x="17" y="17" width="83" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -31,10 +31,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="neR-eH-SlQ" firstAttribute="top" secondItem="TNm-no-Gsp" secondAttribute="top" constant="20" id="8TK-HV-VQe"/>
-                            <constraint firstAttribute="trailing" secondItem="neR-eH-SlQ" secondAttribute="trailing" constant="20" id="D38-L7-yFR"/>
-                            <constraint firstItem="neR-eH-SlQ" firstAttribute="leading" secondItem="TNm-no-Gsp" secondAttribute="leading" constant="20" id="NbA-Gi-Hyn"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="neR-eH-SlQ" secondAttribute="bottom" constant="20" id="h7K-l9-Rqy"/>
+                            <constraint firstItem="neR-eH-SlQ" firstAttribute="top" secondItem="TNm-no-Gsp" secondAttribute="top" constant="17" id="8TK-HV-VQe"/>
+                            <constraint firstAttribute="trailing" secondItem="neR-eH-SlQ" secondAttribute="trailing" constant="17" id="D38-L7-yFR"/>
+                            <constraint firstItem="neR-eH-SlQ" firstAttribute="leading" secondItem="TNm-no-Gsp" secondAttribute="leading" constant="17" id="NbA-Gi-Hyn"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="neR-eH-SlQ" secondAttribute="bottom" constant="17" id="h7K-l9-Rqy"/>
                         </constraints>
                     </view>
                 </subviews>

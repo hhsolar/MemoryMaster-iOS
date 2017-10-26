@@ -55,7 +55,7 @@ class EditNoteCollectionViewCell: UICollectionViewCell {
         titleEditButton.setTitleColor(CustomColor.medianBlue, for: .normal)
         
         // titleTextView
-        titleTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.midEdge, bottom: 0, right: CustomDistance.midEdge)
+        titleTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.wideEdge, bottom: 0, right: CustomDistance.wideEdge)
         titleTextView.backgroundColor = CustomColor.paperColor
         titleTextView.tag = OutletTag.titleTextView.rawValue
         titleTextView.showsVerticalScrollIndicator = false
@@ -70,7 +70,7 @@ class EditNoteCollectionViewCell: UICollectionViewCell {
         titleTextView.inputAccessoryView = titleAccessoryView
         
         // bodyTextView
-        bodyTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.midEdge, bottom: 0, right: CustomDistance.midEdge)
+        bodyTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.wideEdge, bottom: 0, right: CustomDistance.wideEdge)
         bodyTextView.backgroundColor = CustomColor.paperColor
         bodyTextView.tag = OutletTag.bodyTextView.rawValue
         bodyTextView.showsVerticalScrollIndicator = false

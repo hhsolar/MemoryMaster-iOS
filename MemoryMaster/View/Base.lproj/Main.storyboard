@@ -217,15 +217,6 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efo-0a-LlD">
-                                <rect key="frame" x="0.0" y="108" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="5rx-2C-Quu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kG-z8-VBb">
                                 <rect key="frame" x="330" y="24" width="30" height="30"/>
                                 <constraints>
@@ -240,7 +231,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="r76-Mf-XfG" firstAttribute="top" secondItem="Efo-0a-LlD" secondAttribute="bottom" constant="-88" id="8Io-RJ-y93"/>
                             <constraint firstItem="r76-Mf-XfG" firstAttribute="top" secondItem="3aQ-6Q-AE4" secondAttribute="top" constant="44" id="9Cs-ec-hAL"/>
                             <constraint firstItem="ec5-Fr-A8a" firstAttribute="centerX" secondItem="I2B-38-uTZ" secondAttribute="centerX" id="B2p-Ye-gQ6"/>
                             <constraint firstItem="0kG-z8-VBb" firstAttribute="top" secondItem="3aQ-6Q-AE4" secondAttribute="top" constant="4" id="EDl-g7-CFV"/>
@@ -248,9 +238,7 @@
                             <constraint firstItem="r76-Mf-XfG" firstAttribute="leading" secondItem="3aQ-6Q-AE4" secondAttribute="leading" id="Gtp-2v-sri"/>
                             <constraint firstItem="r76-Mf-XfG" firstAttribute="trailing" secondItem="3aQ-6Q-AE4" secondAttribute="trailing" id="HHo-Kx-Kuk"/>
                             <constraint firstItem="r76-Mf-XfG" firstAttribute="bottom" secondItem="3aQ-6Q-AE4" secondAttribute="bottom" id="Ice-SC-gSB"/>
-                            <constraint firstItem="Efo-0a-LlD" firstAttribute="leading" secondItem="3aQ-6Q-AE4" secondAttribute="leading" id="KuT-3y-OpI"/>
                             <constraint firstItem="ec5-Fr-A8a" firstAttribute="top" secondItem="Hcu-ME-4u1" secondAttribute="bottom" constant="-34" id="Uen-OW-QKK"/>
-                            <constraint firstItem="Efo-0a-LlD" firstAttribute="trailing" secondItem="3aQ-6Q-AE4" secondAttribute="trailing" id="WEb-fe-y7E"/>
                             <constraint firstItem="Hcu-ME-4u1" firstAttribute="top" secondItem="3aQ-6Q-AE4" secondAttribute="top" id="XOe-6v-Gwq"/>
                             <constraint firstItem="Hcu-ME-4u1" firstAttribute="centerX" secondItem="I2B-38-uTZ" secondAttribute="centerX" id="z9P-a6-lzx"/>
                         </constraints>
@@ -261,7 +249,6 @@
                     <connections>
                         <outlet property="addButton" destination="0kG-z8-VBb" id="Hk0-F8-Fdp"/>
                         <outlet property="allNoteButton" destination="1uh-yA-H6x" id="avu-RD-bHc"/>
-                        <outlet property="nothingFoundLabel" destination="Efo-0a-LlD" id="Nm6-Mj-HVK"/>
                         <outlet property="qaNoteButton" destination="LlW-9y-mfI" id="2Ql-eH-W1J"/>
                         <outlet property="singleNoteButton" destination="atZ-tn-ZhR" id="FPX-ME-vMg"/>
                         <outlet property="tableView" destination="r76-Mf-XfG" id="4t3-AY-zI4"/>

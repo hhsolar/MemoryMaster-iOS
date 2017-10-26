@@ -138,10 +138,14 @@ extension BookmarkTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bookmark: BookMark! = fetchedResultsController?.object(at: indexPath)
+        var page = bookmark.readPage
+        if bookmark.readPage > (noteInfo?.numberOfCard)! - 1 {
+            page = 0
+        }
         switch bookmark.readType {
         case ReadType.edit.rawValue:
             let controller = EditNoteViewController.init(nibName: "EditNoteViewController", bundle: nil)
-            controller.passedInCardIndex = IndexPath(item: Int(bookmark.readPage), section: 0)
+            controller.passedInCardIndex = IndexPath(item: Int(page), section: 0)
             controller.passedInCardStatus = bookmark.readPageStatus
             controller.passedInNoteInfo = noteInfo
             controller.container = container
@@ -150,13 +154,13 @@ extension BookmarkTableViewController {
             let controller = ReadNoteViewController.init(nibName: "ReadNoteViewController", bundle: nil)
             controller.passedInNoteInfo = noteInfo
             controller.passedInNotes = notes
-            controller.startCardIndexPath = IndexPath(item: Int(bookmark.readPage), section: 0)
+            controller.startCardIndexPath = IndexPath(item: Int(page), section: 0)
             present(controller, animated: true, completion: nil)
         case ReadType.test.rawValue:
             let controller = TestNoteViewController.init(nibName: "TestNoteViewController", bundle: nil)
             controller.passedInNoteInfo = noteInfo
             controller.passedInNotes = notes
-            controller.startCardIndexPath = IndexPath(item: Int(bookmark.readPage), section: 0)
+            controller.startCardIndexPath = IndexPath(item: Int(page), section: 0)
             controller.passedInCardStatus = bookmark.readPageStatus
             present(controller, animated: true, completion: nil)
         default:

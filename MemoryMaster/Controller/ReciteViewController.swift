@@ -62,6 +62,8 @@ class ReciteViewController: UIViewController {
         super.viewWillAppear(animated)
         updateUI()
         
+        self.navigationItem.title = noteInfo?.name ?? "Recite"
+
         // add notification to refreash view when back to the controller
         NotificationCenter.default.addObserver(self, selector: #selector(refreshPage), name: NSNotification.Name(rawValue: "RefreshPage"), object: nil)
     }
@@ -109,6 +111,7 @@ class ReciteViewController: UIViewController {
                 return
             } else if let noteNumber = noteNumber, noteNumber > 0 {
                 noNoteLabel.text = "Oops, the note you read last time seems removed."
+                noteInfo = nil
                 presentNoNoteLayout()
                 addNoteButton.isHidden = true
                 addNoteButton.isEnabled = false
@@ -245,14 +248,14 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
 
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         prepareForToScreenView(collectionView: collectionView, indexPath: indexPath)
-        let finalFrame = CGRect(x: 0, y: CustomSize.barHeight + CustomSize.statusBarHeight, width: collectionView.bounds.width, height: UIScreen.main.bounds.height - CustomSize.barHeight * 2 - CustomSize.statusBarHeight)
-        let finalScreenFrame = CGRect(x: CustomDistance.midEdge, y: CustomDistance.midEdge, width: finalFrame.size.width - CustomDistance.midEdge * 2, height: finalFrame.size.height - CustomDistance.midEdge * 2)
+        let finalFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - CustomSize.barHeight)
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.2, options: [], animations: {
             self.toScreenView.frame = finalFrame
-            self.toScreenTextView.frame = finalScreenFrame
+            self.toScreenTextView.frame = finalFrame
             self.toScreenTextView.isEditable = false
             self.toScreenView.layer.cornerRadius = 0
             self.toScreenView.layer.masksToBounds = false
@@ -267,12 +270,15 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
         toScreenView.layer.masksToBounds = true
         toScreenView.layer.borderWidth = 1
         toScreenView.backgroundColor = CustomColor.weakGray
+        
+        // get cell frame
         let attributes: UICollectionViewLayoutAttributes! = collectionView.layoutAttributesForItem(at: indexPath)
         let frameInSuperView: CGRect! = collectionView.convert(attributes.frame, to: collectionView.superview)
         toScreenView.frame = frameInSuperView
         view.addSubview(toScreenView)
-
-        toScreenTextView.frame = CGRect(x: CustomSize.barHeight, y: CustomSize.barHeight, width: toScreenView.bounds.width - CustomSize.barHeight * 2, height: toScreenView.bounds.height - CustomSize.barHeight * 2)
+        
+        toScreenTextView.frame = CGRect(origin: CGPoint.zero, size: toScreenView.bounds.size)
+        toScreenTextView.textContainerInset = UIEdgeInsets(top: 17, left: CustomDistance.midEdge, bottom: 17, right: CustomDistance.midEdge)
         toScreenTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: (noteInfo?.type)!, title: notes[indexPath.item].title, body: notes[indexPath.item].body, index: indexPath.item)
         toScreenTextView.backgroundColor = CustomColor.weakGray
         toScreenView.addSubview(toScreenTextView)
@@ -283,6 +289,7 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
             UIView.animateKeyframes(withDuration: 0.3, delay: 0.01, options: [], animations: {
                 self.toScreenView.frame.origin.x = -UIScreen.main.bounds.width
             }) { finished in
+                self.toScreenView.frame = CGRect.zero
                 self.toScreenView.removeFromSuperview()
             }
         }

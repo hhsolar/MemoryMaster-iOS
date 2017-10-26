@@ -25,6 +25,6 @@ class ReadCollectionViewCell: UICollectionViewCell {
         bodyTextView.isEditable = false
         bodyTextView.showsHorizontalScrollIndicator = false
         bodyTextView.showsVerticalScrollIndicator = true
-        bodyTextView.textContainerInset = UIEdgeInsets(top: CustomDistance.midEdge, left: CustomDistance.midEdge, bottom: CustomDistance.midEdge, right: CustomDistance.midEdge)
+        bodyTextView.textContainerInset = UIEdgeInsets(top: CustomDistance.midEdge, left: CustomDistance.wideEdge, bottom: CustomDistance.midEdge, right: CustomDistance.wideEdge)
     }
 }

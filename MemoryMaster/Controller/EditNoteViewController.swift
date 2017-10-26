@@ -421,7 +421,7 @@ extension EditNoteViewController: TOCropViewControllerDelegate {
     {
         let cell = collectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! EditNoteCollectionViewCell
         
-        let width = (cell.editingTextView?.bounds.width)! - CustomDistance.midEdge * 2 - (cell.editingTextView?.textContainer.lineFragmentPadding)! * 2
+        let width = (cell.editingTextView?.bounds.width)! - CustomDistance.wideEdge * 2 - (cell.editingTextView?.textContainer.lineFragmentPadding)! * 2
         
         print((cell.editingTextView?.bounds.width)!)
         
