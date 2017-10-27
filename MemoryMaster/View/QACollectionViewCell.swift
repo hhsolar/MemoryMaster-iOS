@@ -18,7 +18,7 @@ protocol QACollectionViewCellDelegate: class {
 class QACollectionViewCell: CardCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
+    @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var testButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
@@ -46,14 +46,24 @@ class QACollectionViewCell: CardCell {
     
     weak var delegate: QACollectionViewCellDelegate?
     
-    func updateCell(question: String, answer: NSAttributedString, index: Int) {
-        nameLabel.text = String(format: "%d. %@", index, question)
-        bodyLabel.attributedText = answer
+    func updateCell(question: NSAttributedString, answer: NSAttributedString, index: Int) {
+        self.layoutIfNeeded()
+        let temp = NSMutableAttributedString.init(string: String(format: "%d. Question: %@", index, question.string))
+        if question.containsAttachments(in: NSRange.init(location: 0, length: question.length)) {
+            let image = question.getAllImageAttachments(in: NSRange.init(location: 0, length: question.length)).imageArray[0]
+            let imgTextAttach = NSTextAttachment()
+            imgTextAttach.image = UIImage.reSizeImage(image, to: CGSize(width: nameLabel.bounds.height * image.size.width / image.size.height, height: nameLabel.bounds.height))!
+            let imageAtt = NSAttributedString.init(attachment: imgTextAttach)
+            temp.append(imageAtt)
+        }
+        nameLabel.attributedText = temp as NSAttributedString
+        bodyTextView.attributedText = answer
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        bodyTextView.isEditable = false
+        bodyTextView.isScrollEnabled = false
     }
 
 }

@@ -105,14 +105,14 @@ class TestCollectionViewCell: UICollectionViewCell {
         answerView.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         questionLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: CustomDistance.midEdge, width: questionView.bounds.width / 3, height: CustomSize.titleLabelHeight)
-        qTextView.frame = CGRect(x: 0, y: CustomDistance.midEdge + CustomSize.titleLabelHeight, width: questionView.bounds.width, height: questionView.bounds.height - CustomDistance.midEdge * 2 - CustomSize.titleLabelHeight * 2)
-        qTextView.textContainerInset = UIEdgeInsets(top: CustomDistance.narrowEdge, left: CustomDistance.narrowEdge, bottom: CustomDistance.narrowEdge, right: CustomDistance.narrowEdge)
+        qTextView.frame = CGRect(x: 0, y: CustomDistance.midEdge * 2 + CustomSize.titleLabelHeight, width: questionView.bounds.width, height: questionView.bounds.height - CustomDistance.midEdge * 4 - CustomSize.titleLabelHeight * 2)
+        qTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.narrowEdge, bottom: 0, right: CustomDistance.narrowEdge)
         
         indexLabel.frame = CGRect(x: questionView.bounds.midX - questionView.bounds.width / 6, y: questionView.bounds.height - CustomSize.titleLabelHeight - CustomDistance.midEdge, width: questionView.bounds.width / 3, height: CustomSize.titleLabelHeight)
         
         answerLabel.frame = questionLabel.frame
         aTextView.frame = qTextView.frame
-        aTextView.textContainerInset = UIEdgeInsets(top: CustomDistance.narrowEdge, left: CustomDistance.narrowEdge, bottom: CustomDistance.narrowEdge, right: CustomDistance.narrowEdge)
+        aTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.narrowEdge, bottom: 0, right: CustomDistance.narrowEdge)
         aTextView.frame.size.height += (CustomDistance.midEdge + CustomSize.titleLabelHeight)
     }
 }

@@ -77,12 +77,12 @@ extension NoteViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let newCell = cell as! SingleCollectionViewCell
             newCell.delegate = self
             newCell.cardIndexPath = indexPath
-            newCell.updateCell(title: notes[indexPath.row].title.string, body: notes[indexPath.row].body, index: indexPath.row + 1)
+            newCell.updateCell(title: notes[indexPath.row].title, body: notes[indexPath.row].body, index: indexPath.row + 1)
         } else {
             let newCell = cell as! QACollectionViewCell
             newCell.delegate = self
             newCell.cardIndexPath = indexPath
-            newCell.updateCell(question: notes[indexPath.row].title.string, answer: notes[indexPath.row].body, index: indexPath.row + 1)
+            newCell.updateCell(question: notes[indexPath.row].title, answer: notes[indexPath.row].body, index: indexPath.row + 1)
         }
     }
     

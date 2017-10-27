@@ -60,6 +60,47 @@ extension NSAttributedString {
         string.addAttributes(attrs, range: range)
         return string as NSAttributedString
     }
+    
+    // change NSAttributeString's attachment image to fit the constrain width of the container
+    func changeAttachmentImageToFitContainer(containerWidth: CGFloat, in range: NSRange) -> NSAttributedString
+    {
+        let imageInfo = self.getAllImageAttachments(in: range)
+        let mutableAttri = NSMutableAttributedString.init(attributedString: self)
+        for i in 0..<imageInfo.imageArray.count {
+            let imgTextAttach = NSTextAttachment()
+            imgTextAttach.image = UIImage.scaleImageToFitTextView(imageInfo.imageArray[i], fit: containerWidth)!
+            let imageAttach = NSAttributedString.init(attachment: imgTextAttach)
+            mutableAttri.replaceCharacters(in: imageInfo.rangeArray[i], with: imageAttach)
+        }
+        return mutableAttri as NSAttributedString
+    }
+    
+    func getAllImageAttachments(in range: NSRange) -> ImageAttachmentsInfo {
+        var imageInfo = ImageAttachmentsInfo(imageArray: [], rangeArray: [])
+        self.enumerateAttribute(NSAttributedStringKey.attachment, in: range, options: [], using: { (value, range, stop) in
+            if value is NSTextAttachment {
+                let attachment = value as? NSTextAttachment
+                var image: UIImage? = nil
+                
+                if attachment?.image != nil {
+                    image = attachment?.image
+                } else {
+                    image = attachment?.image(forBounds: (attachment?.bounds)!, textContainer: nil, characterIndex: range.location)
+                }
+                
+                if image != nil {
+                    imageInfo.imageArray.append(image!)
+                    imageInfo.rangeArray.append(range)
+                }
+            }
+        })
+        return imageInfo
+    }
+    
+    struct ImageAttachmentsInfo {
+        var imageArray: [UIImage]
+        var rangeArray: [NSRange]
+    }
 }
 
 

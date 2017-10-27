@@ -10,9 +10,7 @@ import UIKit
 
 class CircularCollectionViewCell: UICollectionViewCell {
 
-    
-    @IBOutlet weak var backView: UIView!
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var contentTextView: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,14 +18,30 @@ class CircularCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        backView.layer.cornerRadius = 10
-        backView.layer.masksToBounds = true
-        backView.layer.borderWidth = 1
-        backView.backgroundColor = CustomColor.weakGray
+        contentTextView.layer.cornerRadius = 10
+        contentTextView.layer.masksToBounds = true
+        contentTextView.layer.borderWidth = 1
+        contentTextView.backgroundColor = CustomColor.weakGray
+        contentTextView.textContainerInset = UIEdgeInsets(top: CustomDistance.midEdge, left: CustomDistance.midEdge, bottom: CustomDistance.midEdge, right: CustomDistance.midEdge)
+        contentTextView.isEditable = false
+        contentTextView.isScrollEnabled = false
     }
     
-    func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) {
-//        contentLabel.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: title, body: body, index: index)        
+    func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int)
+    {
+        self.layoutIfNeeded()
+        let containerWidth = contentTextView.bounds.width - contentTextView.textContainerInset.left * 2 - contentTextView.textContainer.lineFragmentPadding * 2
+        let titleRange = NSRange.init(location: 0, length: title.length)
+        var newTitle = title
+        if title.containsAttachments(in: titleRange) {
+            newTitle = title.changeAttachmentImageToFitContainer(containerWidth: containerWidth, in: titleRange)
+        }
+        let bodyRange = NSRange.init(location: 0, length: body.length)
+        var newBody = body
+        if body.containsAttachments(in: bodyRange) {
+            newBody = body.changeAttachmentImageToFitContainer(containerWidth: containerWidth, in: bodyRange)
+        }
+        contentTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: newTitle, body: newBody, index: index)
     }
     
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {

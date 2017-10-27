@@ -108,13 +108,7 @@ class EditNoteViewController: BaseTopViewController {
         if let indexPath = passedInCardIndex {
             collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
             if let status = passedInCardStatus {
-                if status == CardStatus.bodyFrontWithoutTitle.rawValue {
-                    flipButton.image = UIImage(named: "flip_icon_disable")
-                    flipButton.isEnabled = false
-                } else {
-                    flipButton.image = UIImage(named: "flip_icon")
-                    flipButton.isEnabled = true
-                }
+                setFilpButton(cellStatus: CardStatus(rawValue: status)!)
             } else {
                 if passedInNoteInfo.type == NoteType.single.rawValue && notes[indexPath.item].title == NSAttributedString() {
                     flipButton.image = UIImage(named: "flip_icon_disable")
@@ -179,9 +173,13 @@ class EditNoteViewController: BaseTopViewController {
         collectionView.reloadData()
         collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .left, animated: true)
         collectionView.reloadItems(at: [IndexPath(item: index - 1, section: 0)])
-        
         if var minIndex = minAddCardIndex, minIndex > index {
             minIndex = index
+        }
+        if passedInNoteInfo.type == NoteType.single.rawValue {
+            setFilpButton(cellStatus: CardStatus.bodyFrontWithoutTitle)
+        } else {
+            setFilpButton(cellStatus: CardStatus.titleFront)
         }
     }
     
@@ -209,6 +207,11 @@ class EditNoteViewController: BaseTopViewController {
         
         if var minIndex = minRemoveCardIndex, minIndex > index {
             minIndex = index
+        }
+        
+        if passedInNoteInfo.type == NoteType.single.rawValue {
+            let cell = collectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! EditNoteCollectionViewCell
+            setFilpButton(cellStatus: cell.currentStatus!)
         }
     }
     
@@ -351,6 +354,25 @@ class EditNoteViewController: BaseTopViewController {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "RefreshPage"), object: nil)
         })
     }
+    
+    private func setFilpButton(cellStatus: CardStatus) {
+        if cellStatus == CardStatus.bodyFrontWithoutTitle {
+            flipButton.image = UIImage(named: "flip_icon_disable")
+            flipButton.isEnabled = false
+        } else {
+            flipButton.image = UIImage(named: "flip_icon")
+            flipButton.isEnabled = true
+        }
+    }
+}
+
+extension EditNoteViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if passedInNoteInfo.type == NoteType.single.rawValue {
+            let cell = collectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! EditNoteCollectionViewCell
+            setFilpButton(cellStatus: cell.currentStatus!)
+        }
+    }
 }
 
 extension EditNoteViewController: UICollectionViewDelegate, UICollectionViewDataSource
@@ -379,15 +401,14 @@ extension EditNoteViewController: UICollectionViewDelegate, UICollectionViewData
 extension EditNoteViewController: EditNoteCollectionViewCellDelegate {
     func noteTitleEdit(for cell: EditNoteCollectionViewCell) {
         if cell.titleEditButton.titleLabel?.text == "Add Title" {
-            flipButton.isEnabled = true
             cell.currentStatus = CardStatus.titleFront
             cell.showTitle(noteType: NoteType.single)
         } else {
-            flipButton.isEnabled = false
             cell.currentStatus = CardStatus.bodyFrontWithoutTitle
             cell.showBody(noteType: NoteType.single)
             cell.titleTextView.attributedText = NSAttributedString()
         }
+        setFilpButton(cellStatus: cell.currentStatus!)
     }
     
     func noteTextContentChange(cardIndex: Int, textViewType: String, textContent: NSAttributedString) {
@@ -422,11 +443,8 @@ extension EditNoteViewController: TOCropViewControllerDelegate {
         let cell = collectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! EditNoteCollectionViewCell
         
         let width = (cell.editingTextView?.bounds.width)! - CustomDistance.wideEdge * 2 - (cell.editingTextView?.textContainer.lineFragmentPadding)! * 2
-        
-        print((cell.editingTextView?.bounds.width)!)
-        
+                
         let insertImage = UIImage.scaleImageToFitTextView(image, fit: width)
-        
         if cell.editingTextView?.tag == OutletTag.titleTextView.rawValue {
             notes[currentCardIndex].title = updateTextView(notes[currentCardIndex].title , image: insertImage!)
         } else {

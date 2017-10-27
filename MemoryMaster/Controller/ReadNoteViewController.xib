@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BUJ-fQ-VUg">
-                    <rect key="frame" x="0.0" y="84" width="320" height="484"/>
+                    <rect key="frame" x="0.0" y="96" width="320" height="472"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="f2h-wW-kEC">
                         <size key="itemSize" width="50" height="50"/>
@@ -58,7 +58,7 @@
                 <constraint firstItem="iqQ-fq-3h3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="84v-5Z-2Nv"/>
                 <constraint firstItem="BUJ-fQ-VUg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9TP-gV-OoJ"/>
                 <constraint firstItem="BUJ-fQ-VUg" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="NBl-Aa-sm2"/>
-                <constraint firstItem="BUJ-fQ-VUg" firstAttribute="top" secondItem="iqQ-fq-3h3" secondAttribute="bottom" id="SZy-mD-mVa"/>
+                <constraint firstItem="BUJ-fQ-VUg" firstAttribute="top" secondItem="iqQ-fq-3h3" secondAttribute="bottom" constant="12" id="SZy-mD-mVa"/>
                 <constraint firstItem="iqQ-fq-3h3" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="XcQ-Kh-8kV"/>
                 <constraint firstItem="BUJ-fQ-VUg" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="jdb-R3-jRZ"/>
                 <constraint firstItem="slh-zK-C6K" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="26" id="t1u-dz-AAn"/>

@@ -19,37 +19,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="117" height="185"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TNm-no-Gsp">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xqB-vA-nGJ">
                         <rect key="frame" x="0.0" y="0.0" width="117" height="185"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neR-eH-SlQ">
-                                <rect key="frame" x="17" y="17" width="83" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="neR-eH-SlQ" firstAttribute="top" secondItem="TNm-no-Gsp" secondAttribute="top" constant="17" id="8TK-HV-VQe"/>
-                            <constraint firstAttribute="trailing" secondItem="neR-eH-SlQ" secondAttribute="trailing" constant="17" id="D38-L7-yFR"/>
-                            <constraint firstItem="neR-eH-SlQ" firstAttribute="leading" secondItem="TNm-no-Gsp" secondAttribute="leading" constant="17" id="NbA-Gi-Hyn"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="neR-eH-SlQ" secondAttribute="bottom" constant="17" id="h7K-l9-Rqy"/>
-                        </constraints>
-                    </view>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="TNm-no-Gsp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MEa-9f-nHC"/>
-                <constraint firstAttribute="trailing" secondItem="TNm-no-Gsp" secondAttribute="trailing" id="oS0-r3-4hs"/>
-                <constraint firstItem="TNm-no-Gsp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="s1C-gP-d7g"/>
-                <constraint firstAttribute="bottom" secondItem="TNm-no-Gsp" secondAttribute="bottom" id="xgJ-fG-AMx"/>
+                <constraint firstItem="xqB-vA-nGJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0BO-L0-mj6"/>
+                <constraint firstAttribute="bottom" secondItem="xqB-vA-nGJ" secondAttribute="bottom" id="Wxl-Mx-uc2"/>
+                <constraint firstItem="xqB-vA-nGJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="lBc-rK-SM2"/>
+                <constraint firstAttribute="trailing" secondItem="xqB-vA-nGJ" secondAttribute="trailing" id="rH6-6e-gdr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="117" height="185"/>
             <connections>
-                <outlet property="backView" destination="TNm-no-Gsp" id="Xnd-gu-Zfw"/>
-                <outlet property="contentLabel" destination="neR-eH-SlQ" id="DWn-hd-MAd"/>
+                <outlet property="contentTextView" destination="xqB-vA-nGJ" id="FfS-JG-kmT"/>
             </connections>
             <point key="canvasLocation" x="75.5" y="-13.5"/>
         </collectionViewCell>

@@ -35,7 +35,7 @@ extension MeTableViewController
             controller.title = "Bookmark"
             self.navigationController?.pushViewController(controller, animated: true)
         default:
-            print()
+            break
         }
     }
     

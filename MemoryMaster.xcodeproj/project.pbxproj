@@ -31,6 +31,7 @@
 		184B330F1F8B4BFF00EACD89 /* BaseTopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */; };
 		186DD6BE1F9F15D5007DAEC5 /* EditNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186DD6BD1F9F15D5007DAEC5 /* EditNoteCollectionViewCell.swift */; };
 		186DD6C01F9FAAFB007DAEC5 /* EditNoteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186DD6BF1F9FAAFB007DAEC5 /* EditNoteCollectionViewCell.xib */; };
+		1884CB4B1FA26A98005C4D24 /* MyTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884CB4A1FA26A98005C4D24 /* MyTextAttachment.swift */; };
 		18C197051F8F31060072D8B9 /* ReadNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C197031F8F31060072D8B9 /* ReadNoteViewController.swift */; };
 		18C197061F8F31060072D8B9 /* ReadNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */; };
 		18C2AB451F81B7A1003249BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C2AB441F81B7A1003249BE /* AppDelegate.swift */; };
@@ -118,6 +119,7 @@
 		184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTopViewController.swift; sourceTree = "<group>"; };
 		186DD6BD1F9F15D5007DAEC5 /* EditNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		186DD6BF1F9FAAFB007DAEC5 /* EditNoteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditNoteCollectionViewCell.xib; sourceTree = "<group>"; };
+		1884CB4A1FA26A98005C4D24 /* MyTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextAttachment.swift; sourceTree = "<group>"; };
 		18C197031F8F31060072D8B9 /* ReadNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadNoteViewController.swift; sourceTree = "<group>"; };
 		18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadNoteViewController.xib; sourceTree = "<group>"; };
 		18C2AB411F81B7A1003249BE /* MemoryMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -314,6 +316,7 @@
 				180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */,
 				1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */,
 				18EC40121F95525C00BA7A4E /* CircularCollectionViewLayout.swift */,
+				1884CB4A1FA26A98005C4D24 /* MyTextAttachment.swift */,
 				18C2ABD11F81FEB4003249BE /* Transition */,
 				18C2AB751F81BB54003249BE /* Supporting File */,
 			);
@@ -704,6 +707,7 @@
 				18C2AB841F81CB88003249BE /* LibraryViewController.swift in Sources */,
 				18F0BFD31F8F486700667D2A /* TestNoteViewController.swift in Sources */,
 				18C2AB7E1F81C8F9003249BE /* LoginViewController.swift in Sources */,
+				1884CB4B1FA26A98005C4D24 /* MyTextAttachment.swift in Sources */,
 				18EC40161F9553C500BA7A4E /* CircularCollectionViewCell.swift in Sources */,
 				1818A8E01F9A94FC0069AC3A /* Enums.swift in Sources */,
 				18DBB8E41F843F3C00B34228 /* LibraryTableViewCell.swift in Sources */,

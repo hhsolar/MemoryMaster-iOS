@@ -17,7 +17,7 @@ protocol SingleCollectionViewCellDelegate: class {
 class SingleCollectionViewCell: CardCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
+    @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var readButton: UIButton!
     
@@ -38,17 +38,31 @@ class SingleCollectionViewCell: CardCell {
     
     weak var delegate: SingleCollectionViewCellDelegate?
     
-    func updateCell(title: String, body: NSAttributedString, index: Int) {
-        if title == "" {
-            nameLabel.text = String(format: "%d. %@", index, body.string)
+    func updateCell(title: NSAttributedString, body: NSAttributedString, index: Int) {
+        if title == NSAttributedString() {
+            nameLabel.attributedText = prepareForTitle(text: body, index: index, height: nameLabel.bounds.height)
         } else {
-            nameLabel.text = String(format: "%d. %@", index, title)
+            nameLabel.attributedText = prepareForTitle(text: title, index: index, height: nameLabel.bounds.height)
         }
-        bodyLabel.attributedText = body
+        bodyTextView.attributedText = body
+    }
+    
+    private func prepareForTitle(text: NSAttributedString, index: Int, height: CGFloat) -> NSAttributedString {
+        let temp = NSMutableAttributedString.init(string: String(format: "%d. %@", index, text.string))
+        if text.containsAttachments(in: NSRange.init(location: 0, length: text.length)) {
+            let image = text.getAllImageAttachments(in: NSRange.init(location: 0, length: text.length)).imageArray[0]
+            let imgTextAttach = NSTextAttachment()
+            imgTextAttach.image = UIImage.reSizeImage(image, to: CGSize(width: height * image.size.width / image.size.height, height: height))!
+            let imageAtt = NSAttributedString.init(attachment: imgTextAttach)
+            temp.append(imageAtt)
+        }
+        return temp as NSMutableAttributedString
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        bodyTextView.isEditable = false
+        bodyTextView.isScrollEnabled = false
     }
 
 }
