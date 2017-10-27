@@ -518,6 +518,13 @@ extension EditNoteViewController: UIImagePickerControllerDelegate, UINavigationC
         })
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        passedInCardIndex = IndexPath(item: currentCardIndex, section: 0)
+        let cell = collectionView.cellForItem(at: passedInCardIndex!) as! EditNoteCollectionViewCell
+        passedInCardStatus = cell.currentStatus?.rawValue
+        dismiss(animated: true, completion: nil)
+    }
+    
     func choosePhotoFromLibrary() {
         let oldStatus = PHPhotoLibrary.authorizationStatus()
         PHPhotoLibrary.requestAuthorization { [weak self] status in

@@ -27,21 +27,9 @@ class CircularCollectionViewCell: UICollectionViewCell {
         contentTextView.isScrollEnabled = false
     }
     
-    func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int)
+    func updateUI(content: NSAttributedString)
     {
-        self.layoutIfNeeded()
-        let containerWidth = contentTextView.bounds.width - contentTextView.textContainerInset.left * 2 - contentTextView.textContainer.lineFragmentPadding * 2
-        let titleRange = NSRange.init(location: 0, length: title.length)
-        var newTitle = title
-        if title.containsAttachments(in: titleRange) {
-            newTitle = title.changeAttachmentImageToFitContainer(containerWidth: containerWidth, in: titleRange)
-        }
-        let bodyRange = NSRange.init(location: 0, length: body.length)
-        var newBody = body
-        if body.containsAttachments(in: bodyRange) {
-            newBody = body.changeAttachmentImageToFitContainer(containerWidth: containerWidth, in: bodyRange)
-        }
-        contentTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: newTitle, body: newBody, index: index)
+        contentTextView.attributedText = content
     }
     
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {

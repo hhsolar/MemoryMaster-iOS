@@ -35,6 +35,7 @@ class ReciteViewController: UIViewController {
     // var for show data and pass
     var noteInfo: MyBasicNoteInfo?
     var notes = [CardContent]()
+    var contentToShow = [NSAttributedString]()
     
     // var for pass
     var toPassIndex: Int?
@@ -71,7 +72,7 @@ class ReciteViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         notes.removeAll()
-        
+        contentToShow.removeAll()
         // remove notification
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "RefreshPage"), object: nil)
     }
@@ -93,6 +94,7 @@ class ReciteViewController: UIViewController {
                     let cardContent = CardContent.getCardContent(with: note.name, at: i, in: note.type)
                     notes.append(cardContent)
                 }
+                contentToShow.append(contentsOf: perpareToShow(notes: notes, noteType: note.type))
                 toPassIndex = lastSet[UserDefaultsDictKey.cardIndex] as? Int
                 readType = lastSet[UserDefaultsDictKey.readType] as? String
                 toPassCardStatus = lastSet[UserDefaultsDictKey.cardStatus] as? String
@@ -110,7 +112,7 @@ class ReciteViewController: UIViewController {
                 }
                 return
             } else if let noteNumber = noteNumber, noteNumber > 0 {
-                noNoteLabel.text = "Oops, the note you read last time seems removed."
+                noNoteLabel.text = "Oops, the note you read last time seems to be removed."
                 noteInfo = nil
                 presentNoNoteLayout()
                 addNoteButton.isHidden = true
@@ -121,6 +123,30 @@ class ReciteViewController: UIViewController {
         presentNoNoteLayout()
     }
 
+    private func perpareToShow(notes: [CardContent], noteType: String) -> [NSAttributedString] {
+        var contents = [NSAttributedString]()
+        for i in 0..<notes.count {
+            var length = notes[i].title.length > 200 ? 200 : notes[i].title.length
+            let containerWidth = (collectionView.collectionViewLayout as! CircularCollectionViewLayout).itemSize.width - 17 * 2
+            let titleRange = NSRange.init(location: 0, length: length)
+            var subTitle = notes[i].title.attributedSubstring(from: titleRange)
+            if subTitle.containsAttachments(in: titleRange) {
+                subTitle = subTitle.changeAttachmentImageToFitContainer(containerWidth: containerWidth, in: titleRange)
+            }
+            var subBody = NSAttributedString()
+            if length < 150 {
+                length = notes[i].body.length > (200 - length) ? (200 - length) : notes[i].body.length
+                let bodyRange = NSRange.init(location: 0, length: length)
+                subBody = notes[i].body.attributedSubstring(from: bodyRange)
+                if subBody.containsAttachments(in: bodyRange) {
+                    subBody = subBody.changeAttachmentImageToFitContainer(containerWidth: containerWidth, in: bodyRange)
+                }
+            }
+            contents.append(NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: subTitle, body: subBody, index: i))
+        }
+        return contents
+    }
+    
     var noteNumber: Int? {
         if let context = container?.viewContext {
             return try? context.count(for: BasicNoteInfo.fetchRequest())
@@ -220,22 +246,22 @@ class ReciteViewController: UIViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let layout = collectionView.collectionViewLayout as! CircularCollectionViewLayout
         let index = Int(abs(layout.angle / layout.anglePerItem))
-        indexLabel.text = String(format: "%d / %d", index + 1, notes.count)
+        indexLabel.text = String(format: "%d / %d", index + 1, contentToShow.count)
     }
 }
 
 extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if notes.count == 0 {
+        if contentToShow.count == 0 {
             return 1
         }
-        return notes.count
+        return contentToShow.count
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if notes.count != 0 {
+        if contentToShow.count != 0 {
             let newCell = cell as! CircularCollectionViewCell
-            newCell.updateUI(noteType: (noteInfo?.type)!, title: notes[indexPath.row].title, body: notes[indexPath.row].body, index: indexPath.row)
+            newCell.updateUI(content: contentToShow[indexPath.item])
         }
     }
     

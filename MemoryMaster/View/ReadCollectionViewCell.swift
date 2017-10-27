@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReadCollectionViewCell: UICollectionViewCell {
+class ReadCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
 
     @IBOutlet weak var bodyTextView: UITextView!
     
@@ -26,5 +26,10 @@ class ReadCollectionViewCell: UICollectionViewCell {
         bodyTextView.showsHorizontalScrollIndicator = false
         bodyTextView.showsVerticalScrollIndicator = true
         bodyTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.wideEdge, bottom: 0, right: CustomDistance.wideEdge)
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        print("!!!")
+        return true
     }
 }
