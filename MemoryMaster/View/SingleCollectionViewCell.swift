@@ -45,6 +45,7 @@ class SingleCollectionViewCell: CardCell {
             nameLabel.attributedText = prepareForTitle(text: title, index: index, height: nameLabel.bounds.height)
         }
         bodyTextView.attributedText = body
+        bodyTextView.contentOffset.y = 0
     }
     
     private func prepareForTitle(text: NSAttributedString, index: Int, height: CGFloat) -> NSAttributedString {

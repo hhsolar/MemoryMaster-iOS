@@ -58,6 +58,7 @@ class QACollectionViewCell: CardCell {
         }
         nameLabel.attributedText = temp as NSAttributedString
         bodyTextView.attributedText = answer
+        bodyTextView.contentOffset.y = 0
     }
 
     override func awakeFromNib() {
@@ -66,5 +67,4 @@ class QACollectionViewCell: CardCell {
         bodyTextView.isScrollEnabled = true
         bodyTextView.showsHorizontalScrollIndicator = false
     }
-
 }

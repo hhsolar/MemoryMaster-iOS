@@ -178,7 +178,7 @@ extension EditNoteCollectionViewCell: UITextViewDelegate {
             delegate?.noteTextContentChange(cardIndex: cardIndex!, textViewType: "body", textContent: bodyText!)
         }
     }
-        
+    
     func textViewDidChange(_ textView: UITextView) {
         if textView.markedTextRange == nil {
             let range = textView.selectedRange
