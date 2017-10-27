@@ -278,7 +278,7 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         prepareForToScreenView(collectionView: collectionView, indexPath: indexPath)
-        let finalFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - CustomSize.barHeight)
+        let finalFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - CustomSize.barHeight * 2 - CustomSize.statusBarHeight)
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.2, options: [], animations: {
             self.toScreenView.frame = finalFrame
             self.toScreenTextView.frame = finalFrame
@@ -304,9 +304,10 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
         view.addSubview(toScreenView)
         
         toScreenTextView.frame = CGRect(origin: CGPoint.zero, size: toScreenView.bounds.size)
-        toScreenTextView.textContainerInset = UIEdgeInsets(top: 17, left: CustomDistance.midEdge, bottom: 17, right: CustomDistance.midEdge)
+        toScreenTextView.textContainerInset = UIEdgeInsets(top: 17, left: CustomDistance.wideEdge, bottom: 17, right: CustomDistance.wideEdge)
         toScreenTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: (noteInfo?.type)!, title: notes[indexPath.item].title, body: notes[indexPath.item].body, index: indexPath.item)
         toScreenTextView.backgroundColor = CustomColor.weakGray
+        toScreenTextView.contentOffset.y = 0
         toScreenView.addSubview(toScreenTextView)
     }
     

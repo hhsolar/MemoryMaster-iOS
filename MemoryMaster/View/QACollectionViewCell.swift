@@ -63,7 +63,8 @@ class QACollectionViewCell: CardCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         bodyTextView.isEditable = false
-        bodyTextView.isScrollEnabled = false
+        bodyTextView.isScrollEnabled = true
+        bodyTextView.showsHorizontalScrollIndicator = false
     }
 
 }

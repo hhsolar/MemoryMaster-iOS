@@ -25,6 +25,7 @@ class CircularCollectionViewCell: UICollectionViewCell {
         contentTextView.textContainerInset = UIEdgeInsets(top: CustomDistance.midEdge, left: CustomDistance.midEdge, bottom: CustomDistance.midEdge, right: CustomDistance.midEdge)
         contentTextView.isEditable = false
         contentTextView.isScrollEnabled = false
+        contentTextView.isUserInteractionEnabled = false
     }
     
     func updateUI(content: NSAttributedString)
