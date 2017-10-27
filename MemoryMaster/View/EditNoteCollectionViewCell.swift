@@ -178,15 +178,14 @@ extension EditNoteCollectionViewCell: UITextViewDelegate {
             delegate?.noteTextContentChange(cardIndex: cardIndex!, textViewType: "body", textContent: bodyText!)
         }
     }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if textView.markedTextRange != nil {
-            return true
-        } else {
+        
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.markedTextRange == nil {
+            let range = textView.selectedRange
             let attrubuteStr = NSMutableAttributedString(attributedString: textView.attributedText)
             attrubuteStr.addAttributes(CustomRichTextAttri.bodyNormal, range: NSRange(location: 0, length: textView.text.count))
             textView.attributedText = attrubuteStr
-            return true
+            textView.selectedRange = range
         }
     }
     
