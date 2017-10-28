@@ -9,7 +9,11 @@
 import UIKit
 import QuartzCore
 
-class TestCollectionViewCell: UICollectionViewCell {
+protocol TestCollectionViewCellDelegate: class {
+    func testEnlargeTapedImage(image: UIImage)
+}
+
+class TestCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
 
     // public api
     var questionAtFront = true
@@ -22,6 +26,8 @@ class TestCollectionViewCell: UICollectionViewCell {
     let qTextView = UITextView()
     let aTextView = UITextView()
     let indexLabel = UILabel()
+    
+    weak var delegate: TestCollectionViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -69,12 +75,14 @@ class TestCollectionViewCell: UICollectionViewCell {
         qTextView.textColor = UIColor.darkGray
         qTextView.backgroundColor = CustomColor.lightBlue
         qTextView.showsVerticalScrollIndicator = false
+        qTextView.delegate = self
         
         aTextView.isEditable = false
         aTextView.font = UIFont(name: "Helvetica", size: 16)
         aTextView.textColor = UIColor.darkGray
         aTextView.backgroundColor = CustomColor.lightGreen
         aTextView.showsVerticalScrollIndicator = false
+        aTextView.delegate = self
     }
     
     override func layoutSubviews() {
@@ -114,5 +122,19 @@ class TestCollectionViewCell: UICollectionViewCell {
         aTextView.frame = qTextView.frame
         aTextView.textContainerInset = UIEdgeInsets(top: 0, left: CustomDistance.narrowEdge, bottom: 0, right: CustomDistance.narrowEdge)
         aTextView.frame.size.height += (CustomDistance.midEdge + CustomSize.titleLabelHeight)
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        var image: UIImage? = nil
+        if textAttachment.image != nil {
+            image = textAttachment.image
+        } else {
+            image = textAttachment.image(forBounds: textAttachment.bounds, textContainer: nil, characterIndex: characterRange.location)
+        }
+        
+        if let image = image {
+            delegate?.testEnlargeTapedImage(image: image)
+        }
+        return true
     }
 }

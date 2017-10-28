@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ReadCollectionViewCellDelegate: class {
-    func inlargeTapedImage(image: UIImage)
+    func enlargeTapedImage(image: UIImage)
 }
 
 class ReadCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
@@ -44,7 +44,7 @@ class ReadCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
         }
         
         if let image = image {
-            delegate?.inlargeTapedImage(image: image)
+            delegate?.enlargeTapedImage(image: image)
         }
         return true
     }

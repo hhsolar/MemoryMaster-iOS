@@ -158,7 +158,7 @@ extension ReadNoteViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 extension ReadNoteViewController: ReadCollectionViewCellDelegate {
-    func inlargeTapedImage(image: UIImage)
+    func enlargeTapedImage(image: UIImage)
     {
         let xScale = UIScreen.main.bounds.width / image.size.width
         let yScale = UIScreen.main.bounds.height / image.size.height
