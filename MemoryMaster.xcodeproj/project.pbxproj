@@ -12,6 +12,8 @@
 		180336D91F96862C007ACC8B /* BookMark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180336D71F96862C007ACC8B /* BookMark+CoreDataClass.swift */; };
 		180336DA1F96862C007ACC8B /* BookMark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180336D81F96862C007ACC8B /* BookMark+CoreDataProperties.swift */; };
 		180500BB1F8AFA42006849B4 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */; };
+		1812B9C91FA42002007A2F18 /* EnlargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */; };
+		1812B9CB1FA42063007A2F18 /* EnlargeImageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9CA1FA42063007A2F18 /* EnlargeImageCellProtocol.swift */; };
 		181317101F8D7D850099FE89 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */; };
 		1818A8D11F9A6E1B0069AC3A /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818A8CF1F9A6E1B0069AC3A /* BookmarkTableViewController.swift */; };
 		1818A8D21F9A6E1B0069AC3A /* BookmarkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1818A8D01F9A6E1B0069AC3A /* BookmarkTableViewController.xib */; };
@@ -100,6 +102,8 @@
 		180336D81F96862C007ACC8B /* BookMark+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookMark+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		180500B91F8AF7D9006849B4 /* MemoryMaster-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemoryMaster-Bridging-Header.h"; sourceTree = "<group>"; };
 		180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageViewController.swift; sourceTree = "<group>"; };
+		1812B9CA1FA42063007A2F18 /* EnlargeImageCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageCellProtocol.swift; sourceTree = "<group>"; };
 		1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		1818A8CF1F9A6E1B0069AC3A /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		1818A8D01F9A6E1B0069AC3A /* BookmarkTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTableViewController.xib; sourceTree = "<group>"; };
@@ -317,6 +321,7 @@
 				1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */,
 				18EC40121F95525C00BA7A4E /* CircularCollectionViewLayout.swift */,
 				1884CB4A1FA26A98005C4D24 /* MyTextAttachment.swift */,
+				1812B9CA1FA42063007A2F18 /* EnlargeImageCellProtocol.swift */,
 				18C2ABD11F81FEB4003249BE /* Transition */,
 				18C2AB751F81BB54003249BE /* Supporting File */,
 			);
@@ -345,6 +350,7 @@
 				1818A8D81F9A841C0069AC3A /* SettingsTableViewController.swift */,
 				1829FDF01F9E67F6003FE61C /* EditNoteViewController.swift */,
 				1829FDF11F9E67F6003FE61C /* EditNoteViewController.xib */,
+				1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -710,6 +716,7 @@
 				1884CB4B1FA26A98005C4D24 /* MyTextAttachment.swift in Sources */,
 				18EC40161F9553C500BA7A4E /* CircularCollectionViewCell.swift in Sources */,
 				1818A8E01F9A94FC0069AC3A /* Enums.swift in Sources */,
+				1812B9CB1FA42063007A2F18 /* EnlargeImageCellProtocol.swift in Sources */,
 				18DBB8E41F843F3C00B34228 /* LibraryTableViewCell.swift in Sources */,
 				180336DA1F96862C007ACC8B /* BookMark+CoreDataProperties.swift in Sources */,
 				18E9CE0C1F996AE6001B14F1 /* MeTableViewController.swift in Sources */,
@@ -717,6 +724,7 @@
 				1818A8D91F9A841C0069AC3A /* SettingsTableViewController.swift in Sources */,
 				18C2ABE11F82B48C003249BE /* SlideOutAnimationController.swift in Sources */,
 				18C2ABDC1F82B469003249BE /* Constant.swift in Sources */,
+				1812B9C91FA42002007A2F18 /* EnlargeImageViewController.swift in Sources */,
 				180500BB1F8AFA42006849B4 /* UIImage+Extension.swift in Sources */,
 				18C2ABDE1F82B481003249BE /* BounceAnimationController.swift in Sources */,
 				18C2ABD91F82A8A0003249BE /* NoteViewController.swift in Sources */,

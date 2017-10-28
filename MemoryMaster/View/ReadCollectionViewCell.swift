@@ -8,15 +8,11 @@
 
 import UIKit
 
-protocol ReadCollectionViewCellDelegate: class {
-    func enlargeTapedImage(image: UIImage)
-}
-
 class ReadCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
 
     @IBOutlet weak var bodyTextView: UITextView!
     
-    weak var delegate: ReadCollectionViewCellDelegate?
+    weak var delegate: EnlargeImageCellDelegate?
     
     func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) {
         bodyTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: title, body: body, index: index)

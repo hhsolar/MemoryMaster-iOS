@@ -9,10 +9,6 @@
 import UIKit
 import QuartzCore
 
-protocol TestCollectionViewCellDelegate: class {
-    func testEnlargeTapedImage(image: UIImage)
-}
-
 class TestCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
 
     // public api
@@ -27,7 +23,7 @@ class TestCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
     let aTextView = UITextView()
     let indexLabel = UILabel()
     
-    weak var delegate: TestCollectionViewCellDelegate?
+    weak var delegate: EnlargeImageCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -133,7 +129,7 @@ class TestCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
         }
         
         if let image = image {
-            delegate?.testEnlargeTapedImage(image: image)
+            delegate?.enlargeTapedImage(image: image)
         }
         return true
     }
