@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol ReadCollectionViewCellDelegate: class {
+    func inlargeTapedImage(image: UIImage)
+}
+
 class ReadCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
 
     @IBOutlet weak var bodyTextView: UITextView!
+    
+    weak var delegate: ReadCollectionViewCellDelegate?
     
     func updateUI(noteType: String, title: NSAttributedString, body: NSAttributedString, index: Int) {
         bodyTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: noteType, title: title, body: body, index: index)
@@ -22,6 +28,7 @@ class ReadCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        bodyTextView.delegate = self
         bodyTextView.isEditable = false
         bodyTextView.showsHorizontalScrollIndicator = false
         bodyTextView.showsVerticalScrollIndicator = true
@@ -29,7 +36,16 @@ class ReadCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        print("!!!")
+        var image: UIImage? = nil
+        if textAttachment.image != nil {
+            image = textAttachment.image
+        } else {
+            image = textAttachment.image(forBounds: textAttachment.bounds, textContainer: nil, characterIndex: characterRange.location)
+        }
+        
+        if let image = image {
+            delegate?.inlargeTapedImage(image: image)
+        }
         return true
     }
 }

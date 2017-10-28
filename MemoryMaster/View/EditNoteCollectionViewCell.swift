@@ -29,7 +29,7 @@ class EditNoteCollectionViewCell: UICollectionViewCell {
     var currentStatus: CardStatus?
     var editingTextView: UITextView?
     
-    var delegate: EditNoteCollectionViewCellDelegate?
+    weak var delegate: EditNoteCollectionViewCellDelegate?
     
     var titleText: NSAttributedString? {
         get {

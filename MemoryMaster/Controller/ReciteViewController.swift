@@ -42,8 +42,8 @@ class ReciteViewController: UIViewController {
     var toPassCardStatus: String?
     var readType: String?
     
-    let toScreenView = UIView()
-    let toScreenTextView = UITextView()
+    var toScreenView: UIView!
+    var toScreenTextView: UITextView!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -52,11 +52,6 @@ class ReciteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
-        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(removeScreenView))
-        swipeRecognizer.direction = .left
-        swipeRecognizer.numberOfTouchesRequired = 1
-        toScreenView.addGestureRecognizer(swipeRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -292,23 +287,28 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     private func prepareForToScreenView(collectionView: UICollectionView, indexPath: IndexPath) {
+        // get cell frame
+        let attributes: UICollectionViewLayoutAttributes! = collectionView.layoutAttributesForItem(at: indexPath)
+        let frameInSuperView: CGRect! = collectionView.convert(attributes.frame, to: collectionView.superview)
+        toScreenView = UIView(frame: frameInSuperView)
+        view.addSubview(toScreenView)
+        
         toScreenView.layer.cornerRadius = 10
         toScreenView.layer.masksToBounds = true
         toScreenView.layer.borderWidth = 1
         toScreenView.backgroundColor = CustomColor.weakGray
         
-        // get cell frame
-        let attributes: UICollectionViewLayoutAttributes! = collectionView.layoutAttributesForItem(at: indexPath)
-        let frameInSuperView: CGRect! = collectionView.convert(attributes.frame, to: collectionView.superview)
-        toScreenView.frame = frameInSuperView
-        view.addSubview(toScreenView)
-        
-        toScreenTextView.frame = CGRect(origin: CGPoint.zero, size: toScreenView.bounds.size)
+        toScreenTextView = UITextView(frame: CGRect(origin: CGPoint.zero, size: toScreenView.bounds.size))
         toScreenTextView.textContainerInset = UIEdgeInsets(top: 17, left: CustomDistance.wideEdge, bottom: 17, right: CustomDistance.wideEdge)
         toScreenTextView.attributedText = NSAttributedString.prepareAttributeStringForRead(noteType: (noteInfo?.type)!, title: notes[indexPath.item].title, body: notes[indexPath.item].body, index: indexPath.item)
         toScreenTextView.backgroundColor = CustomColor.weakGray
         toScreenTextView.contentOffset.y = 0
         toScreenView.addSubview(toScreenTextView)
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(removeScreenView))
+        swipeRecognizer.direction = .left
+        swipeRecognizer.numberOfTouchesRequired = 1
+        toScreenView.addGestureRecognizer(swipeRecognizer)
     }
     
     @objc private func removeScreenView(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {
@@ -316,8 +316,9 @@ extension ReciteViewController: UICollectionViewDelegate, UICollectionViewDataSo
             UIView.animateKeyframes(withDuration: 0.3, delay: 0.01, options: [], animations: {
                 self.toScreenView.frame.origin.x = -UIScreen.main.bounds.width
             }) { finished in
-                self.toScreenView.frame = CGRect.zero
                 self.toScreenView.removeFromSuperview()
+                self.toScreenView = nil
+                self.toScreenTextView = nil
             }
         }
     }
