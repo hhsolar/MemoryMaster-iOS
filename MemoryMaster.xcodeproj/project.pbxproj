@@ -206,6 +206,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1812B9CC1FA4257D007A2F18 /* TabMe */ = {
+			isa = PBXGroup;
+			children = (
+				182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */,
+				1818A8CF1F9A6E1B0069AC3A /* BookmarkTableViewController.swift */,
+				1818A8D01F9A6E1B0069AC3A /* BookmarkTableViewController.xib */,
+				1818A8D81F9A841C0069AC3A /* SettingsTableViewController.swift */,
+			);
+			path = TabMe;
+			sourceTree = "<group>";
+		};
+		1812B9CD1FA425A6007A2F18 /* TabLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */,
+				18C2ABD81F82A8A0003249BE /* NoteViewController.swift */,
+				1829FDF01F9E67F6003FE61C /* EditNoteViewController.swift */,
+				1829FDF11F9E67F6003FE61C /* EditNoteViewController.xib */,
+				18C197031F8F31060072D8B9 /* ReadNoteViewController.swift */,
+				18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */,
+				18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */,
+				18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */,
+				184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */,
+				1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */,
+			);
+			path = TabLibrary;
+			sourceTree = "<group>";
+		};
 		18C2AB381F81B7A1003249BE = {
 			isa = PBXGroup;
 			children = (
@@ -335,22 +363,10 @@
 				18C2AB811F81CB4F003249BE /* ReciteViewController.swift */,
 				18C2AB831F81CB88003249BE /* LibraryViewController.swift */,
 				18E9CE0B1F996AE6001B14F1 /* MeTableViewController.swift */,
-				18C2AB971F81FE77003249BE /* ChooseTypeViewController.swift */,
-				18C2ABD81F82A8A0003249BE /* NoteViewController.swift */,
 				184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */,
 				184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */,
-				184B330E1F8B4BFF00EACD89 /* BaseTopViewController.swift */,
-				18C197031F8F31060072D8B9 /* ReadNoteViewController.swift */,
-				18C197041F8F31060072D8B9 /* ReadNoteViewController.xib */,
-				18F0BFD11F8F486700667D2A /* TestNoteViewController.swift */,
-				18F0BFD21F8F486700667D2A /* TestNoteViewController.xib */,
-				182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */,
-				1818A8CF1F9A6E1B0069AC3A /* BookmarkTableViewController.swift */,
-				1818A8D01F9A6E1B0069AC3A /* BookmarkTableViewController.xib */,
-				1818A8D81F9A841C0069AC3A /* SettingsTableViewController.swift */,
-				1829FDF01F9E67F6003FE61C /* EditNoteViewController.swift */,
-				1829FDF11F9E67F6003FE61C /* EditNoteViewController.xib */,
-				1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */,
+				1812B9CD1FA425A6007A2F18 /* TabLibrary */,
+				1812B9CC1FA4257D007A2F18 /* TabMe */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

@@ -48,7 +48,7 @@ class QACollectionViewCell: CardCell {
     
     func updateCell(question: NSAttributedString, answer: NSAttributedString, index: Int) {
         self.layoutIfNeeded()
-        let temp = NSMutableAttributedString.init(string: String(format: "%d. Question: %@", index, question.string))
+        let temp = NSMutableAttributedString.init(string: String(format: "%d. %@", index, question.string))
         if question.containsAttachments(in: NSRange.init(location: 0, length: question.length)) {
             let image = question.getAllImageAttachments(in: NSRange.init(location: 0, length: question.length)).imageArray[0]
             let imgTextAttach = NSTextAttachment()

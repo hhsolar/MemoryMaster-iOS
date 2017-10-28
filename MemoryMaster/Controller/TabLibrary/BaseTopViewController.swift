@@ -35,7 +35,7 @@ class BaseTopViewController: UIViewController {
                                   y: (CustomSize.barHeight - CustomSize.titleLabelHeight) / 2 + CustomSize.statusBarHeight,
                                   width: titleWidth, height: CustomSize.titleLabelHeight)
         titleLabel.textAlignment = .center
-        titleLabel.font = UIFont(name: CustomFont.ArialBoldMT, size: CustomFont.FontSizeBig)
+        titleLabel.font = UIFont.systemFont(ofSize: CustomFont.FontSizeMid, weight: UIFont.Weight.semibold)
         titleLabel.textColor = UIColor.white
         topView.addSubview(titleLabel)
         
