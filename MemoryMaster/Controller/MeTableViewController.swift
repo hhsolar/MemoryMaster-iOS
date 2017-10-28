@@ -17,8 +17,32 @@ class MeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2
+        avatarImageView.layer.masksToBounds = true
+        avatarImageView.layer.borderWidth = 1
+        avatarImageView.layer.borderColor = CustomColor.weakGray.cgColor
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let theImage = portraitPhotoImage {
+            avatarImageView.image = theImage
+        } else {
+            avatarImageView.image = UIImage(named: "avatar")
+        }
+        
+        let userDefault = UserDefaults.standard
+        if let personInfo = userDefault.dictionary(forKey: UserDefaultsKeys.personInfo) {
+            let nickname = personInfo[UserDefaultsDictKey.nickname] as? String
+            if let nickname = nickname, nickname != "" {
+                nicknameLabel.text = nickname
+            } else {
+                nicknameLabel.text = "Nickname"
+            }
+        }
+    }
+    
     @IBAction func shouldSoundOpened(_ sender: UISwitch) {
     }
 }

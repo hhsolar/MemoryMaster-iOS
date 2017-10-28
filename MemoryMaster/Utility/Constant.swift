@@ -52,6 +52,7 @@ struct CustomRichTextAttri {
 
 struct UserDefaultsKeys {
     static let lastReadStatus = "Last Read Status"
+    static let personInfo = "Person Infomation"
 }
 
 struct UserDefaultsDictKey {
@@ -59,6 +60,9 @@ struct UserDefaultsDictKey {
     static let cardIndex = "cardIndex"
     static let readType = "readType"
     static let cardStatus = "cardStatus"
+    
+    static let nickname = "nickname"
+    static let motto = "motto"
 }
 
 struct LoginErrorCode {

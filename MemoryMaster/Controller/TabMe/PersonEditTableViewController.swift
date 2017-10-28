@@ -20,6 +20,7 @@ class PersonEditTableViewController: UITableViewController, UIGestureRecognizerD
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "My Profile"
+        nameTextView.delegate = self
         mottoTextView.delegate = self
     
         avatarButton.layer.cornerRadius = avatarButton.bounds.width / 2
@@ -27,12 +28,57 @@ class PersonEditTableViewController: UITableViewController, UIGestureRecognizerD
         avatarButton.layer.borderWidth = 2
         avatarButton.layer.borderColor = CustomColor.weakGray.cgColor
         
+        if let theImage = portraitPhotoImage {
+            avatarButton.setImage(theImage, for: .normal)
+        } else {
+            avatarButton.setImage(UIImage.init(named: "avatar"), for: .normal)
+        }
+        
+        let userDefault = UserDefaults.standard
+        if let personInfo = userDefault.dictionary(forKey: UserDefaultsKeys.personInfo) {
+            let name = personInfo[UserDefaultsDictKey.nickname] as? String
+            if let name = name, name != "" {
+                nameTextView.text = name
+            } else {
+                nameTextView.placeholder = "nickname"
+            }
+            mottoTextView.text = personInfo[UserDefaultsDictKey.motto] as? String
+        }
+        
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(returnKeyBoard))
         swipeRecognizer.direction = .down
         swipeRecognizer.numberOfTouchesRequired = 1
         tableView.addGestureRecognizer(swipeRecognizer)
         
         swipeRecognizer.delegate = self
+    }
+    
+    private func saveImage(image: UIImage) {
+        if let data = UIImageJPEGRepresentation(image, 0.5) {
+            do {
+                try data.write(to: portraitPhotoURL, options: .atomic)
+            } catch {
+                print("Error writing file: \(error)")
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        let image = avatarButton.image(for: .normal)
+        saveImage(image: image!)
+        
+        let userDefault = UserDefaults.standard
+        if var dict = userDefault.dictionary(forKey:  UserDefaultsKeys.personInfo) {
+            dict.updateValue(nameTextView.text ?? "", forKey: UserDefaultsDictKey.nickname)
+            dict.updateValue(mottoTextView.text, forKey: UserDefaultsDictKey.motto)
+            userDefault.set(dict, forKey: UserDefaultsKeys.personInfo)
+        } else {
+            let personDict: [String : String] = [UserDefaultsDictKey.nickname: nameTextView.text ?? "", UserDefaultsDictKey.motto: mottoTextView.text]
+            userDefault.set(personDict, forKey: UserDefaultsKeys.personInfo)
+        }
+        userDefault.synchronize()
     }
     
     @objc func returnKeyBoard(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {
@@ -70,7 +116,7 @@ extension PersonEditTableViewController {
     }
 }
 
-extension PersonEditTableViewController: UITextViewDelegate {
+extension PersonEditTableViewController: UITextViewDelegate, UITextFieldDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let textViewHeight = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat(MAXFLOAT))).height
         var frame = textView.frame
@@ -83,6 +129,11 @@ extension PersonEditTableViewController: UITextViewDelegate {
         }
         tableView.beginUpdates()
         tableView.endUpdates()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
