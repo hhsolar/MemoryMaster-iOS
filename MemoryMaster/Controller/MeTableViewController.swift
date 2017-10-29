@@ -16,6 +16,10 @@ class MeTableViewController: UITableViewController {
     
     fileprivate let playSound = SystemAudioPlayer()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2

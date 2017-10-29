@@ -48,7 +48,7 @@ class ReciteViewController: UIViewController {
     fileprivate let playSound = SystemAudioPlayer()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
+        return .lightContent
     }
     
     override func viewDidLoad() {

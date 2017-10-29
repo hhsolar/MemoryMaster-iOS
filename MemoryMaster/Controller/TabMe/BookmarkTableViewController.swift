@@ -24,6 +24,10 @@ class BookmarkTableViewController: UITableViewController {
     var noteInfo: MyBasicNoteInfo?
     var notes = [CardContent]()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

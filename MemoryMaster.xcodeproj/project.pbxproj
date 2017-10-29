@@ -11,6 +11,7 @@
 		1800FBFC1F85934500A9A703 /* TestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */; };
 		180336D91F96862C007ACC8B /* BookMark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180336D71F96862C007ACC8B /* BookMark+CoreDataClass.swift */; };
 		180336DA1F96862C007ACC8B /* BookMark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180336D81F96862C007ACC8B /* BookMark+CoreDataProperties.swift */; };
+		180424351FA64EDF0004CD0B /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180424341FA64EDF0004CD0B /* MyNavigationController.swift */; };
 		180500BB1F8AFA42006849B4 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */; };
 		1812B9C91FA42002007A2F18 /* EnlargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */; };
 		1812B9CB1FA42063007A2F18 /* EnlargeImageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9CA1FA42063007A2F18 /* EnlargeImageCellProtocol.swift */; };
@@ -103,6 +104,7 @@
 		1800FBFA1F85934500A9A703 /* TestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionViewCell.xib; sourceTree = "<group>"; };
 		180336D71F96862C007ACC8B /* BookMark+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookMark+CoreDataClass.swift"; sourceTree = "<group>"; };
 		180336D81F96862C007ACC8B /* BookMark+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookMark+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		180424341FA64EDF0004CD0B /* MyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
 		180500B91F8AF7D9006849B4 /* MemoryMaster-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MemoryMaster-Bridging-Header.h"; sourceTree = "<group>"; };
 		180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageViewController.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				18E9CE0B1F996AE6001B14F1 /* MeTableViewController.swift */,
 				184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */,
 				184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */,
+				180424341FA64EDF0004CD0B /* MyNavigationController.swift */,
 				1812B9CD1FA425A6007A2F18 /* TabLibrary */,
 				1812B9CC1FA4257D007A2F18 /* TabMe */,
 			);
@@ -752,6 +755,7 @@
 				1884CB4B1FA26A98005C4D24 /* MyTextAttachment.swift in Sources */,
 				18EC40161F9553C500BA7A4E /* CircularCollectionViewCell.swift in Sources */,
 				1818A8E01F9A94FC0069AC3A /* Enums.swift in Sources */,
+				180424351FA64EDF0004CD0B /* MyNavigationController.swift in Sources */,
 				1812B9CB1FA42063007A2F18 /* EnlargeImageCellProtocol.swift in Sources */,
 				18DBB8E41F843F3C00B34228 /* LibraryTableViewCell.swift in Sources */,
 				180336DA1F96862C007ACC8B /* BookMark+CoreDataProperties.swift in Sources */,

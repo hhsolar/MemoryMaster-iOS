@@ -17,6 +17,10 @@ class PersonEditTableViewController: UITableViewController, UIGestureRecognizerD
     
     var cellHeight: CGFloat = 120
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "My Profile"

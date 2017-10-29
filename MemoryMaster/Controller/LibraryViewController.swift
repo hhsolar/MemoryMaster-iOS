@@ -69,6 +69,10 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         updateUI(noteType: showFlag, searchKeyWord: nil)

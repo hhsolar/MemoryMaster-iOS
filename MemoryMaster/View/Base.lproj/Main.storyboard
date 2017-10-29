@@ -876,7 +876,7 @@
         <!--Recite-->
         <scene sceneID="jv4-DM-wcz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7K4-YE-uVE" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7K4-YE-uVE" customClass="MyNavigationController" customModule="MemoryMaster" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recite" image="recite_icon" id="Yso-NG-WW1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EHR-Ta-cn5">
@@ -1032,7 +1032,7 @@
         <!--Me-->
         <scene sceneID="Ynb-L7-9iP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iDU-K4-SQw" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iDU-K4-SQw" customClass="MyNavigationController" customModule="MemoryMaster" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Me" image="me_icon" selectedImage="me_icon" id="QKx-hS-0hP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZLF-2i-WwY">
