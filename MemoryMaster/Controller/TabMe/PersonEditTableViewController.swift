@@ -28,22 +28,16 @@ class PersonEditTableViewController: UITableViewController, UIGestureRecognizerD
         avatarButton.layer.borderWidth = 2
         avatarButton.layer.borderColor = CustomColor.weakGray.cgColor
         
-        if let theImage = portraitPhotoImage {
-            avatarButton.setImage(theImage, for: .normal)
-        } else {
-            avatarButton.setImage(UIImage.init(named: "avatar"), for: .normal)
-        }
+        let userInfo = UserInfo.shared
+        let image = userInfo.portraitPhotoImage ?? UIImage(named: "avatar")
+        avatarButton.setImage(image, for: .normal)
         
-        let userDefault = UserDefaults.standard
-        if let personInfo = userDefault.dictionary(forKey: UserDefaultsKeys.personInfo) {
-            let name = personInfo[UserDefaultsDictKey.nickname] as? String
-            if let name = name, name != "" {
-                nameTextView.text = name
-            } else {
-                nameTextView.placeholder = "nickname"
-            }
-            mottoTextView.text = personInfo[UserDefaultsDictKey.motto] as? String
+        if userInfo.userName != "" {
+            nameTextView.text = userInfo.userName
+        } else {
+            nameTextView.placeholder = "Nickname"
         }
+        mottoTextView.text = userInfo.userMotto
         
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(returnKeyBoard))
         swipeRecognizer.direction = .down
@@ -56,7 +50,7 @@ class PersonEditTableViewController: UITableViewController, UIGestureRecognizerD
     private func saveImage(image: UIImage) {
         if let data = UIImageJPEGRepresentation(image, 0.5) {
             do {
-                try data.write(to: portraitPhotoURL, options: .atomic)
+                try data.write(to: UserInfo.shared.portraitPhotoURL, options: .atomic)
             } catch {
                 print("Error writing file: \(error)")
             }
@@ -69,16 +63,9 @@ class PersonEditTableViewController: UITableViewController, UIGestureRecognizerD
         let image = avatarButton.image(for: .normal)
         saveImage(image: image!)
         
-        let userDefault = UserDefaults.standard
-        if var dict = userDefault.dictionary(forKey:  UserDefaultsKeys.personInfo) {
-            dict.updateValue(nameTextView.text ?? "", forKey: UserDefaultsDictKey.nickname)
-            dict.updateValue(mottoTextView.text, forKey: UserDefaultsDictKey.motto)
-            userDefault.set(dict, forKey: UserDefaultsKeys.personInfo)
-        } else {
-            let personDict: [String : String] = [UserDefaultsDictKey.nickname: nameTextView.text ?? "", UserDefaultsDictKey.motto: mottoTextView.text]
-            userDefault.set(personDict, forKey: UserDefaultsKeys.personInfo)
-        }
-        userDefault.synchronize()
+        let userInfo = UserInfo.shared
+        userInfo.userName = nameTextView.text ?? ""
+        userInfo.userMotto = mottoTextView.text
     }
     
     @objc func returnKeyBoard(byReactionTo swipeRecognizer: UISwipeGestureRecognizer) {

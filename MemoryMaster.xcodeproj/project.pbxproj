@@ -14,7 +14,7 @@
 		180500BB1F8AFA42006849B4 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */; };
 		1812B9C91FA42002007A2F18 /* EnlargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */; };
 		1812B9CB1FA42063007A2F18 /* EnlargeImageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9CA1FA42063007A2F18 /* EnlargeImageCellProtocol.swift */; };
-		1812B9D01FA4E2F0007A2F18 /* AvatarFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9CF1FA4E2F0007A2F18 /* AvatarFunction.swift */; };
+		1812B9D01FA4E2F0007A2F18 /* UtilityFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812B9CF1FA4E2F0007A2F18 /* UtilityFunction.swift */; };
 		181317101F8D7D850099FE89 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */; };
 		1818A8D11F9A6E1B0069AC3A /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818A8CF1F9A6E1B0069AC3A /* BookmarkTableViewController.swift */; };
 		1818A8D21F9A6E1B0069AC3A /* BookmarkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1818A8D01F9A6E1B0069AC3A /* BookmarkTableViewController.xib */; };
@@ -105,7 +105,7 @@
 		180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		1812B9C81FA42002007A2F18 /* EnlargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageViewController.swift; sourceTree = "<group>"; };
 		1812B9CA1FA42063007A2F18 /* EnlargeImageCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageCellProtocol.swift; sourceTree = "<group>"; };
-		1812B9CF1FA4E2F0007A2F18 /* AvatarFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarFunction.swift; sourceTree = "<group>"; };
+		1812B9CF1FA4E2F0007A2F18 /* UtilityFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunction.swift; sourceTree = "<group>"; };
 		1813170F1F8D7D850099FE89 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		1818A8CF1F9A6E1B0069AC3A /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		1818A8D01F9A6E1B0069AC3A /* BookmarkTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkTableViewController.xib; sourceTree = "<group>"; };
@@ -352,7 +352,7 @@
 				18EC40121F95525C00BA7A4E /* CircularCollectionViewLayout.swift */,
 				1884CB4A1FA26A98005C4D24 /* MyTextAttachment.swift */,
 				1812B9CA1FA42063007A2F18 /* EnlargeImageCellProtocol.swift */,
-				1812B9CF1FA4E2F0007A2F18 /* AvatarFunction.swift */,
+				1812B9CF1FA4E2F0007A2F18 /* UtilityFunction.swift */,
 				18C2ABD11F81FEB4003249BE /* Transition */,
 				18C2AB751F81BB54003249BE /* Supporting File */,
 			);
@@ -722,7 +722,7 @@
 				184B33081F8AFCC600EACD89 /* ImagePickerViewController.swift in Sources */,
 				18DBB8DE1F84307000B34228 /* BorderUIView.swift in Sources */,
 				18DBB8F21F849B3B00B34228 /* QACollectionViewCell.swift in Sources */,
-				1812B9D01FA4E2F0007A2F18 /* AvatarFunction.swift in Sources */,
+				1812B9D01FA4E2F0007A2F18 /* UtilityFunction.swift in Sources */,
 				18C2AB981F81FE77003249BE /* ChooseTypeViewController.swift in Sources */,
 				184B330F1F8B4BFF00EACD89 /* BaseTopViewController.swift in Sources */,
 				18C2ABE31F82B4C7003249BE /* BasicNoteInfo+CoreDataClass.swift in Sources */,

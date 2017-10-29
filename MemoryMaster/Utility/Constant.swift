@@ -92,4 +92,14 @@ class UserInfo {
     }
     var uid: String = ""
     var userName = ""
+    var userMotto = ""
+    
+    var portraitPhotoURL: URL {
+        let filename = "uid.jpg"
+        return applicationDocumentsDirectory.appendingPathComponent(filename)
+    }
+    
+    var portraitPhotoImage: UIImage? {
+        return UIImage(contentsOfFile: portraitPhotoURL.path)
+    }
 }

@@ -26,20 +26,12 @@ class MeTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let theImage = portraitPhotoImage {
-            avatarImageView.image = theImage
+        let userInfo = UserInfo.shared
+        avatarImageView.image = userInfo.portraitPhotoImage ?? UIImage(named: "avatar")
+        if userInfo.userName != "" {
+            nicknameLabel.text = userInfo.userName
         } else {
-            avatarImageView.image = UIImage(named: "avatar")
-        }
-        
-        let userDefault = UserDefaults.standard
-        if let personInfo = userDefault.dictionary(forKey: UserDefaultsKeys.personInfo) {
-            let nickname = personInfo[UserDefaultsDictKey.nickname] as? String
-            if let nickname = nickname, nickname != "" {
-                nicknameLabel.text = nickname
-            } else {
-                nicknameLabel.text = "Nickname"
-            }
+            nicknameLabel.text = "Nickname"
         }
     }
     

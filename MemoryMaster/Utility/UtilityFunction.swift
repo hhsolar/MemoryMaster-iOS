@@ -13,11 +13,4 @@ let applicationDocumentsDirectory: URL = {
     return paths[0]
 }()
 
-var portraitPhotoURL: URL {
-    let filename = "Avater.jpg"
-    return applicationDocumentsDirectory.appendingPathComponent(filename)
-}
 
-var portraitPhotoImage: UIImage? {
-    return UIImage(contentsOfFile: portraitPhotoURL.path)
-}
