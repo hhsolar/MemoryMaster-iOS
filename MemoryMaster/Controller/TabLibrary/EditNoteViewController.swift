@@ -266,11 +266,13 @@ class EditNoteViewController: BaseTopViewController {
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
+        playSound.playClickSound(SystemSound.buttonClick)
         save()
         showSavedPrompt()
     }
     
     override func backAction(_ sender: UIButton) {
+        playSound.playClickSound(SystemSound.buttonClick)
         let minChangedIndex = minRemoveCardIndex! < minAddCardIndex! ? minRemoveCardIndex! : minAddCardIndex!
         
         if changedCard.isEmpty && minChangedIndex == passedInNoteInfo.numberOfCard && notes.count == passedInNoteInfo.numberOfCard {

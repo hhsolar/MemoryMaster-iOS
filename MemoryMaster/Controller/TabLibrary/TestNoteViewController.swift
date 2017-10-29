@@ -117,6 +117,7 @@ class TestNoteViewController: EnlargeImageViewController {
     }
     
     @IBAction func addBookmarkAction(_ sender: UIButton) {
+        playSound.playClickSound(SystemSound.buttonClick)
         let status = getCardStatus(index: currentIndex).rawValue
         let placeholder = String(format: "%@-%@-%@-%d-%@", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.test.rawValue, currentIndex + 1, status)
         
@@ -125,6 +126,7 @@ class TestNoteViewController: EnlargeImageViewController {
             textFiled.placeholder = placeholder
         }
         let ok = UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
+            self?.playSound.playClickSound(SystemSound.buttonClick)
             var text = placeholder
             if alert.textFields![0].text! != "" {
                 text = alert.textFields![0].text!

@@ -25,7 +25,7 @@ class ImagePickerViewController: BaseTopViewController, UICollectionViewDelegate
     }
     
     let refreshControl = UIRefreshControl()
-    
+        
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
     override func viewDidLoad() {

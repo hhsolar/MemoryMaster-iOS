@@ -96,6 +96,7 @@ class ReadNoteViewController: EnlargeImageViewController {
     }
     
     @IBAction func addBookmarkAction(_ sender: UIButton) {
+        playSound.playClickSound(SystemSound.buttonClick)
         let placeholder = String(format: "%@-%@-%@-%d", (passedInNoteInfo?.name)!, (passedInNoteInfo?.type)!, ReadType.read.rawValue, currentCardIndex + 1)
         
         let alert = UIAlertController(title: "Bookmark", message: "Give a name for the bookmark.", preferredStyle: .alert)
@@ -103,6 +104,7 @@ class ReadNoteViewController: EnlargeImageViewController {
             textFiled.placeholder = placeholder
         }
         let ok = UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
+            self?.playSound.playClickSound(SystemSound.buttonClick)
             var text = placeholder
             if alert.textFields![0].text! != "" {
                 text = alert.textFields![0].text!

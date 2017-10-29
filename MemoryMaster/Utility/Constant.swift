@@ -52,7 +52,6 @@ struct CustomRichTextAttri {
 
 struct UserDefaultsKeys {
     static let lastReadStatus = "Last Read Status"
-    static let personInfo = "Person Infomation"
 }
 
 struct UserDefaultsDictKey {
@@ -60,9 +59,6 @@ struct UserDefaultsDictKey {
     static let cardIndex = "cardIndex"
     static let readType = "readType"
     static let cardStatus = "cardStatus"
-    
-    static let nickname = "nickname"
-    static let motto = "motto"
 }
 
 struct LoginErrorCode {
@@ -91,8 +87,8 @@ class UserInfo {
         return instance
     }
     var uid: String = ""
-    var userName = ""
-    var userMotto = ""
+    var userName: String = ""
+    var userMotto: String = ""
     
     var portraitPhotoURL: URL {
         let filename = "uid.jpg"
@@ -102,4 +98,12 @@ class UserInfo {
     var portraitPhotoImage: UIImage? {
         return UIImage(contentsOfFile: portraitPhotoURL.path)
     }
+}
+
+class SoundSwitch {
+    private static var instance: SoundSwitch = SoundSwitch()
+    static var shared: SoundSwitch {
+        return instance
+    }
+    var isSoundOn: Bool = true
 }

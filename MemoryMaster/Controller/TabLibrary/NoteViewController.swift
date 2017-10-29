@@ -20,7 +20,7 @@ class NoteViewController: BaseTopViewController {
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
 
     @IBOutlet weak var collectionView: MMCollectionView!
-    
+        
     var notes = [CardContent]()
     
     override func viewDidLoad() {
@@ -123,24 +123,29 @@ extension NoteViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension NoteViewController: SingleCollectionViewCellDelegate {
     func toSingleNoteEdit(with indexPath: IndexPath) {
+        playSound.playClickSound(SystemSound.buttonClick)
         presentNoteEditController(with: indexPath)
     }
     
     func toSingleNoteRead(with indexPath: IndexPath) {
+        playSound.playClickSound(SystemSound.buttonClick)
         presentForNoteReadController(with: indexPath)
     }
 }
 
 extension NoteViewController: QACollectionViewCellDelegate {
     func toQANoteEdit(with indexPath: IndexPath) {
+        playSound.playClickSound(SystemSound.buttonClick)
         presentNoteEditController(with: indexPath)
     }
     
     func toQANoteRead(with indexPath: IndexPath) {
+        playSound.playClickSound(SystemSound.buttonClick)
         presentForNoteReadController(with: indexPath)
     }
     
     func toQANoteTest(with indexPath: IndexPath) {
+        playSound.playClickSound(SystemSound.buttonClick)
         let controller = TestNoteViewController.init(nibName: "TestNoteViewController", bundle: nil)
         
         if let note = passedInNoteInfo {

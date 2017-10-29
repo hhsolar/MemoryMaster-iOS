@@ -27,6 +27,8 @@
 		1829FDF21F9E67F6003FE61C /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1829FDF01F9E67F6003FE61C /* EditNoteViewController.swift */; };
 		1829FDF31F9E67F6003FE61C /* EditNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1829FDF11F9E67F6003FE61C /* EditNoteViewController.xib */; };
 		182EF9531F99931E0037A43E /* PersonEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */; };
+		1849F6571FA557A200385B5C /* SystemAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849F6561FA557A100385B5C /* SystemAudioPlayer.swift */; };
+		1849F65E1FA5751100385B5C /* button_click.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1849F65A1FA568C700385B5C /* button_click.caf */; };
 		184B33081F8AFCC600EACD89 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */; };
 		184B33091F8AFCC600EACD89 /* ImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */; };
 		184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */; };
@@ -118,6 +120,8 @@
 		1829FDF01F9E67F6003FE61C /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		1829FDF11F9E67F6003FE61C /* EditNoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditNoteViewController.xib; sourceTree = "<group>"; };
 		182EF9521F99931E0037A43E /* PersonEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonEditTableViewController.swift; sourceTree = "<group>"; };
+		1849F6561FA557A100385B5C /* SystemAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioPlayer.swift; sourceTree = "<group>"; };
+		1849F65A1FA568C700385B5C /* button_click.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = button_click.caf; sourceTree = "<group>"; };
 		184B33061F8AFCC600EACD89 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		184B33071F8AFCC600EACD89 /* ImagePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerViewController.xib; sourceTree = "<group>"; };
 		184B330A1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -236,6 +240,14 @@
 			path = TabLibrary;
 			sourceTree = "<group>";
 		};
+		1849F65D1FA5726A00385B5C /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				1849F65A1FA568C700385B5C /* button_click.caf */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
 		18C2AB381F81B7A1003249BE = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +279,7 @@
 				18C2AB791F81BC81003249BE /* Controller */,
 				18C2AB771F81BBE9003249BE /* Model */,
 				18C2AB781F81BC5F003249BE /* Utility */,
+				1849F65D1FA5726A00385B5C /* Sound */,
 			);
 			path = MemoryMaster;
 			sourceTree = "<group>";
@@ -345,6 +358,7 @@
 			children = (
 				18C2AB7F1F81CAC8003249BE /* Constant.swift */,
 				1818A8DF1F9A94FC0069AC3A /* Enums.swift */,
+				1849F6561FA557A100385B5C /* SystemAudioPlayer.swift */,
 				1818A8DD1F9A93FB0069AC3A /* String+Extension.swift */,
 				1818A8DB1F9A93C60069AC3A /* UIView+Extension.swift */,
 				180500BA1F8AFA42006849B4 /* UIImage+Extension.swift */,
@@ -524,6 +538,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1849F65E1FA5751100385B5C /* button_click.caf in Resources */,
 				18EC40171F9553C500BA7A4E /* CircularCollectionViewCell.xib in Resources */,
 				18C2AB521F81B7A1003249BE /* LaunchScreen.storyboard in Resources */,
 				18C2AB7B1F81BF57003249BE /* Default-568h@2x.png in Resources */,
@@ -713,6 +728,7 @@
 				18DBB8EE1F84983600B34228 /* SingleCollectionViewCell.swift in Sources */,
 				18DBB8F81F84ABFB00B34228 /* ReadCollectionViewCell.swift in Sources */,
 				181317101F8D7D850099FE89 /* NSAttributedString+Extension.swift in Sources */,
+				1849F6571FA557A200385B5C /* SystemAudioPlayer.swift in Sources */,
 				18C2ABE21F82B49A003249BE /* MyNote.swift in Sources */,
 				1818A8DE1F9A93FB0069AC3A /* String+Extension.swift in Sources */,
 				184B330C1F8B4ABB00EACD89 /* ImagePickerCollectionViewCell.swift in Sources */,

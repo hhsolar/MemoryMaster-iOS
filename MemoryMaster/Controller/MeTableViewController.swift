@@ -14,6 +14,7 @@ class MeTableViewController: UITableViewController {
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var soundSwitch: UISwitch!
     
+    fileprivate let playSound = SystemAudioPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +34,18 @@ class MeTableViewController: UITableViewController {
         } else {
             nicknameLabel.text = "Nickname"
         }
+        
+        soundSwitch.isOn = SoundSwitch.shared.isSoundOn
     }
     
     @IBAction func shouldSoundOpened(_ sender: UISwitch) {
+        if soundSwitch.isOn {
+            SoundSwitch.shared.isSoundOn = false
+            soundSwitch.isOn = false
+        } else {
+            SoundSwitch.shared.isSoundOn = true
+            soundSwitch.isOn = true
+        }
     }
 }
 

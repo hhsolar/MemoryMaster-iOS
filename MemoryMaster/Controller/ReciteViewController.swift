@@ -45,6 +45,8 @@ class ReciteViewController: UIViewController {
     var toScreenView: UIView!
     var toScreenTextView: UITextView!
     
+    fileprivate let playSound = SystemAudioPlayer()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -202,6 +204,7 @@ class ReciteViewController: UIViewController {
     }
     
     @IBAction func continueAction(_ sender: UIButton) {
+        playSound.playClickSound(SystemSound.buttonClick)
         switch readType! {
         case ReadType.edit.rawValue:
             let controller = EditNoteViewController.init(nibName: "EditNoteViewController", bundle: nil)

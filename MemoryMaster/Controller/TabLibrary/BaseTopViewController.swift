@@ -16,6 +16,8 @@ class BaseTopViewController: UIViewController {
     let titleLabel = UILabel()
     let backButton = UIButton()
     
+    let playSound = SystemAudioPlayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -50,6 +52,7 @@ class BaseTopViewController: UIViewController {
     }
     
     @objc func backAction(_ sender: UIButton) {
+        playSound.playClickSound(SystemSound.buttonClick)
         dismiss(animated: true, completion: nil)
     }
 }

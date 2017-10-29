@@ -225,6 +225,7 @@
                                 </constraints>
                                 <state key="normal" image="add_icon_white"/>
                                 <connections>
+                                    <action selector="addButtonClicked:" destination="1C1-gb-VGD" eventType="touchUpInside" id="d8u-LG-saM"/>
                                     <segue destination="ZtS-6r-Ztb" kind="presentation" id="Ary-tx-ASd"/>
                                 </connections>
                             </button>

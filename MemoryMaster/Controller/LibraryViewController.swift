@@ -38,6 +38,8 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
     var selectedCellIndex: IndexPath?
     var showFlag: NoteType = .all
     
+    fileprivate let playSound = SystemAudioPlayer()
+
     func updateUI(noteType: NoteType, searchKeyWord: String?) {
         if let context = container?.viewContext {
             let request: NSFetchRequest<BasicNoteInfo> = BasicNoteInfo.fetchRequest()
@@ -173,7 +175,6 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
             if searchController.searchBar.isFirstResponder {
                 searchController.searchBar.resignFirstResponder()
                 searchController.searchBar.setShowsCancelButton(false, animated: true)
-//                self.navigationController?.setNavigationBarHidden(false, animated: true)
             }
         }
     }
@@ -186,6 +187,10 @@ class LibraryViewController: UIViewController, UIGestureRecognizerDelegate {
             tableView.isScrollEnabled = true
             return false
         }
+    }
+    
+    @IBAction func addButtonClicked(_ sender: UIButton) {
+        playSound.playClickSound(SystemSound.buttonClick)
     }
 }
 

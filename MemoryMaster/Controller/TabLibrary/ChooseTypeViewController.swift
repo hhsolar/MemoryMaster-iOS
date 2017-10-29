@@ -22,6 +22,8 @@ class ChooseTypeViewController: UIViewController, UITextFieldDelegate {
     // public api
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
+    fileprivate let playSound = SystemAudioPlayer()
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .custom
@@ -30,16 +32,19 @@ class ChooseTypeViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func backAction(_ sender: UIButton)
     {
+        playSound.playClickSound(SystemSound.buttonClick)
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func toSingleNoteEditPage(_ sender: UIButton)
     {
+        playSound.playClickSound(SystemSound.buttonClick)
         presentNoteEditController(noteType: NoteType.single)
     }
     
     @IBAction func toQANoteEditPage(_ sender: UIButton)
     {
+        playSound.playClickSound(SystemSound.buttonClick)
         presentNoteEditController(noteType: NoteType.qa)
     }
     
