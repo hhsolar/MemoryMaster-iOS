@@ -133,16 +133,12 @@ class EditNoteViewController: BaseTopViewController {
         let cell = collectionView.cellForItem(at: IndexPath(item: currentCardIndex, section: 0)) as! EditNoteCollectionViewCell
         let status: CardStatus! = cell.currentStatus
 
-        let userDefault = UserDefaults.standard
-        if var dict = userDefault.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
+        if var dict = UserDefaults.standard.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
             dict.updateValue((passedInNoteInfo?.id)!, forKey: UserDefaultsDictKey.id)
             dict.updateValue(currentCardIndex, forKey: UserDefaultsDictKey.cardIndex)
             dict.updateValue(ReadType.edit.rawValue, forKey: UserDefaultsDictKey.readType)
             dict.updateValue(status.rawValue, forKey: UserDefaultsDictKey.cardStatus)
-            userDefault.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
-        } else {
-            let statusDict: [String : Any] = [UserDefaultsDictKey.id: (passedInNoteInfo?.id)!, UserDefaultsDictKey.cardIndex: currentCardIndex, UserDefaultsDictKey.readType: ReadType.edit.rawValue, UserDefaultsDictKey.cardStatus: status.rawValue]
-            userDefault.set(statusDict, forKey: UserDefaultsKeys.lastReadStatus)
+            UserDefaults.standard.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
         }
     }
     

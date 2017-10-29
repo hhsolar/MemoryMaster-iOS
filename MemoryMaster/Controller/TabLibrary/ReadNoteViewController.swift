@@ -45,16 +45,12 @@ class ReadNoteViewController: EnlargeImageViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        let userDefault = UserDefaults.standard
-        if var dict = userDefault.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
+        if var dict = UserDefaults.standard.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
             dict.updateValue((passedInNoteInfo?.id)!, forKey: UserDefaultsDictKey.id)
             dict.updateValue(currentCardIndex, forKey: UserDefaultsDictKey.cardIndex)
             dict.updateValue(ReadType.read.rawValue, forKey: UserDefaultsDictKey.readType)
             dict.updateValue("", forKey: UserDefaultsDictKey.cardStatus)
-            userDefault.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
-        } else {
-            let statusDict: [String : Any] = [UserDefaultsDictKey.id: (passedInNoteInfo?.id)!, UserDefaultsDictKey.cardIndex: currentCardIndex, UserDefaultsDictKey.readType: ReadType.read.rawValue, UserDefaultsDictKey.cardStatus: ""]
-            userDefault.set(statusDict, forKey: UserDefaultsKeys.lastReadStatus)
+            UserDefaults.standard.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
         }
     }
     

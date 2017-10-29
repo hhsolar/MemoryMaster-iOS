@@ -39,6 +39,7 @@ class MeTableViewController: UITableViewController {
     }
     
     @IBAction func shouldSoundOpened(_ sender: UISwitch) {
+        playSound.playClickSound(SystemSound.buttonClick)
         if soundSwitch.isOn {
             SoundSwitch.shared.isSoundOn = false
             soundSwitch.isOn = false

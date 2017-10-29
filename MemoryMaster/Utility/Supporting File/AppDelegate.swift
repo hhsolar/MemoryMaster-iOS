@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        checkFirstLaunch()
+        setSingletonValue()
+        
         UINavigationBar.appearance().barTintColor = CustomColor.medianBlue
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().isTranslucent = false
@@ -23,7 +26,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    private func checkFirstLaunch() {
+        let launchBefore = UserDefaults.standard.bool(forKey: "launchBefore")
+        if launchBefore == false {
+            UserDefaults.standard.set(true, forKey: "launchBefore")
+            UserDefaults.standard.set(true, forKey: UserDefaultsKeys.switchStatus)
+            
+            let userInfoDict: [String : String] = [UserDefaultsDictKey.userName: "", UserDefaultsDictKey.userMotto: ""]
+            UserDefaults.standard.set(userInfoDict, forKey: UserDefaultsKeys.userInfo)
+            
+            let statusDict: [String : Any] = [UserDefaultsDictKey.id: 0, UserDefaultsDictKey.cardIndex: 0, UserDefaultsDictKey.readType: "", UserDefaultsDictKey.cardStatus: ""]
+            UserDefaults.standard.set(statusDict, forKey: UserDefaultsKeys.lastReadStatus)
+        }
+    }
 
+    private func setSingletonValue() {
+        if var dict = UserDefaults.standard.dictionary(forKey: UserDefaultsKeys.userInfo) {
+            UserInfo.shared.userName = dict[UserDefaultsDictKey.userName] as! String
+            UserInfo.shared.userMotto = dict[UserDefaultsDictKey.userMotto] as! String
+        }
+        SoundSwitch.shared.isSoundOn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.switchStatus)
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -32,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        setUserDefaultValue()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -42,10 +68,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
+    func applicationWillTerminate(_ application: UIApplication)
+    {
+        setUserDefaultValue()
         self.saveContext()
+    }
+    
+    private func setUserDefaultValue() {
+        UserDefaults.standard.set(SoundSwitch.shared.isSoundOn, forKey: UserDefaultsKeys.switchStatus)
+        
+        if var dict = UserDefaults.standard.dictionary(forKey: UserDefaultsKeys.userInfo) {
+            dict.updateValue(UserInfo.shared.userName, forKey: UserDefaultsDictKey.userName)
+            dict.updateValue(UserInfo.shared.userMotto, forKey: UserDefaultsDictKey.userMotto)
+            UserDefaults.standard.set(dict, forKey: UserDefaultsKeys.userInfo)
+        }
     }
 
     // MARK: - Core Data stack

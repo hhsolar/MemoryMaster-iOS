@@ -56,16 +56,12 @@ class TestNoteViewController: EnlargeImageViewController {
         super.viewWillDisappear(animated)
         let status = getCardStatus(index: currentIndex).rawValue
         
-        let userDefault = UserDefaults.standard
-        if var dict = userDefault.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
+        if var dict = UserDefaults.standard.dictionary(forKey: UserDefaultsKeys.lastReadStatus) {
             dict.updateValue((passedInNoteInfo?.id)!, forKey: UserDefaultsDictKey.id)
             dict.updateValue(currentIndex, forKey: UserDefaultsDictKey.cardIndex)
             dict.updateValue(ReadType.test.rawValue, forKey: UserDefaultsDictKey.readType)
             dict.updateValue(status, forKey: UserDefaultsDictKey.cardStatus)
-            userDefault.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
-        } else {
-            let statusDict: [String : Any] = [UserDefaultsDictKey.id: (passedInNoteInfo?.id)!, UserDefaultsDictKey.cardIndex: currentIndex, UserDefaultsDictKey.readType: ReadType.test.rawValue, UserDefaultsDictKey.cardStatus: status]
-            userDefault.set(statusDict, forKey: UserDefaultsKeys.lastReadStatus)
+            UserDefaults.standard.set(dict, forKey: UserDefaultsKeys.lastReadStatus)
         }
     }
     
