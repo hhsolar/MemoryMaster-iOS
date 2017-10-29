@@ -21,7 +21,7 @@ class MeTableViewController: UITableViewController {
         avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.borderWidth = 1
-        avatarImageView.layer.borderColor = CustomColor.weakGray.cgColor
+        avatarImageView.layer.borderColor = CustomColor.weakGray.cgColor        
     }
 
     override func viewWillAppear(_ animated: Bool) {
