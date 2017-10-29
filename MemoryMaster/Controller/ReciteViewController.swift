@@ -163,7 +163,6 @@ class ReciteViewController: UIViewController {
         indexLabel.font = UIFont(name: CustomFont.HelveticaNeue, size: CustomFont.FontSizeMid)
         
         continueButton.backgroundColor = CustomColor.medianBlue
-        continueButton.titleLabel?.font = UIFont(name: CustomFont.HelveticaNeue, size: CustomFont.FontSizeSmall)
         continueButton.setTitleColor(UIColor.white, for: .normal)
         continueButton.layer.cornerRadius = 14
         continueButton.layer.masksToBounds = true

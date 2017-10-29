@@ -27,7 +27,7 @@ class CircularCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
 
 class CircularCollectionViewLayout: UICollectionViewLayout {
 
-    let itemSize = CGSize(width: UIScreen.main.bounds.width * 2 / 3, height: UIScreen.main.bounds.width  * 2 / 3 * 10 / 7)
+    let itemSize = CGSize(width: UIScreen.main.bounds.width * 3 / 4, height: UIScreen.main.bounds.width  * 3 / 4 * 10 / 7)
     
     var angleAtExtreme: CGFloat {
         return (collectionView?.numberOfItems(inSection: 0))! > 0 ? -CGFloat((collectionView?.numberOfItems(inSection: 0))! - 1) * anglePerItem : 0

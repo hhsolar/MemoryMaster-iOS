@@ -20,7 +20,7 @@ struct CustomColor {
 }
 
 struct CustomFont {
-    static let FontSizeBig: CGFloat = 20.0
+    static let FontSizeBig: CGFloat = 19.0
     static let FontSizeMid: CGFloat = 17.0
     static let FontSizeSmall: CGFloat = 15.0
     static let HelveticaNeue = "HelveticaNeue"

@@ -15,6 +15,9 @@
         <array key="Arial.ttf">
             <string>ArialMT</string>
         </array>
+        <array key="HelveticaNeueExtras.ttc">
+            <string>HelveticaNeue-CondensedBold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Login View Controller-->
@@ -749,7 +752,10 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Jyj-Iq-4YX"/>
                                     <constraint firstAttribute="height" constant="30" id="WIX-6d-5tH"/>
                                 </constraints>
-                                <state key="normal" title="Continue"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="continueAction:" destination="Kz7-gM-iqn" eventType="touchUpInside" id="Zc0-II-tpK"/>
                                 </connections>
@@ -767,7 +773,7 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pUm-zE-JbD">
                                 <rect key="frame" x="0.0" y="114" width="375" height="474"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewLayout key="collectionViewLayout" id="06c-vA-1RY" customClass="CircularCollectionViewLayout" customModule="MemoryMaster" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="cell" id="5EN-tG-bPt" customClass="NothingCell" customModule="MemoryMaster" customModuleProvider="target">
@@ -780,7 +786,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studyBoy" translatesAutoresizingMaskIntoConstraints="NO" id="bga-wH-w0Z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studyBoy_use" translatesAutoresizingMaskIntoConstraints="NO" id="bga-wH-w0Z">
                                 <rect key="frame" x="37.5" y="114" width="300" height="281.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bga-wH-w0Z" secondAttribute="height" multiplier="1024:961" id="0nX-9w-nYL"/>
@@ -812,7 +818,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="oU8-0r-itQ" firstAttribute="centerX" secondItem="tY9-y7-ZHg" secondAttribute="centerX" id="3yE-Bc-9pT"/>
                             <constraint firstItem="bga-wH-w0Z" firstAttribute="top" secondItem="a8W-Oz-854" secondAttribute="top" constant="50" id="8sq-j5-Tg7"/>
@@ -1073,9 +1079,9 @@
         <image name="settings_icon" width="30" height="30"/>
         <image name="single_icon_unclick" width="30" height="30"/>
         <image name="sound_icon" width="30" height="30"/>
-        <image name="studyBoy" width="1024" height="961"/>
+        <image name="studyBoy_use" width="1024" height="961"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ary-tx-ASd"/>
+        <segue reference="qJU-Nu-YFH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -53,17 +53,17 @@ class TestCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
         questionLabel.text = "QUESTION"
         questionLabel.textAlignment = .center
         questionLabel.textColor = CustomColor.deepBlue
-        questionLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
+        questionLabel.font = UIFont(name: "Helvetica-Bold", size: CustomFont.FontSizeMid)
         questionLabel.adjustsFontSizeToFitWidth = true
         
         indexLabel.textAlignment = .center
         indexLabel.textColor = CustomColor.deepBlue
-        indexLabel.font = UIFont(name: "Helvetica-Bold", size: 18)
+        indexLabel.font = UIFont(name: "Helvetica-Bold", size: CustomFont.FontSizeMid)
         
         answerLabel.text = "ANSWER"
         answerLabel.textAlignment = .center
         answerLabel.textColor = CustomColor.deepBlue
-        answerLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
+        answerLabel.font = UIFont(name: "Helvetica-Bold", size: CustomFont.FontSizeMid)
         answerLabel.adjustsFontSizeToFitWidth = true
 
         qTextView.isEditable = false
